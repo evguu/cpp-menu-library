@@ -3,8 +3,8 @@
 #include "Client.h"
 #include "InsuranceService.h"
 
-vector<string> themes = { "0F", "F0" };
-int activeTheme = 0;
+vector<string> themes = { "0F", "07", "87", "78", "70", "F0" };
+int activeTheme = 4;
 
 int main()
 {
@@ -31,26 +31,27 @@ int main()
 
 	LM_DECL_START(main);
 	LM_ADD_TITLE("Лабораторная 2. Использование исключений.");
-	LM_ADD_BUTTON("Управление пользователями", []() {LM_ID(Client_DataControl)->addToStack(); });
-	LM_ADD_BUTTON("Управление страховыми услугами", []() {LM_ID(InsuranceService_DataControl)->addToStack(); });
+	LM_ADD_FD(USER, "Управление пользователями");
+	LM_ADD_FD(INSU, "Управление страховыми услугами");
+	LM_ADD_FD(ADDI, "Дополнительные функции");
 
-	//LM_ID(nonexistent_id); // Раскомментировать для исключения 3.
+	LM_FD_BUTTON(USER, "Добавить пользователя", []() {});
 
-	LM_ADD_FD(TEST2, "Дополнительные функции");
-	LM_FD_BUTTON(TEST2, "Сменить тему", []() { 
+	LM_FD_BUTTON(INSU, "Выбрать страховой план", []() {});
+
+	LM_FD_BUTTON(ADDI, "Сменить тему", []() {
 		system(("color "s + themes[(++activeTheme)%themes.size()]).c_str()); 
 	});
-	LM_FD_BUTTON(TEST2, "Крашнуть программу", []() {/* Кастомный терминатор не работает, потому что VS -- ересь! */ terminate(); });
-	LM_FD_BUTTON(TEST2, "Выйти из программы", []() {Menu::finish(); });
+	LM_FD_BUTTON(ADDI, "Крашнуть программу", []() {/* Кастомный терминатор не работает, потому что VS -- ересь! */ terminate(); });
+	LM_FD_BUTTON(ADDI, "Выйти из программы", []() {Menu::finish(); });
 
 	LM_ADD_TITLE("Конец меню");
 
 	LM_DECL_END;
 	LM_ID(main)->addToStack();
-	
-	AI::Client();
-	AI::InsuranceService();
 
+	//LM_ID(nonexistent_id); // Раскомментировать для исключения 3.
+	
 	Menu::run();
 	system("cls");
 	cout << "Выход из программы..." << endl;

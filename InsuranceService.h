@@ -3,8 +3,3 @@ class InsuranceService
 {
 
 };
-
-namespace AI
-{
-	void InsuranceService();
-}
