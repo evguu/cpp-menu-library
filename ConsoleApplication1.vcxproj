@@ -151,7 +151,25 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Client.cpp" />
+    <ClCompile Include="Console.cpp" />
     <ClCompile Include="ConsoleApplication1.cpp" />
+    <ClCompile Include="Input.cpp" />
+    <ClCompile Include="InsuranceService.cpp" />
+    <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="MenuAggregator.cpp" />
+    <ClCompile Include="MenuElements.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Client.h" />
+    <ClInclude Include="Console.h" />
+    <ClInclude Include="CMMStack.h" />
+    <ClInclude Include="Input.h" />
+    <ClInclude Include="InsuranceService.h" />
+    <ClInclude Include="Menu.h" />
+    <ClInclude Include="MenuAggregator.h" />
+    <ClInclude Include="MenuElements.h" />
+    <ClInclude Include="MenuMacros.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

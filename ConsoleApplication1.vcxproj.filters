@@ -13,10 +13,66 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Исходные файлы\MenuLib">
+      <UniqueIdentifier>{e93542b0-cb37-438c-84d9-d46786a44b7d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\MenuLib">
+      <UniqueIdentifier>{c8a9de41-179a-4d06-a7f6-020cf4b9de06}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Console.cpp">
+      <Filter>Исходные файлы\MenuLib</Filter>
+    </ClCompile>
     <ClCompile Include="ConsoleApplication1.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="Input.cpp">
+      <Filter>Исходные файлы\MenuLib</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu.cpp">
+      <Filter>Исходные файлы\MenuLib</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuAggregator.cpp">
+      <Filter>Исходные файлы\MenuLib</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuElements.cpp">
+      <Filter>Исходные файлы\MenuLib</Filter>
+    </ClCompile>
+    <ClCompile Include="Client.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="InsuranceService.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Console.h">
+      <Filter>Файлы заголовков\MenuLib</Filter>
+    </ClInclude>
+    <ClInclude Include="Input.h">
+      <Filter>Файлы заголовков\MenuLib</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu.h">
+      <Filter>Файлы заголовков\MenuLib</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuAggregator.h">
+      <Filter>Файлы заголовков\MenuLib</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuElements.h">
+      <Filter>Файлы заголовков\MenuLib</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuMacros.h">
+      <Filter>Файлы заголовков\MenuLib</Filter>
+    </ClInclude>
+    <ClInclude Include="Client.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="InsuranceService.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="CMMStack.h">
+      <Filter>Файлы заголовков\MenuLib</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
