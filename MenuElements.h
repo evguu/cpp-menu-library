@@ -170,7 +170,7 @@ public:
 	string str() const;
 	bool recvCommand(int keyEvent);
 	bool isChoosable() { return true; };
-	void reset() {};
+	void reset() { isActive = false; chosenElementIndex = 0; for (auto it : elements) { it->reset(); } };
 	auto& getElements() { return elements; };
 	auto& getIsActive() { return isActive; };
 };

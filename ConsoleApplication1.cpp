@@ -32,8 +32,8 @@ int main()
 
 	LM_DECL_START(main);
 	LM_ADD_TITLE("Лабораторная 2. Использование исключений.");
-	LM_ADD_FD(USER, "Управление пользователями");
-	LM_FD_BUTTON(USER, "Выбор пользователей", []() {LM_ID(add_user)->addToStack(); });
+	LM_ADD_FD(USER, "Управление клиентами");
+	LM_FD_BUTTON(USER, "Добавление клиентов", []() {LM_ID(add_user)->reset(); LM_ID(add_user)->addToStack(); });
 	LM_ADD_FD(INSU, "Управление страховыми услугами");
 	LM_FD_BUTTON(INSU, "Выбор страхового плана", []() {LM_ID(choose_insurance_service)->addToStack(); });
 	LM_ADD_FD(ADDI, "Дополнительные функции");
@@ -47,7 +47,11 @@ int main()
 
 	LM_DECL_START(add_user);
 	LM_ADD_TITLE("Выбор пользователей");
-	LM_ADD_BUTTON("Назад", []() {Menu::popStack(); });
+	LM_ADD_FD(1, "Ввод данных");
+	LM_FD_FIELD(1, "Имя клиента");
+	LM_FD_CHOICE(1, "Уровень доверия", { "Низкий", "Средний", "Высокий" });
+	LM_ADD_BUTTON("Добавить клиента", []() {});
+	LM_ADD_BUTTON("Отмена", []() {Menu::popStack(); });
 	LM_DECL_END;
 	
 	LM_DECL_START(choose_insurance_service);
