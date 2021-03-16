@@ -26,6 +26,16 @@ int main()
 	LM_ADD_TITLE("Лабораторная 2. Использование исключений.");
 	LM_ADD_BUTTON("Управление пользователями", []() {LM_ID(Client_DataControl)->addToStack(); });
 	LM_ADD_BUTTON("Управление страховыми услугами", []() {LM_ID(InsuranceService_DataControl)->addToStack(); });
+
+	LM_ADD_FD(TEST, "Test");
+	LM_FD_CHOICE(TEST, "A", { "2", "3", "4" });
+	LM_FD_CHOICE(TEST, "A", { "2", "3", "4" });
+	LM_FD_FD(TEST, TEST2, "Test2");
+	LM_FD_CHOICE(TEST2, "A", { "2", "3", "4" });
+	LM_FD_CHOICE(TEST2, "A", { "2", "3", "4" });
+
+	LM_ADD_TITLE("Crash tester");
+
 	LM_DECL_END;
 	LM_ID(main)->addToStack();
 	

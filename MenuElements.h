@@ -149,3 +149,28 @@ public:
 	bool isChoosable() { return true; };
 	void reset() { activeOption = 0; };
 };
+
+class MenuElementFolder : public MenuElement
+{
+private:
+	vector<MenuElement *> elements;
+	int chosenElementIndex;
+	bool isActive;
+public:
+	// Создание и разрушение
+	MenuElementFolder(string text) : chosenElementIndex(0), isActive(false), MenuElement(text) {};
+	~MenuElementFolder() {
+		for (auto it : elements)
+		{
+			delete it;
+		}
+	};
+
+	// Интерфейс
+	string str() const;
+	bool recvCommand(int keyEvent);
+	bool isChoosable() { return true; };
+	void reset() {};
+	auto& getElements() { return elements; };
+	auto& getIsActive() { return isActive; };
+};

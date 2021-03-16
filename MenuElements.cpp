@@ -182,3 +182,76 @@ bool MenuElementChoice::recvCommand(int keyEvent)
 	}
 	return false;
 }
+
+string MenuElementFolder::str() const
+{
+	stringstream ss;
+
+	ss << "  " << (isActive ? "}}" : "--") <<" Папка " << text << " " << (isActive ? "{{" : "--") << endl;
+	for (int i = 0; i < elements.size(); ++i)
+	{
+		if (chosenElementIndex == i)
+		{
+			ss << "  >>";
+		}
+		else
+		{
+			ss << "   +";
+		}
+		ss << elements[i]->str() << endl;
+	}
+	ss << "  " << (isActive ? "}}" : "--") << " Конец папки " << text << " " << (isActive ? "{{" : "--") << endl;
+
+	return ss.str();
+}
+
+bool MenuElementFolder::recvCommand(int keyEvent)
+{
+	switch (keyEvent)
+	{
+	case -KC_DOWN:
+		if (isActive)
+		{
+			if (chosenElementIndex + 1 != elements.size())
+			{
+				chosenElementIndex++;
+			}
+			else
+			{
+				throw(778);
+			}
+			throw(666);
+		}
+		return false;
+	case -KC_UP:
+		if (isActive)
+		{
+			if (chosenElementIndex)
+			{
+				chosenElementIndex--;
+			}
+			else
+			{
+				throw(776);
+			}
+			throw(666);
+		}
+		return false;
+	case -KC_ENTER:
+		if (!isActive)
+		{
+			isActive = true;
+		}
+		else
+		{
+			elements[chosenElementIndex]->recvCommand(keyEvent);
+		}
+		break;
+	default:
+		if (isActive)
+		{
+			return elements[chosenElementIndex]->recvCommand(keyEvent);
+		}
+		return false;
+	}
+}

@@ -96,27 +96,70 @@ bool Menu::recvCommand(int keyEvent)
 {
 	int index;
 	bool tmp;
+	int temporaryIndexBuffer;
+	bool is77excCalled = false;
 	vector<MenuElement *>::iterator lim;
 	switch (keyEvent)
 	{
+		// При ловле клавиши вниз или вверх шлем их внутрь элемента. Если тот их обработает, швырнет исключение.
 	case -KC_DOWN:
-		//if((*(elements.begin() + chosenElementIndex))->recvCommand(keyEvent);
+		try {
+			elements[chosenElementIndex]->recvCommand(keyEvent);
+		}
+		catch(int exc)
+		{
+			if (exc == 666)
+			{
+				return true;
+			}
+			if (exc == 778)
+			{
+				is77excCalled = true;
+			}
+		}
 		index = chosenElementIndex + 1;
 		lim = elements.end();
+		temporaryIndexBuffer = chosenElementIndex;
 		for (auto it = elements.begin() + chosenElementIndex + 1; it != lim; ++it)
 		{
 			tmp = (*it)->isChoosable();
 			if (tmp)
 			{
 				chosenElementIndex = index;
-				return true;
+				break;
 			}
 			++index;
 		}
+		if (is77excCalled)
+		{
+			if (temporaryIndexBuffer != chosenElementIndex)
+			{
+				((MenuElementFolder*)(elements[temporaryIndexBuffer]))->getIsActive() = false;
+			}
+			else
+			{
+				return false;
+			}
+		}
 		return true;
 	case -KC_UP:
+		try {
+			elements[chosenElementIndex]->recvCommand(keyEvent);
+		}
+		catch (int exc)
+		{
+			if (exc == 666)
+			{
+				return true;
+			}
+			if (exc == 776)
+			{
+				is77excCalled = true;
+			}
+		}
 		index = 0;
 		lim = elements.begin() + chosenElementIndex;
+		temporaryIndexBuffer = chosenElementIndex;
 		for (auto it = elements.begin(); it != lim; ++it)
 		{
 			tmp = (*it)->isChoosable();
@@ -125,6 +168,17 @@ bool Menu::recvCommand(int keyEvent)
 				chosenElementIndex = index;
 			}
 			++index;
+		}
+		if (is77excCalled)
+		{
+			if (temporaryIndexBuffer != chosenElementIndex)
+			{
+				((MenuElementFolder*)(elements[temporaryIndexBuffer]))->getIsActive() = false;
+			}
+			else
+			{
+				return false;
+			}
 		}
 		return true;
 	default:
