@@ -9,12 +9,13 @@
 #define LM_ADD_FIELD(...) menu->addElement(new MenuElementEditField(__VA_ARGS__))
 #define LM_ADD_CHOICE(...) menu->addElement(new MenuElementChoice(__VA_ARGS__))
 
-#define LM_ADD_FD(id, ...) MenuElementFolder* MenuElementFolder__##id## = new MenuElementFolder(__VA_ARGS__);menu->addElement(MenuElementFolder__##id##);
-#define LM_FD_TITLE(id, ...) MenuElementFolder__##id##->getElements().push_back(new MenuElementTitle(__VA_ARGS__));
-#define LM_FD_SUBTITLE(id, ...) MenuElementFolder__##id##->getElements().push_back(new MenuElementSubtitle(__VA_ARGS__));
-#define LM_FD_BUTTON(id, ...) MenuElementFolder__##id##->getElements().push_back(new MenuElementFunctionButton(__VA_ARGS__));
-#define LM_FD_FIELD(id, ...) MenuElementFolder__##id##->getElements().push_back(new MenuElementEditField(__VA_ARGS__));
-#define LM_FD_CHOICE(id, ...) MenuElementFolder__##id##->getElements().push_back(new MenuElementChoice(__VA_ARGS__));
+#define LM_ADD_FD(id, ...) newFD(#id, __VA_ARGS__); menu->addElement(getFD(#id));
+#define LM_FD(id) getFD(#id)->getElements()
+#define LM_FD_TITLE(id, ...) LM_FD(id).push_back(new MenuElementTitle(__VA_ARGS__));
+#define LM_FD_SUBTITLE(id, ...) LM_FD(id).push_back(new MenuElementSubtitle(__VA_ARGS__));
+#define LM_FD_BUTTON(id, ...) LM_FD(id).push_back(new MenuElementFunctionButton(__VA_ARGS__));
+#define LM_FD_FIELD(id, ...) LM_FD(id).push_back(new MenuElementEditField(__VA_ARGS__));
+#define LM_FD_CHOICE(id, ...) LM_FD(id).push_back(new MenuElementChoice(__VA_ARGS__));
 
 // ƒобавление папок в папки настолько затруднительно, что € воздержусь.
 // #define LM_FD_FD(pid, id, ...) MenuElementFolder* MenuElementFolder__##id## = new MenuElementFolder(__VA_ARGS__);MenuElementFolder__##pid##->getElements().push_back(MenuElementFolder__##id##);
