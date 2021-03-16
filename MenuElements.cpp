@@ -188,7 +188,7 @@ string MenuElementFolder::str() const
 	stringstream ss;
 	if (isActive)
 	{
-		ss << "   ПАПКА " << text << " [Выйдите за границы папки для закрытия]" << endl;
+		ss << "  <> " << text << " [Выйдите за границы папки для закрытия]" << endl;
 		for (int i = 0; i < elements.size(); ++i)
 		{
 			if (chosenElementIndex == i)
@@ -199,12 +199,12 @@ string MenuElementFolder::str() const
 			{
 				ss << "      +";
 			}
-			ss << elements[i]->str() << endl;
+			ss << elements[i]->str();
 		}
 	}
 	else
 	{
-		ss << "   ПАПКА " << text << "[Enter чтобы открыть]" << endl;
+		ss << "  <> " << text << " [Enter чтобы открыть]" << endl;
 	}
 	return ss.str();
 }
