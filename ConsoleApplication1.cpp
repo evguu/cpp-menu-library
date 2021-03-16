@@ -3,40 +3,45 @@
 #include "Client.h"
 #include "InsuranceService.h"
 
+vector<string> themes = { "0F", "F0" };
+int activeTheme = 0;
+
 int main()
 {
 	// Запланированные исключения для обработки:
 
 	/*
-		1. bad_alloc
-		2. Попытка запустить программу с меню без выбираемых элементов -- unusableMenuException
-		3. Обращение к несуществующему LM_ID -- unknownMenuIdentifierException
+		1. bad_alloc << DONE (см. макросы)
+		2. Попытка запустить программу с меню без выбираемых элементов -- 235, с пустым меню -- 234  << DONE
+		3. Обращение к несуществующему LM_ID -- unknownMenuIdentifierException << DONE
+
 		4. Исключение в конструкторе договора, клиент не имеет права на получение услуги -- permCheckFailedException
-		5. Попытка снять последнее меню со стека -- emptyMenuStackException
 
-		6, При добавлении папки в папку кидать badArchitechtureException
+		5. Попытка снять последнее меню со стека -- 969 << DONE
 
-		! Идея: доделать папки, используя исключения для возврата сигнала! << DONE
+		! Идея: доделать папки, используя исключения для возврата сигнала! << DONE -- 666, 776, 778
 
-		Не забыть собственную функцию завершения.
+		Не забыть собственную функцию завершения. << DONE
 	*/
 
 	Utils::setupResolution();
 	Utils::setupEncoding();
+
+	set_terminate([]() { LM_CON_SHARE_START; cout << "Произошло аварийное завершение программы. Я тоже не знаю, почему. Отладчик в помощь!" << endl; LM_CON_SHARE_END; abort(); });
 
 	LM_DECL_START(main);
 	LM_ADD_TITLE("Лабораторная 2. Использование исключений.");
 	LM_ADD_BUTTON("Управление пользователями", []() {LM_ID(Client_DataControl)->addToStack(); });
 	LM_ADD_BUTTON("Управление страховыми услугами", []() {LM_ID(InsuranceService_DataControl)->addToStack(); });
 
-	LM_ADD_FD(TEST, "Авторизация");
-	LM_FD_CHOICE(TEST, "Имя сотрудника", { "Пидор", "Лысый", "Рыжий" });
-	LM_FD_CHOICE(TEST, "Выбор2", { "2", "3", "4" });
+	//LM_ID(nonexistent_id); // Раскомментировать для исключения 3.
 
-	LM_ADD_FD(TEST2, "Управление");
-	LM_FD_CHOICE(TEST2, "Выбор1", { "2", "3", "4" });
-	LM_FD_BUTTON(TEST2, "Кнопка", []() {LM_CON_SHARE_START; cout << "КНОПКА НАЖАТА!" << endl; LM_CON_SHARE_END; })
-	LM_FD_CHOICE(TEST2, "Выбор2", { "2", "3", "4" });
+	LM_ADD_FD(TEST2, "Дополнительные функции");
+	LM_FD_BUTTON(TEST2, "Сменить тему", []() { 
+		system(("color "s + themes[(++activeTheme)%themes.size()]).c_str()); 
+	});
+	LM_FD_BUTTON(TEST2, "Крашнуть программу", []() {/* Кастомный терминатор не работает, потому что VS -- ересь! */ terminate(); });
+	LM_FD_BUTTON(TEST2, "Выйти из программы", []() {Menu::finish(); });
 
 	LM_ADD_TITLE("Конец меню");
 

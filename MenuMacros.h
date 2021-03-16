@@ -20,8 +20,10 @@
 // #define LM_FD_FD(pid, id, ...) MenuElementFolder* MenuElementFolder__##id## = new MenuElementFolder(__VA_ARGS__);MenuElementFolder__##pid##->getElements().push_back(MenuElementFolder__##id##);
 
 // Объявления
-#define LM_DECL_START(id) { Menu *menu = getMenu(#id); if (menu) { delete menu; }; menu = newMenu(#id);
-#define LM_DECL_END menu->initChosenElementIndex(); };
+#define LM_DECL_START(id) try{ Menu *menu; try{menu = getMenu(#id);}catch(unknownMenuIdentifierException){menu = nullptr;}; if (menu) { delete menu; }; menu = newMenu(#id);
+#define LM_DECL_END menu->initChosenElementIndex(); }\
+catch(bad_alloc){ string ans; LM_CON_SHARE_START;cout << "Смерть твоему компьютеру, оперативы ноль! Продолжить? Y/N" << endl; cin >> ans; if (ans != "Y") throw; else cout << "Корректная работа не гарантируется." << endl; LM_CON_SHARE_END;}\
+catch(unknownMenuIdentifierException){ LM_CON_SHARE_START; cout << "Зафиксировано обращение к несуществующему меню." << endl; LM_CON_SHARE_END; throw;};
 
 // Прочее
 #define LM_GET_PREVIOUS_ELEMENT menu->getElements().back()

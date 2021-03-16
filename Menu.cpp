@@ -40,7 +40,25 @@ void Menu::printLoop()
 			coord.X = 0;
 			coord.Y = 0;
 			SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
-			Utils::noBlinkOutput(getActive()->str());
+			try
+			{
+				Utils::noBlinkOutput(getActive()->str());
+			}
+			catch (int e)
+			{
+				if (e == 234)
+				{
+					Utils::noBlinkOutput("Обнаружена попытка распечатать пустое меню.");
+					system("pause");
+					terminate();
+				}
+				if (e == 235)
+				{
+					Utils::noBlinkOutput("Обнаружена попытка распечатать меню без активных элементов.");
+					system("pause");
+					terminate();
+				}
+			}
 		}
 		g_lock.unlock();
 		Sleep(100);
@@ -49,8 +67,14 @@ void Menu::printLoop()
 
 string Menu::str() const
 {
-	assert(elements.size()); // Меню не должно быть пустым
-	assert((chosenElementIndex != -1)); // Активный элемент должен быть установлен
+	if (!elements.size()) // Меню не должно быть пустым
+	{
+		throw(234);
+	}
+	if (chosenElementIndex == -1) // Активный элемент должен быть установлен
+	{
+		throw(235);
+	}
 
 	stringstream ss;
 
@@ -224,6 +248,7 @@ void Menu::reset()
 
 void Menu::popStack(int popCount)
 {
+	if (menuStack.size() < popCount + 1) throw(969);
 	for (int i = 0; i < popCount; ++i)
 	{
 		menuStack.pop();

@@ -240,7 +240,7 @@ bool MenuElementFolder::recvCommand(int keyEvent)
 			}
 			throw(666);
 		}
-		return false;
+		return true;
 	case -KC_ENTER:
 		if (!isActive)
 		{
@@ -251,7 +251,7 @@ bool MenuElementFolder::recvCommand(int keyEvent)
 		{
 			elements[chosenElementIndex]->recvCommand(keyEvent);
 		}
-		break;
+		return true;
 	default:
 		if (isActive)
 		{

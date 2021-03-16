@@ -11,5 +11,6 @@ Menu* newMenu(string str)
 
 Menu* getMenu(string str)
 {
+	if (menuAggregator.find(str) == menuAggregator.end()) throw(unknownMenuIdentifierException());
 	return menuAggregator[str];
 }
