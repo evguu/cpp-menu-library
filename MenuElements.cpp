@@ -186,22 +186,26 @@ bool MenuElementChoice::recvCommand(int keyEvent)
 string MenuElementFolder::str() const
 {
 	stringstream ss;
-
-	ss << "  " << (isActive ? "}}" : "--") <<" Папка " << text << " " << (isActive ? "{{" : "--") << endl;
-	for (int i = 0; i < elements.size(); ++i)
+	if (isActive)
 	{
-		if (chosenElementIndex == i)
+		ss << "   ПАПКА " << text << " [Выйдите за границы папки для закрытия]" << endl;
+		for (int i = 0; i < elements.size(); ++i)
 		{
-			ss << "  >>";
+			if (chosenElementIndex == i)
+			{
+				ss << "     >>";
+			}
+			else
+			{
+				ss << "      +";
+			}
+			ss << elements[i]->str() << endl;
 		}
-		else
-		{
-			ss << "   +";
-		}
-		ss << elements[i]->str() << endl;
 	}
-	ss << "  " << (isActive ? "}}" : "--") << " Конец папки " << text << " " << (isActive ? "{{" : "--") << endl;
-
+	else
+	{
+		ss << "   ПАПКА " << text << "[Enter чтобы открыть]" << endl;
+	}
 	return ss.str();
 }
 
@@ -240,6 +244,7 @@ bool MenuElementFolder::recvCommand(int keyEvent)
 	case -KC_ENTER:
 		if (!isActive)
 		{
+			chosenElementIndex = 0;
 			isActive = true;
 		}
 		else

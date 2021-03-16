@@ -14,6 +14,8 @@ int main()
 		4. Исключение в конструкторе договора, клиент не имеет права на получение услуги -- permCheckFailedException
 		5. Попытка снять последнее меню со стека -- emptyMenuStackException
 
+		6, При добавлении папки в папку кидать badArchitechtureException
+
 		! Идея: доделать папки, используя исключения для возврата сигнала! << DONE
 
 		Не забыть собственную функцию завершения.
@@ -27,15 +29,16 @@ int main()
 	LM_ADD_BUTTON("Управление пользователями", []() {LM_ID(Client_DataControl)->addToStack(); });
 	LM_ADD_BUTTON("Управление страховыми услугами", []() {LM_ID(InsuranceService_DataControl)->addToStack(); });
 
-	LM_ADD_FD(TEST, "Test");
-	LM_FD_CHOICE(TEST, "A", { "2", "3", "4" });
-	LM_FD_CHOICE(TEST, "A", { "2", "3", "4" });
+	LM_ADD_FD(TEST, "Авторизация");
+	LM_FD_CHOICE(TEST, "Имя сотрудника", { "Пидор", "Лысый", "Рыжий" });
+	LM_FD_CHOICE(TEST, "Выбор2", { "2", "3", "4" });
 
-	LM_ADD_FD(TEST2, "Test2");
-	LM_FD_CHOICE(TEST2, "A", { "2", "3", "4" });
-	LM_FD_CHOICE(TEST2, "A", { "2", "3", "4" });
+	LM_ADD_FD(TEST2, "Управление");
+	LM_FD_CHOICE(TEST2, "Выбор1", { "2", "3", "4" });
+	LM_FD_BUTTON(TEST2, "Кнопка", []() {LM_CON_SHARE_START; cout << "КНОПКА НАЖАТА!" << endl; LM_CON_SHARE_END; })
+	LM_FD_CHOICE(TEST2, "Выбор2", { "2", "3", "4" });
 
-	LM_ADD_TITLE("Crash tester");
+	LM_ADD_TITLE("Конец меню");
 
 	LM_DECL_END;
 	LM_ID(main)->addToStack();
