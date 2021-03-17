@@ -2,13 +2,16 @@
 #include <string>
 using namespace std;
 
+typedef int Money;
+typedef int TrustLevel;
+
 class InsuranceService
 {
 private:
 	string name;
-	int fee;
-	int pay;
-	int requiredTrustLevel;
+	Money fee;
+	Money pay;
+	TrustLevel requiredTrustLevel;
 public:
 	InsuranceService(string name, int fee, int pay, int requiredTrustLevel) : name(name), fee(fee), pay(pay), requiredTrustLevel(requiredTrustLevel) {};
 	auto& getName() {return name;}

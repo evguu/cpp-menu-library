@@ -2,11 +2,13 @@
 #include <string>
 using namespace std;
 
+typedef int TrustLevel;
+
 class Client
 {
 private:
 	string name;
-	int trustLevel;
+	TrustLevel trustLevel;
 public:
 	Client(string name, int trustLevel) : name(name), trustLevel(trustLevel) {};
 	auto& getName() { return name; }
