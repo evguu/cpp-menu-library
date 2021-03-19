@@ -35,9 +35,10 @@ auto contentGenerator=[](){\
 		menu = buf;
 
 #define LM_DECL_END(id) \
-		menu->initChosenElementIndex(); }\
+		menu->initChosenElementIndex(); return menu; }\
 		catch(bad_alloc){ string ans; LM_CON_SHARE_START;cout << "Смерть твоему компьютеру, оперативы ноль! Продолжить? Y/N" << endl; cin >> ans; if (ans != "Y") throw; else cout << "Корректная работа не гарантируется." << endl; LM_CON_SHARE_END;}\
 		catch(unknownMenuIdentifierException){ LM_CON_SHARE_START; cout << "Зафиксировано обращение к несуществующему меню." << endl; LM_CON_SHARE_END; throw;};\
+		return (Menu *)nullptr;\
 	}; \
 	contentGenerator(); \
 	getMenu(#id)->getContentGenerator() = contentGenerator;\

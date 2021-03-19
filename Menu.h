@@ -31,7 +31,7 @@ private:
 	// Печатащий поток. Отвечает за обработку вывода
 	static void printLoop();
 	// NEW NEW NEW
-	void(*contentGenerator)();
+	Menu* (*contentGenerator)();
 public:
 	// По умолчанию индекс выбранного элемента -1, что приведет к падению программы при некорректной инициализации меню
 	Menu() : chosenElementIndex(-1) {};
