@@ -32,6 +32,7 @@ int main()
 		Идея: вся инициализация меню записывается как лямбда функция, которая записывается кк элемент класса меню.
 		После чего при каждом добавлении меню на стек будет вызываться эта функция перегенерации. Это избавит от необходимости вручную писать reset где-либо.
 		(Да и вообще уберет необходимость в функции ресет. Для этого создаю отдельный бранч.
+		DONE
 	*/
 
 	Utils::setupResolution();
@@ -44,7 +45,7 @@ int main()
 	LM_DECL_START(main);
 	LM_ADD_TITLE("Лабораторная 2. Использование исключений.");
 	LM_ADD_FD(USER, "Управление клиентами");
-	LM_FD_BUTTON(USER, "Добавление клиентов", []() {LM_ID(user_add)->addToStack(); });
+	LM_FD_REDIR(USER, "Добавление клиентов", user_add);
 	LM_FD_BUTTON(USER, "Просмотреть клиентов", []() {
 		LM_CON_SHARE_START;
 		if (!clients.size()) 
@@ -58,7 +59,7 @@ int main()
 		LM_CON_SHARE_END; 
 	});
 	LM_ADD_FD(INSU, "Управление страховыми услугами");
-	LM_FD_BUTTON(INSU, "Добавление страхового плана", []() {LM_ID(service_add)->addToStack(); });
+	LM_FD_REDIR(INSU, "Добавление страхового плана", service_add);
 	LM_FD_BUTTON(INSU, "Просмотреть страховые планы", []() {
 		LM_CON_SHARE_START;
 		if (!services.size())
@@ -72,9 +73,7 @@ int main()
 		LM_CON_SHARE_END;
 	});
 	LM_ADD_FD(CONT, "Управление контрактами");
-	LM_FD_BUTTON(CONT, "Заключить контракт", []() {
-		LM_ID(contract_add)->addToStack(); 
-	})
+	LM_FD_REDIR(CONT, "Заключить контракт", contract_add);
 	LM_FD_BUTTON(CONT, "Просмотреть контракты", []() {
 		LM_CON_SHARE_START;
 		if (!contracts.size())
