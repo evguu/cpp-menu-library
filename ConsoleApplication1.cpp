@@ -4,6 +4,8 @@
 #include "Contract.h"
 #include "InsuranceService.h"
 
+//#define SETUP_START vector<string> themes = { "0F", "07", "87", "78", "70", "F0" };int activeTheme = 4;vector<Client> clients;vector<InsuranceService> services;vector<Contract> contracts;int main(){Utils::setupResolution();Utils::setupEncoding();system(("color "s + themes[activeTheme]).c_str());set_terminate([]() {	LM_CON_SHARE_START; cout << "Произошло аварийное завершение программы. Я тоже не знаю, почему. Отладчик в помощь!" << endl; LM_CON_SHARE_END; abort();});
+
 vector<string> themes = { "0F", "07", "87", "78", "70", "F0" };
 int activeTheme = 4;
 vector<Client> clients;
@@ -19,11 +21,11 @@ int main()
 		LM_CON_SHARE_START; cout << "Произошло аварийное завершение программы. Я тоже не знаю, почему. Отладчик в помощь!" << endl; LM_CON_SHARE_END; abort(); 
 	});
 
-	LM_DECL_START(main);
+	LM_DECL_START(#main);
 	LM_ADD_TITLE("Лабораторная 2. Использование исключений.");
-	LM_ADD_FD(USER, "Управление клиентами");
-	LM_FD_REDIR(USER, "Добавление клиентов", user_add);
-	LM_FD_BUTTON(USER, "Просмотреть клиентов", []() {
+	LM_ADD_FD(@main.user, "Управление клиентами");
+	LM_FD_REDIR(@main.user, "Добавление клиентов", #user_add);
+	LM_FD_BUTTON(@main.user, "Просмотреть клиентов", []() {
 		LM_CON_SHARE_START;
 		if (!clients.size()) 
 		{
@@ -35,9 +37,9 @@ int main()
 		}
 		LM_CON_SHARE_END; 
 	});
-	LM_ADD_FD(INSU, "Управление страховыми услугами");
-	LM_FD_REDIR(INSU, "Добавление страхового плана", service_add);
-	LM_FD_BUTTON(INSU, "Просмотреть страховые планы", []() {
+	LM_ADD_FD(@main.insurance, "Управление страховыми услугами");
+	LM_FD_REDIR(@main.insurance, "Добавление страхового плана", #service_add);
+	LM_FD_BUTTON(@main.insurance, "Просмотреть страховые планы", []() {
 		LM_CON_SHARE_START;
 		if (!services.size())
 		{
@@ -49,9 +51,9 @@ int main()
 		}
 		LM_CON_SHARE_END;
 	});
-	LM_ADD_FD(CONT, "Управление контрактами");
-	LM_FD_REDIR(CONT, "Заключить контракт", contract_add);
-	LM_FD_BUTTON(CONT, "Просмотреть контракты", []() {
+	LM_ADD_FD(@main.contract, "Управление контрактами");
+	LM_FD_REDIR(@main.contract, "Заключить контракт", #contract_add);
+	LM_FD_BUTTON(@main.contract, "Просмотреть контракты", []() {
 		LM_CON_SHARE_START;
 		if (!contracts.size())
 		{
@@ -63,13 +65,13 @@ int main()
 		}
 		LM_CON_SHARE_END;
 	});
-	LM_ADD_FD(ADDI, "Дополнительные функции");
-	LM_FD_BUTTON(ADDI, "Сменить тему", []() {
+	LM_ADD_FD(@main.misc, "Дополнительные функции");
+	LM_FD_BUTTON(@main.misc, "Сменить тему", []() {
 		system(("color "s + themes[(++activeTheme)%themes.size()]).c_str()); 
 	});
-	LM_FD_BUTTON(ADDI, "Крашнуть программу", []() { terminate(); });
-	LM_FD_BUTTON(ADDI, "Выйти из программы", []() { Menu::finish(); });
-	LM_FD_BUTTON(ADDI, "Вопрос по теме", []() {
+	LM_FD_BUTTON(@main.misc, "Крашнуть программу", []() { terminate(); });
+	LM_FD_BUTTON(@main.misc, "Выйти из программы", []() { Menu::finish(); });
+	LM_FD_BUTTON(@main.misc, "Вопрос по теме", []() {
 		LM_CON_SHARE_START;
 		cout << "Можно ли использовать исключения в потоках? " << endl;
 		string ans;
@@ -77,46 +79,49 @@ int main()
 		cout << "Ответ: можно, если обработчик находится в том же потоке. Иначе обработка исключения невозможна." << endl;
 		LM_CON_SHARE_END; 
 	});
-	LM_DECL_END(main);
-	LM_ID(main)->addToStack();
+	LM_DECL_END(#main);
+	LM_ID(#main)->addToStack();
 
-	LM_DECL_START(user_add);
+	LM_DECL_START(#user_add);
 	LM_ADD_TITLE("Добавление пользователей");
-	LM_ADD_FD(1, "Ввод данных");
-	LM_FD_FIELD(1, "Имя клиента");
-	LM_FD_CHOICE(1, "Уровень доверия", { "Низкий (0)", "Средний (1)", "Высокий (2)" });
+	LM_ADD_FD(@user_add.input, "Ввод данных");
+	LM_FD_FIELD(@user_add.input, "Имя клиента");
+	LM_FD_CHOICE(@user_add.input, "Уровень доверия", { "Низкий (0)", "Средний (1)", "Высокий (2)" });
 	LM_ADD_BUTTON("Добавить клиента", []() {
 		clients.push_back({
-			((MenuElementEditField*)LM_FD(1)[0])->getInput(),
-			((MenuElementChoice*)LM_FD(1)[1])->getActiveOption()
+			((MenuElementEditField*)LM_FD(@user_add.input)[0])->getInput(),
+			((MenuElementChoice*)LM_FD(@user_add.input)[1])->getActiveOption()
 			}); 
 		Menu::popStack();
 	});
 	LM_ADD_BUTTON("Отмена", []() {Menu::popStack(); });
-	LM_DECL_END(user_add);
+	LM_DECL_END(#user_add);
+
+	LM_DECL_START(#);
+	LM_DECL_END(#);
 	
-	LM_DECL_START(service_add);
+	LM_DECL_START(#service_add);
 	LM_ADD_TITLE("Добавление страхового плана");
-	LM_ADD_FD(2, "Ввод данных");
-	LM_FD_FIELD(2, "Имя плана");
-	LM_FD_CHOICE(2, "Взнос", 1, 50, 1);
-	LM_FD_CHOICE(2, "Выплаты", 5, 250, 5);
-	LM_FD_CHOICE(2, "Требуемый уровень доверия", { "Низкий (0)", "Средний (1)", "Высокий (2)" });
+	LM_ADD_FD(@service_add.input, "Ввод данных");
+	LM_FD_FIELD(@service_add.input, "Имя плана");
+	LM_FD_CHOICE(@service_add.input, "Взнос", 1, 50, 1);
+	LM_FD_CHOICE(@service_add.input, "Выплаты", 5, 250, 5);
+	LM_FD_CHOICE(@service_add.input, "Требуемый уровень доверия", { "Низкий (0)", "Средний (1)", "Высокий (2)" });
 	LM_ADD_BUTTON("Добавить план", []() {
 		services.push_back({
-			((MenuElementEditField*)LM_FD(2)[0])->getInput(),
-			stoi(((MenuElementChoice*)LM_FD(2)[1])->getChoice()),
-			stoi(((MenuElementChoice*)LM_FD(2)[2])->getChoice()),
-			((MenuElementChoice*)LM_FD(2)[3])->getActiveOption()
+			((MenuElementEditField*)LM_FD(@service_add.input)[0])->getInput(),
+			stoi(((MenuElementChoice*)LM_FD(@service_add.input)[1])->getChoice()),
+			stoi(((MenuElementChoice*)LM_FD(@service_add.input)[2])->getChoice()),
+			((MenuElementChoice*)LM_FD(@service_add.input)[3])->getActiveOption()
 			});
 		Menu::popStack();
 	});
 	LM_ADD_BUTTON("Отмена", []() {Menu::popStack(); });
-	LM_DECL_END(service_add);
+	LM_DECL_END(#service_add);
 
-	LM_DECL_START(contract_add);
+	LM_DECL_START(#contract_add);
 	LM_ADD_TITLE("Заключение договора");
-	LM_ADD_FD(3a, "Ввод данных");
+	LM_ADD_FD(@contract_add.input, "Ввод данных");
 	vector <string> clientsParsed, servicesParsed;
 	for (auto it : clients)
 	{
@@ -126,27 +131,22 @@ int main()
 	{
 		servicesParsed.push_back(it.getName() + " [" + to_string(it.getRequiredTrustLevel()) + "]");
 	}
-	LM_FD_CHOICE(3a, "Клиент", clientsParsed);
-	LM_FD_CHOICE(3a, "Договор", servicesParsed);
+	LM_FD_CHOICE(@contract_add.input, "Клиент", clientsParsed);
+	LM_FD_CHOICE(@contract_add.input, "Договор", servicesParsed);
 	LM_ADD_BUTTON("Добавить договор", []() {
 		try
 		{
-			// Здесь была бы проверка на то, что оба пункта существуют, но мне лень!
-			int clientSize = ((MenuElementChoice*)LM_FD(3a)[0])->getOptions().size();
-			int serviceSize = ((MenuElementChoice*)LM_FD(3a)[1])->getOptions().size();
+			int clientSize = ((MenuElementChoice*)LM_FD(@contract_add.input)[0])->getOptions().size();
+			int serviceSize = ((MenuElementChoice*)LM_FD(@contract_add.input)[1])->getOptions().size();
 			if (!clientSize || !serviceSize)
 			{
-				LM_CON_SHARE_START;
-				cout << "Для заключения договора недостаточно сущностей." << endl;
-				LM_CON_SHARE_END;
+				LM_CON_SHARE_START; cout << "Для заключения договора недостаточно сущностей." << endl; LM_CON_SHARE_END;
 			}
 			else
 			{
-				int clientIndex = ((MenuElementChoice*)LM_FD(3a)[0])->getActiveOption();
-				int serviceIndex = ((MenuElementChoice*)LM_FD(3a)[1])->getActiveOption();
-				Client client = clients[clientIndex];
-				InsuranceService service = services[serviceIndex];
-				contracts.push_back({ client, service });
+				int clientIndex = ((MenuElementChoice*)LM_FD(@contract_add.input)[0])->getActiveOption();
+				int serviceIndex = ((MenuElementChoice*)LM_FD(@contract_add.input)[1])->getActiveOption();
+				contracts.push_back({ clients[clientIndex], services[serviceIndex] });
 			}
 		}
 		catch (notEnoughTrust)
@@ -158,7 +158,7 @@ int main()
 		Menu::popStack();
 	});
 	LM_ADD_BUTTON("Отмена", []() {Menu::popStack(); });
-	LM_DECL_END(contract_add);
+	LM_DECL_END(#contract_add);
 
 	Menu::run();
 	system("cls");
