@@ -217,6 +217,7 @@ void Menu::addElement(MenuElement * ref)
 
 void Menu::addToStack()
 {
+	this->contentGenerator();
 	menuStack.push(this);
 }
 

@@ -30,6 +30,8 @@ private:
 	static void controlLoop();
 	// Печатащий поток. Отвечает за обработку вывода
 	static void printLoop();
+	// NEW NEW NEW
+	void(*contentGenerator)();
 public:
 	// По умолчанию индекс выбранного элемента -1, что приведет к падению программы при некорректной инициализации меню
 	Menu() : chosenElementIndex(-1) {};
@@ -75,4 +77,6 @@ public:
 	static auto& getMutex() { return g_lock; };
 	// Оператор вывода меню в поток
 	friend ostream &operator << (ostream &, Menu &);
+	// NEW NEW NEW
+	auto& getContentGenerator() { return contentGenerator; }
 };

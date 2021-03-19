@@ -57,7 +57,7 @@ void initContractAddMenu()
 		Menu::popStack();
 	});
 	LM_ADD_BUTTON("Отмена", []() {Menu::popStack(); });
-	LM_DECL_END;
+	LM_DECL_END(contract_add);
 }
 
 int main()
@@ -151,7 +151,7 @@ int main()
 		cout << "Ответ: можно, если обработчик находится в том же потоке. Иначе обработка исключения невозможна." << endl;
 		LM_CON_SHARE_END; 
 	});
-	LM_DECL_END;
+	LM_DECL_END(main);
 	LM_ID(main)->addToStack();
 
 	LM_DECL_START(user_add);
@@ -167,7 +167,7 @@ int main()
 		Menu::popStack();
 	});
 	LM_ADD_BUTTON("Отмена", []() {Menu::popStack(); });
-	LM_DECL_END;
+	LM_DECL_END(user_add);
 	
 	LM_DECL_START(service_add);
 	LM_ADD_TITLE("Добавление страхового плана");
@@ -186,7 +186,7 @@ int main()
 		Menu::popStack();
 	});
 	LM_ADD_BUTTON("Отмена", []() {Menu::popStack(); });
-	LM_DECL_END;
+	LM_DECL_END(service_add);
 
 	Menu::run();
 	system("cls");
