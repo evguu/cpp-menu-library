@@ -16,17 +16,17 @@ void initContractMenu()
 	LM_DECL_START(contract_menu);
 	LM_ADD_TITLE("Заключение договора");
 	LM_ADD_FD(3a, "Ввод данных");
-	vector <string> a, b;
+	vector <string> clientsParsed, servicesParsed;
 	for (auto it : clients)
 	{
-		a.push_back(it.getName() + " [" + to_string(it.getTrustLevel()) + "]");
+		clientsParsed.push_back(it.getName() + " [" + to_string(it.getTrustLevel()) + "]");
 	}
 	for (auto it : services)
 	{
-		b.push_back(it.getName() + " [" + to_string(it.getRequiredTrustLevel()) + "]");
+		servicesParsed.push_back(it.getName() + " [" + to_string(it.getRequiredTrustLevel()) + "]");
 	}
-	LM_FD_CHOICE(3a, "Клиент", a);
-	LM_FD_CHOICE(3a, "Договор", b);
+	LM_FD_CHOICE(3a, "Клиент", clientsParsed);
+	LM_FD_CHOICE(3a, "Договор", servicesParsed);
 	LM_ADD_BUTTON("Добавить договор", []() {
 		try
 		{
@@ -62,9 +62,8 @@ void initContractMenu()
 
 int main()
 {
-	// Запланированные исключения для обработки:
-
-	/*
+	/* 
+		Запланированные исключения для обработки:
 		1. bad_alloc << DONE (см. макросы)
 		2. Попытка запустить программу с меню без выбираемых элементов -- 235, с пустым меню -- 234  << DONE
 		3. Обращение к несуществующему LM_ID -- unknownMenuIdentifierException << DONE
@@ -131,14 +130,12 @@ int main()
 		}
 		LM_CON_SHARE_END;
 	});
-
 	LM_ADD_FD(ADDI, "Дополнительные функции");
 	LM_FD_BUTTON(ADDI, "Сменить тему", []() {
 		system(("color "s + themes[(++activeTheme)%themes.size()]).c_str()); 
 	});
 	LM_FD_BUTTON(ADDI, "Крашнуть программу", []() { terminate(); });
 	LM_FD_BUTTON(ADDI, "Выйти из программы", []() { Menu::finish(); });
-
 	LM_FD_BUTTON(ADDI, "Вопрос по теме", []() {
 		LM_CON_SHARE_START;
 		cout << "Можно ли использовать исключения в потоках? " << endl;
@@ -147,7 +144,6 @@ int main()
 		cout << "Ответ: можно, если обработчик находится в том же потоке. Иначе обработка исключения невозможна." << endl;
 		LM_CON_SHARE_END; 
 	});
-
 	LM_DECL_END;
 	LM_ID(main)->addToStack();
 
@@ -185,8 +181,6 @@ int main()
 	LM_ADD_BUTTON("Отмена", []() {Menu::popStack(); });
 	LM_DECL_END;
 
-	//LM_ID(nonexistent_id); // Раскомментировать для исключения 3.
-	
 	Menu::run();
 	system("cls");
 	cout << "Выход из программы..." << endl;
