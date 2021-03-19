@@ -57,8 +57,6 @@ public:
 	void initChosenElementIndex();
 	// Возвращает по значению индекс выбранного элемента
 	int getChosenElementIndex() { return chosenElementIndex; };
-	// Сбрасывает элементы и позицию курсора
-	void reset();
 	// Возвращает верхнее меню со стека
 	static Menu* getActive() { return menuStack.top(); };
 	// Снимает со стека заданное число меню

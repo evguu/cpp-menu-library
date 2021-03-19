@@ -237,15 +237,6 @@ void Menu::initChosenElementIndex()
 	chosenElementIndex = -1;
 }
 
-void Menu::reset()
-{
-	for (const auto& it : elements)
-	{
-		it->reset();
-	}
-	initChosenElementIndex();
-}
-
 void Menu::popStack(int popCount)
 {
 	if (menuStack.size() < popCount + 1) throw(969);

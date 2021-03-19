@@ -28,7 +28,6 @@ public:
 	virtual string str() const = 0;
 	virtual bool recvCommand(int keyEvent) = 0;
 	virtual bool isChoosable() = 0;
-	virtual void reset() = 0;
 	virtual string getAdditionalText();
 	auto& getText();
 };
@@ -44,7 +43,6 @@ public:
 	string str() const;
 	bool recvCommand(int keyEvent) { return false; };
 	bool isChoosable() { return false; };
-	void reset() {};
 };
 
 class MenuElementSubtitle : public MenuElement
@@ -58,7 +56,6 @@ public:
 	string str() const;
 	bool recvCommand(int keyEvent) { return false; };
 	bool isChoosable() { return false; };
-	void reset() {};
 };
 
 class MenuElementFunctionButton : public MenuElement
@@ -74,7 +71,6 @@ public:
 	string str() const;
 	bool recvCommand(int keyEvent);
 	bool isChoosable() { return true; };
-	void reset() {};
 	auto& getFunc() { return func; };
 };
 
@@ -97,7 +93,6 @@ public:
 	string& getInput();
 	bool recvCommand(int keyEvent);
 	bool isChoosable() { return true; };
-	void reset() { input = ""; };
 	string getAdditionalText() override
 	{
 		return "        Не менее " + to_string(minLength) + " символов.\n"
@@ -147,7 +142,6 @@ public:
 	auto& getActiveOption() { return activeOption; };
 	bool recvCommand(int keyEvent);
 	bool isChoosable() { return true; };
-	void reset() { activeOption = 0; };
 };
 
 class MenuElementFolder : public MenuElement
@@ -170,7 +164,6 @@ public:
 	string str() const;
 	bool recvCommand(int keyEvent);
 	bool isChoosable() { return true; };
-	void reset() { isActive = false; chosenElementIndex = 0; for (auto it : elements) { it->reset(); } };
 	auto& getElements() { return elements; };
 	auto& getIsActive() { return isActive; };
 };
