@@ -11,9 +11,9 @@ vector<Client> clients;
 vector<InsuranceService> services;
 vector<Contract> contracts;
 
-void initContractMenu()
+void initContractAddMenu()
 {
-	LM_DECL_START(contract_menu);
+	LM_DECL_START(contract_add);
 	LM_ADD_TITLE("Заключение договора");
 	LM_ADD_FD(3a, "Ввод данных");
 	vector <string> clientsParsed, servicesParsed;
@@ -80,13 +80,14 @@ int main()
 	Utils::setupResolution();
 	Utils::setupEncoding();
 	system(("color "s + themes[activeTheme]).c_str());
-
-	set_terminate([]() { LM_CON_SHARE_START; cout << "Произошло аварийное завершение программы. Я тоже не знаю, почему. Отладчик в помощь!" << endl; LM_CON_SHARE_END; abort(); });
+	set_terminate([]() {
+		LM_CON_SHARE_START; cout << "Произошло аварийное завершение программы. Я тоже не знаю, почему. Отладчик в помощь!" << endl; LM_CON_SHARE_END; abort(); 
+	});
 
 	LM_DECL_START(main);
 	LM_ADD_TITLE("Лабораторная 2. Использование исключений.");
 	LM_ADD_FD(USER, "Управление клиентами");
-	LM_FD_BUTTON(USER, "Добавление клиентов", []() {LM_ID(add_user)->reset(); LM_ID(add_user)->addToStack(); });
+	LM_FD_BUTTON(USER, "Добавление клиентов", []() {LM_ID(user_add)->reset(); LM_ID(user_add)->addToStack(); });
 	LM_FD_BUTTON(USER, "Просмотреть клиентов", []() {
 		LM_CON_SHARE_START;
 		if (!clients.size()) 
@@ -100,7 +101,7 @@ int main()
 		LM_CON_SHARE_END; 
 	});
 	LM_ADD_FD(INSU, "Управление страховыми услугами");
-	LM_FD_BUTTON(INSU, "Добавление страхового плана", []() {LM_ID(choose_insurance_service)->reset(); LM_ID(choose_insurance_service)->addToStack(); });
+	LM_FD_BUTTON(INSU, "Добавление страхового плана", []() {LM_ID(service_add)->reset(); LM_ID(service_add)->addToStack(); });
 	LM_FD_BUTTON(INSU, "Просмотреть страховые планы", []() {
 		LM_CON_SHARE_START;
 		if (!services.size())
@@ -115,8 +116,8 @@ int main()
 	});
 	LM_ADD_FD(CONT, "Управление контрактами");
 	LM_FD_BUTTON(CONT, "Заключить контракт", []() {
-		initContractMenu();
-		LM_ID(contract_menu)->addToStack(); 
+		initContractAddMenu();
+		LM_ID(contract_add)->addToStack(); 
 	})
 	LM_FD_BUTTON(CONT, "Просмотреть контракты", []() {
 		LM_CON_SHARE_START;
@@ -147,7 +148,7 @@ int main()
 	LM_DECL_END;
 	LM_ID(main)->addToStack();
 
-	LM_DECL_START(add_user);
+	LM_DECL_START(user_add);
 	LM_ADD_TITLE("Добавление пользователей");
 	LM_ADD_FD(1, "Ввод данных");
 	LM_FD_FIELD(1, "Имя клиента");
@@ -162,7 +163,7 @@ int main()
 	LM_ADD_BUTTON("Отмена", []() {Menu::popStack(); });
 	LM_DECL_END;
 	
-	LM_DECL_START(choose_insurance_service);
+	LM_DECL_START(service_add);
 	LM_ADD_TITLE("Добавление страхового плана");
 	LM_ADD_FD(2, "Ввод данных");
 	LM_FD_FIELD(2, "Имя плана");
