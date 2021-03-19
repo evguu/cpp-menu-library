@@ -166,6 +166,7 @@
     <ClInclude Include="Console.h" />
     <ClInclude Include="CMMStack.h" />
     <ClInclude Include="Contract.h" />
+    <ClInclude Include="Fun.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="InsuranceService.h" />
     <ClInclude Include="Menu.h" />

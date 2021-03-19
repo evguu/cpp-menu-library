@@ -1,25 +1,18 @@
-﻿#include <iostream>
-#include "CMMStack.h"
+﻿#include "Fun.h"
 #include "Client.h"
 #include "Contract.h"
 #include "InsuranceService.h"
 
-//#define SETUP_START vector<string> themes = { "0F", "07", "87", "78", "70", "F0" };int activeTheme = 4;vector<Client> clients;vector<InsuranceService> services;vector<Contract> contracts;int main(){Utils::setupResolution();Utils::setupEncoding();system(("color "s + themes[activeTheme]).c_str());set_terminate([]() {	LM_CON_SHARE_START; cout << "Произошло аварийное завершение программы. Я тоже не знаю, почему. Отладчик в помощь!" << endl; LM_CON_SHARE_END; abort();});
-
-vector<string> themes = { "0F", "07", "87", "78", "70", "F0" };
-int activeTheme = 4;
-vector<Client> clients;
-vector<InsuranceService> services;
+vector<string> themes = { "0F", "07", "87", "78", "70", "F0" }; 
+int activeTheme = 4; 
+vector<Client> clients; vector<InsuranceService> services;
 vector<Contract> contracts;
 
 int main()
 {
-	Utils::setupResolution();
-	Utils::setupEncoding();
 	system(("color "s + themes[activeTheme]).c_str());
-	set_terminate([]() {
-		LM_CON_SHARE_START; cout << "Произошло аварийное завершение программы. Я тоже не знаю, почему. Отладчик в помощь!" << endl; LM_CON_SHARE_END; abort(); 
-	});
+
+	SETUP_START;
 
 	LM_DECL_START(#main);
 	LM_ADD_TITLE("Лабораторная 2. Использование исключений.");
@@ -27,15 +20,15 @@ int main()
 	LM_FD_REDIR(@main.user, "Добавление клиентов", #user_add);
 	LM_FD_BUTTON(@main.user, "Просмотреть клиентов", []() {
 		LM_CON_SHARE_START;
-		if (!clients.size()) 
+		if (!clients.size())
 		{
-			cout << "Список пуст, добавьте пользователя." << endl; 
-		} 
-		for (auto it : clients) 
-		{ 
+			cout << "Список пуст, добавьте пользователя." << endl;
+		}
+		for (auto it : clients)
+		{
 			cout << it.getName() << "[" << it.getTrustLevel() << "]" << endl;
 		}
-		LM_CON_SHARE_END; 
+		LM_CON_SHARE_END;
 	});
 	LM_ADD_FD(@main.insurance, "Управление страховыми услугами");
 	LM_FD_REDIR(@main.insurance, "Добавление страхового плана", #service_add);
@@ -67,7 +60,7 @@ int main()
 	});
 	LM_ADD_FD(@main.misc, "Дополнительные функции");
 	LM_FD_BUTTON(@main.misc, "Сменить тему", []() {
-		system(("color "s + themes[(++activeTheme)%themes.size()]).c_str()); 
+		system(("color "s + themes[(++activeTheme) % themes.size()]).c_str());
 	});
 	LM_FD_BUTTON(@main.misc, "Крашнуть программу", []() { terminate(); });
 	LM_FD_BUTTON(@main.misc, "Выйти из программы", []() { Menu::finish(); });
@@ -77,7 +70,7 @@ int main()
 		string ans;
 		cin >> ans;
 		cout << "Ответ: можно, если обработчик находится в том же потоке. Иначе обработка исключения невозможна." << endl;
-		LM_CON_SHARE_END; 
+		LM_CON_SHARE_END;
 	});
 	LM_DECL_END(#main);
 	LM_ID(#main)->addToStack();
@@ -91,15 +84,15 @@ int main()
 		clients.push_back({
 			((MenuElementEditField*)LM_FD(@user_add.input)[0])->getInput(),
 			((MenuElementChoice*)LM_FD(@user_add.input)[1])->getActiveOption()
-			}); 
+			});
 		Menu::popStack();
 	});
 	LM_ADD_BUTTON("Отмена", []() {Menu::popStack(); });
 	LM_DECL_END(#user_add);
 
-	LM_DECL_START(#);
-	LM_DECL_END(#);
-	
+	LM_DECL_START(#a.);
+	LM_DECL_END(#a);
+
 	LM_DECL_START(#service_add);
 	LM_ADD_TITLE("Добавление страхового плана");
 	LM_ADD_FD(@service_add.input, "Ввод данных");
@@ -160,7 +153,5 @@ int main()
 	LM_ADD_BUTTON("Отмена", []() {Menu::popStack(); });
 	LM_DECL_END(#contract_add);
 
-	Menu::run();
-	system("cls");
-	cout << "Выход из программы..." << endl;
+	SETUP_END;
 }
