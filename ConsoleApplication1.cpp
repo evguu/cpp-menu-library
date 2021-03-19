@@ -91,7 +91,7 @@ int main()
 	LM_DECL_END(#user_add);
 
 	LM_DECL_START(#a.);
-	LM_DECL_END(#a);
+	LM_DECL_END(#a.);
 
 	LM_DECL_START(#service_add);
 	LM_ADD_TITLE("Добавление страхового плана");
