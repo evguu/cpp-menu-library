@@ -11,55 +11,6 @@ vector<Client> clients;
 vector<InsuranceService> services;
 vector<Contract> contracts;
 
-void initContractAddMenu()
-{
-	LM_DECL_START(contract_add);
-	LM_ADD_TITLE("Заключение договора");
-	LM_ADD_FD(3a, "Ввод данных");
-	vector <string> clientsParsed, servicesParsed;
-	for (auto it : clients)
-	{
-		clientsParsed.push_back(it.getName() + " [" + to_string(it.getTrustLevel()) + "]");
-	}
-	for (auto it : services)
-	{
-		servicesParsed.push_back(it.getName() + " [" + to_string(it.getRequiredTrustLevel()) + "]");
-	}
-	LM_FD_CHOICE(3a, "Клиент", clientsParsed);
-	LM_FD_CHOICE(3a, "Договор", servicesParsed);
-	LM_ADD_BUTTON("Добавить договор", []() {
-		try
-		{
-			// Здесь была бы проверка на то, что оба пункта существуют, но мне лень!
-			int clientSize = ((MenuElementChoice*)LM_FD(3a)[0])->getOptions().size();
-			int serviceSize = ((MenuElementChoice*)LM_FD(3a)[1])->getOptions().size();
-			if (!clientSize || !serviceSize)
-			{
-				LM_CON_SHARE_START;
-				cout << "Для заключения договора недостаточно сущностей." << endl;
-				LM_CON_SHARE_END;
-			}
-			else
-			{
-				int clientIndex = ((MenuElementChoice*)LM_FD(3a)[0])->getActiveOption();
-				int serviceIndex = ((MenuElementChoice*)LM_FD(3a)[1])->getActiveOption();
-				Client client = clients[clientIndex];
-				InsuranceService service = services[serviceIndex];
-				contracts.push_back({ client, service });
-			}
-		}
-		catch (notEnoughTrust)
-		{
-			LM_CON_SHARE_START;
-			cout << "Недостаточно доверия!!!" << endl;
-			LM_CON_SHARE_END;
-		}
-		Menu::popStack();
-	});
-	LM_ADD_BUTTON("Отмена", []() {Menu::popStack(); });
-	LM_DECL_END(contract_add);
-}
-
 int main()
 {
 	/* 
@@ -122,7 +73,6 @@ int main()
 	});
 	LM_ADD_FD(CONT, "Управление контрактами");
 	LM_FD_BUTTON(CONT, "Заключить контракт", []() {
-		initContractAddMenu();
 		LM_ID(contract_add)->addToStack(); 
 	})
 	LM_FD_BUTTON(CONT, "Просмотреть контракты", []() {
@@ -187,6 +137,52 @@ int main()
 	});
 	LM_ADD_BUTTON("Отмена", []() {Menu::popStack(); });
 	LM_DECL_END(service_add);
+
+	LM_DECL_START(contract_add);
+	LM_ADD_TITLE("Заключение договора");
+	LM_ADD_FD(3a, "Ввод данных");
+	vector <string> clientsParsed, servicesParsed;
+	for (auto it : clients)
+	{
+		clientsParsed.push_back(it.getName() + " [" + to_string(it.getTrustLevel()) + "]");
+	}
+	for (auto it : services)
+	{
+		servicesParsed.push_back(it.getName() + " [" + to_string(it.getRequiredTrustLevel()) + "]");
+	}
+	LM_FD_CHOICE(3a, "Клиент", clientsParsed);
+	LM_FD_CHOICE(3a, "Договор", servicesParsed);
+	LM_ADD_BUTTON("Добавить договор", []() {
+		try
+		{
+			// Здесь была бы проверка на то, что оба пункта существуют, но мне лень!
+			int clientSize = ((MenuElementChoice*)LM_FD(3a)[0])->getOptions().size();
+			int serviceSize = ((MenuElementChoice*)LM_FD(3a)[1])->getOptions().size();
+			if (!clientSize || !serviceSize)
+			{
+				LM_CON_SHARE_START;
+				cout << "Для заключения договора недостаточно сущностей." << endl;
+				LM_CON_SHARE_END;
+			}
+			else
+			{
+				int clientIndex = ((MenuElementChoice*)LM_FD(3a)[0])->getActiveOption();
+				int serviceIndex = ((MenuElementChoice*)LM_FD(3a)[1])->getActiveOption();
+				Client client = clients[clientIndex];
+				InsuranceService service = services[serviceIndex];
+				contracts.push_back({ client, service });
+			}
+		}
+		catch (notEnoughTrust)
+		{
+			LM_CON_SHARE_START;
+			cout << "Недостаточно доверия!!!" << endl;
+			LM_CON_SHARE_END;
+		}
+		Menu::popStack();
+	});
+	LM_ADD_BUTTON("Отмена", []() {Menu::popStack(); });
+	LM_DECL_END(contract_add);
 
 	Menu::run();
 	system("cls");
