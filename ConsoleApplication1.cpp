@@ -11,11 +11,11 @@ vector<Client> clients;
 vector<InsuranceService> services;
 vector<Contract> contracts;
 
-void MENU_make_deal()
+void initContractMenu()
 {
-	LM_DECL_START(make_deal);
+	LM_DECL_START(contract_menu);
 	LM_ADD_TITLE("Заключение договора");
-	LM_ADD_FD(3, "Ввод данных");
+	LM_ADD_FD(3a, "Ввод данных");
 	vector <string> a, b;
 	for (auto it : clients)
 	{
@@ -25,16 +25,28 @@ void MENU_make_deal()
 	{
 		b.push_back(it.getName() + " [" + to_string(it.getRequiredTrustLevel()) + "]");
 	}
-	LM_FD_CHOICE(3, "Клиент", a);
-	LM_FD_CHOICE(3, "Договор", b);
+	LM_FD_CHOICE(3a, "Клиент", a);
+	LM_FD_CHOICE(3a, "Договор", b);
 	LM_ADD_BUTTON("Добавить договор", []() {
 		try
 		{
 			// Здесь была бы проверка на то, что оба пункта существуют, но мне лень!
-			contracts.push_back({
-				clients[((MenuElementChoice*)LM_FD(3)[0])->getActiveOption()],
-				services[((MenuElementChoice*)LM_FD(3)[1])->getActiveOption()]
-				});
+			int clientSize = ((MenuElementChoice*)LM_FD(3a)[0])->getOptions().size();
+			int serviceSize = ((MenuElementChoice*)LM_FD(3a)[1])->getOptions().size();
+			if (!clientSize || !serviceSize)
+			{
+				LM_CON_SHARE_START;
+				cout << "Для заключения договора недостаточно сущностей." << endl;
+				LM_CON_SHARE_END;
+			}
+			else
+			{
+				int clientIndex = ((MenuElementChoice*)LM_FD(3a)[0])->getActiveOption();
+				int serviceIndex = ((MenuElementChoice*)LM_FD(3a)[1])->getActiveOption();
+				Client client = clients[clientIndex];
+				InsuranceService service = services[serviceIndex];
+				contracts.push_back({ client, service });
+			}
 		}
 		catch (notEnoughTrust)
 		{
@@ -57,7 +69,7 @@ int main()
 		2. Попытка запустить программу с меню без выбираемых элементов -- 235, с пустым меню -- 234  << DONE
 		3. Обращение к несуществующему LM_ID -- unknownMenuIdentifierException << DONE
 
-		4. Исключение в конструкторе договора, клиент не имеет права на получение услуги -- permCheckFailedException
+		4. Исключение в конструкторе договора, клиент не имеет права на получение услуги -- notEnoughTrust << DONE
 
 		5. Попытка снять последнее меню со стека -- 969 << DONE
 
@@ -104,8 +116,8 @@ int main()
 	});
 	LM_ADD_FD(CONT, "Управление контрактами");
 	LM_FD_BUTTON(CONT, "Заключить контракт", []() {
-		MENU_make_deal();
-		LM_ID(make_deal)->addToStack(); 
+		initContractMenu();
+		LM_ID(contract_menu)->addToStack(); 
 	})
 	LM_FD_BUTTON(CONT, "Просмотреть контракты", []() {
 		LM_CON_SHARE_START;
@@ -126,6 +138,16 @@ int main()
 	});
 	LM_FD_BUTTON(ADDI, "Крашнуть программу", []() { terminate(); });
 	LM_FD_BUTTON(ADDI, "Выйти из программы", []() { Menu::finish(); });
+
+	LM_FD_BUTTON(ADDI, "Вопрос по теме", []() {
+		LM_CON_SHARE_START;
+		cout << "Можно ли использовать исключения в потоках? " << endl;
+		string ans;
+		cin >> ans;
+		cout << "Ответ: можно, если обработчик находится в том же потоке. Иначе обработка исключения невозможна." << endl;
+		LM_CON_SHARE_END; 
+	});
+
 	LM_DECL_END;
 	LM_ID(main)->addToStack();
 
