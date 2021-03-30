@@ -30,6 +30,9 @@ int main()
 		}
 		LM_CON_SHARE_END;
 	});
+	LM_FD_REDIR(@main.user, "Редактирование клиентов", #user_edit);
+	LM_FD_REDIR(@main.user, "Удаление клиентов", #user_delete);
+	LM_FD_REDIR(@main.user, "Поиск клиентов", #user_search);
 	LM_ADD_FD(@main.insurance, "Управление страховыми услугами");
 	LM_FD_REDIR(@main.insurance, "Добавление страхового плана", #service_add);
 	LM_FD_BUTTON(@main.insurance, "Просмотреть страховые планы", []() {
@@ -90,8 +93,93 @@ int main()
 	LM_ADD_BUTTON("Отмена", []() {Menu::popStack(); });
 	LM_DECL_END(#user_add);
 
-	LM_DECL_START(#a.);
-	LM_DECL_END(#a.);
+	LM_DECL_START(#user_edit);
+	LM_ADD_TITLE("Редактирование клиентов");
+	vector<string> clientsParsed;
+	for (auto it : clients)
+	{
+		clientsParsed.push_back(it.getName() + " [" + to_string(it.getTrustLevel()) + "]");
+	}
+	LM_ADD_FD(@user_edit.input, "Выбор клиента");
+	LM_FD_CHOICE(@user_edit.input, "Клиент", clientsParsed);
+	LM_FD_REDIR(@user_edit.input, "Перейти к редактированию", #user_edit~);
+	LM_ADD_BUTTON("Отмена", []() {Menu::popStack(); });
+	LM_DECL_END(#user_edit);
+
+	LM_DECL_START(#user_delete);
+	LM_ADD_TITLE("Удаление клиентов");
+	LM_ADD_FD(@user_delete.input, "Выбор удаляемых клиентов");
+	for (auto it : clients)
+	{
+		LM_FD_CHOICE(@user_delete.input, it.getName() + " [" + to_string(it.getTrustLevel()) + "]", {"Не удалять", "Удалить"});
+	}
+	LM_ADD_BUTTON("Сохранить", []() {
+		for (int i = clients.size() - 1; i >= 0; i--)
+		{
+			if (((MenuElementChoice*)(LM_FD(@user_delete.input)[i]))->getActiveOption())
+			{
+				auto it = clients.begin();
+				advance(it, i);
+				clients.erase(it);
+			}
+		}
+		Menu::popStack(); 
+	});
+	LM_ADD_BUTTON("Отмена", []() {Menu::popStack(); });
+	LM_DECL_END(#user_delete);
+
+
+	LM_DECL_START(#user_search);
+	LM_ADD_TITLE("Поиск клиентов");
+	LM_ADD_FD(@user_search.input, "Критерии поиска");
+	LM_FD_FIELD(@user_search.input, "Имя клиента");
+	LM_FD_CHOICE(@user_search.input, "Уровень доверия", { "Низкий (0)", "Средний (1)", "Высокий (2)" });
+	LM_ADD_BUTTON("Найти", []() {
+		string result = "Результаты поиска: \n\n"s;
+		bool isEmpty = true;
+		string targetName = ((MenuElementEditField*)LM_FD(@user_search.input)[0])->getInput();
+		TrustLevel targetTrustLevel = ((MenuElementChoice*)LM_FD(@user_search.input)[1])->getActiveOption();
+		for (auto it : clients)
+		{
+			if ((it.getName().find(targetName) != string::npos) && (it.getTrustLevel() == targetTrustLevel))
+			{
+				isEmpty = false;
+				result += (it.getName() + " [" + to_string(it.getTrustLevel()) + "]\n");
+			}
+		}
+		if (isEmpty) { result += "Не найдено записей, удовлетворяющих критериям.\n"; }
+		LM_CON_SHARE_START;
+		cout << result;
+		LM_CON_SHARE_END;
+	});
+	LM_ADD_BUTTON("Назад", []() {Menu::popStack(); });
+	LM_DECL_END(#user_search);
+
+
+	LM_DECL_START(#user_edit~);
+	LM_ADD_TITLE("Подменю редактирования клиента");
+	if (clients.size())
+	{
+		Client client = clients[((MenuElementChoice*)(LM_FD(@user_edit.input)[0]))->getActiveOption()];
+		LM_ADD_FD(@user_edit~.input, "Ввод данных");
+		LM_FD_FIELD(@user_edit~.input, "Имя клиента");
+		((MenuElementEditField*)LM_FD(@user_edit~.input)[0])->getInput() = client.getName();
+		LM_FD_CHOICE(@user_edit~.input, "Уровень доверия", { "Низкий (0)", "Средний (1)", "Высокий (2)" });
+		((MenuElementChoice*)LM_FD(@user_edit~.input)[1])->getActiveOption() = client.getTrustLevel();
+		LM_ADD_BUTTON("Сохранить", []() 
+		{
+			Client* client = &(clients[((MenuElementChoice*)(LM_FD(@user_edit.input)[0]))->getActiveOption()]);
+			client->getName() = ((MenuElementEditField*)LM_FD(@user_edit~.input)[0])->getInput();
+			client->getTrustLevel() = ((MenuElementChoice*)LM_FD(@user_edit~.input)[1])->getActiveOption();
+			Menu::popStack(2);
+		});
+	}
+	else
+	{
+		LM_ADD_SUBTITLE("Клиент не выбран, редактирование невозможно!");
+	}
+	LM_ADD_BUTTON("Отмена", []() {Menu::popStack(); });
+	LM_DECL_END(#user_edit~);
 
 	LM_DECL_START(#service_add);
 	LM_ADD_TITLE("Добавление страхового плана");
