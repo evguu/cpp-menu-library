@@ -3,6 +3,8 @@
 #include "Contract.h"
 #include "InsuranceService.h"
 
+#include <fstream>
+
 vector<string> themes = { "0F", "07", "87", "78", "70", "F0" }; 
 int activeTheme = 4; 
 vector<Client> clients; vector<InsuranceService> services;
@@ -29,6 +31,31 @@ int main()
 			cout << it.getName() << "[" << it.getTrustLevel() << "]" << endl;
 		}
 		LM_CON_SHARE_END;
+	});	
+	LM_FD_BUTTON(@main.user, "Обновить файл клиентов", []() {
+		ofstream fout;
+		fout.open("clients.txt");
+		for (auto it : clients)
+		{
+			fout << '$' << it.getName() << endl << it.getTrustLevel() << endl;
+		}
+		fout.close();
+	});
+	LM_FD_BUTTON(@main.user, "Загрузить файл клиентов", []() {
+		ifstream fin;
+		fin.open("clients.txt", ios::in);
+		if (!fin)return;
+		clients.clear();
+		string name;
+		int trustLevel;
+		while (!fin.eof() && !fin.fail())
+		{
+			fin >> name >> trustLevel;
+			if (fin.eof() || fin.fail()) return;
+			name = name.substr(1);
+			clients.push_back({name, trustLevel});
+		}
+		fin.close();
 	});
 	LM_FD_REDIR(@main.user, "Редактирование клиентов", #user_edit);
 	LM_FD_REDIR(@main.user, "Удаление клиентов", #user_delete);
