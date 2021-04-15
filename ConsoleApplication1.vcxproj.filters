@@ -39,15 +39,6 @@
     <ClCompile Include="MenuElements.cpp">
       <Filter>Исходные файлы\MenuLib</Filter>
     </ClCompile>
-    <ClCompile Include="Client.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="InsuranceService.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="Contract.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Console.h">
@@ -68,23 +59,11 @@
     <ClInclude Include="MenuMacros.h">
       <Filter>Файлы заголовков\MenuLib</Filter>
     </ClInclude>
-    <ClInclude Include="Client.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="InsuranceService.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="CMMStack.h">
       <Filter>Файлы заголовков\MenuLib</Filter>
     </ClInclude>
-    <ClInclude Include="Contract.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="Fun.h">
-      <Filter>Файлы заголовков</Filter>
+      <Filter>Файлы заголовков\MenuLib</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>
