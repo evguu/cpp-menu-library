@@ -160,8 +160,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Console.h" />
-    <ClInclude Include="CMMStack.h" />
-    <ClInclude Include="Fun.h" />
+    <ClInclude Include="LML.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="MenuAggregator.h" />

@@ -46,11 +46,10 @@ string MenuElementFunctionButton::str() const
 	return ss.str();
 }
 
-bool MenuElementFunctionButton::recvCommand(int keyEvent)
+bool MenuElementFunctionButton::recvCommand(KeyEvent keyEvent)
 {
-	switch (keyEvent)
+	if(keyEvent.isSpecial && keyEvent.code == KC_ENTER)
 	{
-	case -KC_ENTER:
 		func();
 		return true;
 	}
@@ -81,17 +80,17 @@ string& MenuElementEditField::getInput()
 	return input;
 }
 
-bool MenuElementEditField::recvCommand(int keyEvent)
+bool MenuElementEditField::recvCommand(KeyEvent keyEvent)
 {
-	if (keyEvent > 0)
+	if (!keyEvent.isSpecial)
 	{
-		if (((allowedSymbols.length() == 0) || (allowedSymbols.find((char)keyEvent) != string::npos)) && ((maxLength == 0) || (input.length() < maxLength)))
+		if (((allowedSymbols.length() == 0) || (allowedSymbols.find((char)keyEvent.code) != string::npos)) && ((maxLength == 0) || (input.length() < maxLength)))
 		{
-			input += (char)keyEvent;
+			input += (char)keyEvent.code;
 			return true;
 		}
 	}
-	if (keyEvent == -KC_DELETE || keyEvent == -KC_BACKSPACE)
+	else if (keyEvent.code == KC_DELETE || keyEvent.code == KC_BACKSPACE)
 	{
 		if (input.length()) input.pop_back();
 		return true;
@@ -127,58 +126,32 @@ const int _maximalComboInterval = 200;
 const int _maxTrueSpeed = 64;
 const int _doublingTime = 3000;
 
-bool MenuElementChoice::recvCommand(int keyEvent)
+bool MenuElementChoice::recvCommand(KeyEvent keyEvent)
 {
-	switch (keyEvent)
+	if (keyEvent.isLeftRight())
 	{
-	case -KC_LEFT:
-	{
+		bool isRight = (keyEvent.code == KC_RIGHT);
 		if (options.size() > 1)
 		{
 			int timeElapsed = (long)(((double)clock() - _lastClock) / CLOCKS_PER_SEC * 1000);
-			if ((timeElapsed < _maximalComboInterval) && !_wasPreviousDirectionRight)
+			if ((timeElapsed < _maximalComboInterval) && !(_wasPreviousDirectionRight^isRight))
 			{
 				_timeCounter += timeElapsed;
 			}
 			else
 			{
 				_timeCounter = 0;
-				_wasPreviousDirectionRight = false;
+				_wasPreviousDirectionRight = isRight;
 			}
 			int trueSpeed = 1 << (2 * _timeCounter / _doublingTime);
 			if (trueSpeed > _maxTrueSpeed)
 			{
 				trueSpeed = _maxTrueSpeed;
 			}
-			activeOption = (options.size() - trueSpeed + activeOption) % options.size();
+			activeOption = (options.size() + (isRight?(1):(-1)) * trueSpeed + activeOption) % options.size();
 		}
 		_lastClock = clock();
 		return true;
-	}
-	case -KC_RIGHT:
-	{
-		if (options.size() > 1)
-		{
-			int timeElapsed = (long)(((double)clock() - _lastClock) / CLOCKS_PER_SEC * 1000);
-			if ((timeElapsed < _maximalComboInterval) && _wasPreviousDirectionRight)
-			{
-				_timeCounter += timeElapsed;
-			}
-			else
-			{
-				_timeCounter = 0;
-				_wasPreviousDirectionRight = true;
-			}
-			int trueSpeed = 1 << (2 * _timeCounter / _doublingTime);
-			if (trueSpeed > _maxTrueSpeed)
-			{
-				trueSpeed = _maxTrueSpeed;
-			}
-			activeOption = (options.size() + trueSpeed + activeOption) % options.size();
-		}
-		_lastClock = clock();
-		return true;
-	}
 	}
 	return false;
 }
@@ -209,39 +182,40 @@ string MenuElementFolder::str() const
 	return ss.str();
 }
 
-bool MenuElementFolder::recvCommand(int keyEvent)
+bool MenuElementFolder::recvCommand(KeyEvent keyEvent)
 {
-	switch (keyEvent)
+	if (keyEvent.isUpDown())
 	{
-	case -KC_DOWN:
 		if (isActive)
 		{
+			// TODO: check choosability
 			if (chosenElementIndex + 1 != elements.size())
 			{
 				chosenElementIndex++;
 			}
 			else
 			{
-				throw(778);
+				throw(FolderLeaveAttempt());
 			}
-			throw(666);
+			throw(FolderProcessedUpDownKeyEvent());
 		}
-		return false;
-	case -KC_UP:
 		if (isActive)
 		{
+			// TODO: check choosability
 			if (chosenElementIndex)
 			{
 				chosenElementIndex--;
 			}
 			else
 			{
-				throw(776);
+				throw(FolderLeaveAttempt());
 			}
-			throw(666);
+			throw(FolderProcessedUpDownKeyEvent());
 		}
-		return true;
-	case -KC_ENTER:
+		return false; // Чтобы варнинги не кидало
+	}
+	else if (keyEvent.isSpecial && keyEvent.code == KC_ENTER)
+	{
 		if (!isActive)
 		{
 			chosenElementIndex = 0;
@@ -252,7 +226,9 @@ bool MenuElementFolder::recvCommand(int keyEvent)
 			elements[chosenElementIndex]->recvCommand(keyEvent);
 		}
 		return true;
-	default:
+	}
+	else
+	{
 		if (isActive)
 		{
 			return elements[chosenElementIndex]->recvCommand(keyEvent);

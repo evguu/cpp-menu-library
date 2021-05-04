@@ -14,10 +14,10 @@ const int Menu::viewField = 12;
 
 void Menu::controlLoop()
 {
-	int keyEvent;
+	KeyEvent keyEvent;
 	while (isLoopRunning)
 	{
-		keyEvent = Utils::inputKeyEvent();
+		keyEvent = Utils::getKeyEvent();
 		bool hasReacted = getActive()->recvCommand(keyEvent);
 		if (hasReacted)
 		{
@@ -116,49 +116,41 @@ string Menu::str() const
 	return ss.str();
 }
 
-bool Menu::recvCommand(int keyEvent)
+bool Menu::recvCommand(KeyEvent keyEvent)
 {
-	int index;
-	bool tmp;
-	int temporaryIndexBuffer;
-	bool is77excCalled = false;
-	vector<MenuElement *>::iterator lim;
-	switch (keyEvent)
+	if (keyEvent.isUpDown())
 	{
-		// При ловле клавиши вниз или вверх шлем их внутрь элемента. Если тот их обработает, швырнет исключение.
-	case -KC_DOWN:
-		try {
+		int newActiveIndex, oldActiveIndex;
+		bool hasTriedToLeaveFolder = false;
+
+		try 
+		{
 			elements[chosenElementIndex]->recvCommand(keyEvent);
 		}
-		catch(int exc)
+		catch(FolderLeaveAttempt)
 		{
-			if (exc == 666)
-			{
-				return true;
-			}
-			if (exc == 778)
-			{
-				is77excCalled = true;
-			}
+			hasTriedToLeaveFolder = true;
 		}
-		index = chosenElementIndex + 1;
-		lim = elements.end();
-		temporaryIndexBuffer = chosenElementIndex;
-		for (auto it = elements.begin() + chosenElementIndex + 1; it != lim; ++it)
+		catch (FolderProcessedUpDownKeyEvent)
 		{
-			tmp = (*it)->isChoosable();
-			if (tmp)
-			{
-				chosenElementIndex = index;
-				break;
-			}
-			++index;
+			return true;
 		}
-		if (is77excCalled)
+
+		oldActiveIndex = chosenElementIndex;
+		if (keyEvent.code == KC_DOWN)
 		{
-			if (temporaryIndexBuffer != chosenElementIndex)
+			newActiveIndex = this->getNextChoosableElementIndex();
+		}
+		else
+		{
+			newActiveIndex = this->getPrevChoosableElementIndex();
+		}
+
+		if (hasTriedToLeaveFolder)
+		{
+			if (oldActiveIndex != chosenElementIndex)
 			{
-				((MenuElementFolder*)(elements[temporaryIndexBuffer]))->getIsActive() = false;
+				((MenuElementFolder*)(elements[oldActiveIndex]))->getIsActive() = false;
 			}
 			else
 			{
@@ -166,46 +158,9 @@ bool Menu::recvCommand(int keyEvent)
 			}
 		}
 		return true;
-	case -KC_UP:
-		try {
-			elements[chosenElementIndex]->recvCommand(keyEvent);
-		}
-		catch (int exc)
-		{
-			if (exc == 666)
-			{
-				return true;
-			}
-			if (exc == 776)
-			{
-				is77excCalled = true;
-			}
-		}
-		index = 0;
-		lim = elements.begin() + chosenElementIndex;
-		temporaryIndexBuffer = chosenElementIndex;
-		for (auto it = elements.begin(); it != lim; ++it)
-		{
-			tmp = (*it)->isChoosable();
-			if (tmp)
-			{
-				chosenElementIndex = index;
-			}
-			++index;
-		}
-		if (is77excCalled)
-		{
-			if (temporaryIndexBuffer != chosenElementIndex)
-			{
-				((MenuElementFolder*)(elements[temporaryIndexBuffer]))->getIsActive() = false;
-			}
-			else
-			{
-				return false;
-			}
-		}
-		return true;
-	default:
+	}
+	else
+	{
 		return (*(elements.begin() + chosenElementIndex))->recvCommand(keyEvent);
 	}
 }

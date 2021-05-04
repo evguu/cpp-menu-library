@@ -59,10 +59,7 @@
     <ClInclude Include="MenuMacros.h">
       <Filter>Файлы заголовков\MenuLib</Filter>
     </ClInclude>
-    <ClInclude Include="CMMStack.h">
-      <Filter>Файлы заголовков\MenuLib</Filter>
-    </ClInclude>
-    <ClInclude Include="Fun.h">
+    <ClInclude Include="LML.h">
       <Filter>Файлы заголовков\MenuLib</Filter>
     </ClInclude>
   </ItemGroup>

@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include "Input.h"
 
 using namespace std;
 
@@ -11,6 +12,9 @@ class MenuElementSubtitle;
 class MenuElementFunctionButton;
 class MenuElementEditField;
 class MenuElementChoice;
+
+class FolderLeaveAttempt : public exception {};
+class FolderProcessedUpDownKeyEvent : public exception {};
 
 /*
 	Общий интерфейс для всех элементов меню.
@@ -26,7 +30,7 @@ public:
 
 	// Интерфейс
 	virtual string str() const = 0;
-	virtual bool recvCommand(int keyEvent) = 0;
+	virtual bool recvCommand(KeyEvent keyEvent) = 0;
 	virtual bool isChoosable() = 0;
 	virtual string getAdditionalText();
 	auto& getText();
@@ -41,7 +45,7 @@ public:
 
 	// Интерфейс
 	string str() const;
-	bool recvCommand(int keyEvent) { return false; };
+	bool recvCommand(KeyEvent keyEvent) { return false; };
 	bool isChoosable() { return false; };
 };
 
@@ -54,7 +58,7 @@ public:
 
 	// Интерфейс
 	string str() const;
-	bool recvCommand(int keyEvent) { return false; };
+	bool recvCommand(KeyEvent keyEvent) { return false; };
 	bool isChoosable() { return false; };
 };
 
@@ -69,7 +73,7 @@ public:
 
 	// Интерфейс
 	string str() const;
-	bool recvCommand(int keyEvent);
+	bool recvCommand(KeyEvent keyEvent);
 	bool isChoosable() { return true; };
 	auto& getFunc() { return func; };
 };
@@ -91,7 +95,7 @@ public:
 	// Интерфейс
 	string str() const;
 	string& getInput();
-	bool recvCommand(int keyEvent);
+	bool recvCommand(KeyEvent keyEvent);
 	bool isChoosable() { return true; };
 	string getAdditionalText() override
 	{
@@ -108,11 +112,7 @@ private:
 	vector<string> options;
 	int activeOption = 0;
 public:
-	// Создает элемент выбора с заданными вектором строк элементами.
 	MenuElementChoice(string text, vector<string> options) : MenuElement(text), options(options) {};
-
-	// Здесь есть перегрузка!
-	// Создает элемент выбора из чисел, заданных range параметрами.
 	MenuElementChoice(string text, int rangeStart, int rangeEnd, int rangeStep = 1) : MenuElement(text)
 	{
 		for (int i = rangeStart; i < rangeEnd; i += rangeStep)
@@ -125,7 +125,6 @@ public:
 
 	string str() const;
 
-	// Возвращает строку, выбранную в текущий момент.
 	// Если ничего не выбрано (вектор выбора пуст), возвращает MenuElementChoice::noChoicesFoundMessage.
 	string getChoice()
 	{
@@ -140,7 +139,7 @@ public:
 	};
 	auto& getOptions() { return options; };
 	auto& getActiveOption() { return activeOption; };
-	bool recvCommand(int keyEvent);
+	bool recvCommand(KeyEvent keyEvent);
 	bool isChoosable() { return true; };
 };
 
@@ -162,7 +161,7 @@ public:
 
 	// Интерфейс
 	string str() const;
-	bool recvCommand(int keyEvent);
+	bool recvCommand(KeyEvent keyEvent);
 	bool isChoosable() { return true; };
 	auto& getElements() { return elements; };
 	auto& getIsActive() { return isActive; };

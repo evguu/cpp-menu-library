@@ -11,8 +11,17 @@
 #define KC_TAB 9
 #define KC_ENTER 13
 
+struct KeyEvent
+{
+	int code;
+	bool isSpecial;
+	KeyEvent(int code = -1, bool isSpecial = false) : code(code), isSpecial(isSpecial) {};
+
+	bool isUpDown() { return isSpecial && (code == KC_UP || code == KC_DOWN); }
+	bool isLeftRight() { return isSpecial && (code == KC_LEFT || code == KC_RIGHT); }
+};
+
 namespace Utils
 {
-	std::string ws2s(const std::wstring& wstr, const std::locale& loc);
-	int inputKeyEvent();
+	KeyEvent getKeyEvent();
 }

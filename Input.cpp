@@ -6,8 +6,7 @@ using namespace std;
 
 namespace Utils
 {
-	// Переводит широкий символ в обычный.
-	char wc2c(wchar_t w)
+	char convertWideCharToChar(wchar_t w)
 	{
 		switch (w)
 		{
@@ -328,28 +327,22 @@ namespace Utils
 		}
 	}
 
-	// Возвращает положительный код, если принят символ. 
-	// Возвращает отрицательный код, если принята служебная клавиша.
-	int inputKeyEvent()
+	KeyEvent getKeyEvent()
 	{
-		wchar_t wide;
-		wide = _getwch();
+		wchar_t rawKeyEvent = _getwch();
 
-		switch (wide)
+		switch (rawKeyEvent)
 		{
 		case KC_ARROW_INCOMING:
-			return -_getwch();
+			return KeyEvent(_getwch(), true);
 		case KC_TAB:
-			return -KC_TAB;
 		case KC_DELETE:
-			return -KC_DELETE;
 		case KC_BACKSPACE:
-			return -KC_BACKSPACE;
 		case KC_ENTER:
-			return -KC_ENTER;
+			return KeyEvent(rawKeyEvent, true);
 		}
 
-		unsigned char char_value = wc2c(wide);
-		return char_value;
+		unsigned char pressedSymbol = convertWideCharToChar(rawKeyEvent);
+		return KeyEvent(pressedSymbol);
 	}
 }
