@@ -335,10 +335,7 @@ namespace Utils
 		{
 		case KC_ARROW_INCOMING:
 			return KeyEvent(_getwch(), true);
-		case KC_TAB:
-		case KC_DELETE:
-		case KC_BACKSPACE:
-		case KC_ENTER:
+		case KC_TAB: case KC_DELETE: case KC_BACKSPACE: case KC_ENTER:
 			return KeyEvent(rawKeyEvent, true);
 		}
 

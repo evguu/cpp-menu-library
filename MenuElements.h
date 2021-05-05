@@ -16,21 +16,16 @@ class MenuElementChoice;
 class FolderLeaveAttempt : public exception {};
 class FolderProcessedUpDownKeyEvent : public exception {};
 
-/*
-	Общий интерфейс для всех элементов меню.
-*/
 class MenuElement
 {
 protected:
 	string text;
 public:
-	// Создание и разрушение
 	MenuElement(string text);
 	virtual ~MenuElement();
 
-	// Интерфейс
 	virtual string str() const = 0;
-	virtual bool recvCommand(KeyEvent keyEvent) = 0;
+	virtual void processKeyEvent(KeyEvent keyEvent) = 0;
 	virtual bool isChoosable() = 0;
 	virtual string getAdditionalText();
 	auto& getText();
@@ -39,26 +34,22 @@ public:
 class MenuElementTitle : public MenuElement
 {
 public:
-	// Создание и разрушение
 	MenuElementTitle(string text) : MenuElement(text) {};
 	~MenuElementTitle() {};
 
-	// Интерфейс
 	string str() const;
-	bool recvCommand(KeyEvent keyEvent) { return false; };
+	void processKeyEvent(KeyEvent keyEvent) {};
 	bool isChoosable() { return false; };
 };
 
 class MenuElementSubtitle : public MenuElement
 {
 public:
-	// Создание и разрушение
 	MenuElementSubtitle(string text) : MenuElement(text) {};
 	~MenuElementSubtitle() {};
 
-	// Интерфейс
 	string str() const;
-	bool recvCommand(KeyEvent keyEvent) { return false; };
+	void processKeyEvent(KeyEvent keyEvent) {};
 	bool isChoosable() { return false; };
 };
 
@@ -67,13 +58,10 @@ class MenuElementFunctionButton : public MenuElement
 private:
 	void(*func)();
 public:
-	// Создание и разрушение
 	MenuElementFunctionButton(string text, void(*func)()) : MenuElement(text), func(func) {};
 	~MenuElementFunctionButton() {};
-
-	// Интерфейс
 	string str() const;
-	bool recvCommand(KeyEvent keyEvent);
+	void processKeyEvent(KeyEvent keyEvent);
 	bool isChoosable() { return true; };
 	auto& getFunc() { return func; };
 };
@@ -87,15 +75,15 @@ private:
 	int maxLength;
 	int minLength;
 public:
-	// Создание и разрушение
 	MenuElementEditField(string text, bool isTextHidden = false, string allowedSymbols = "", int minLength = 0, int maxLength = 0) :
 		MenuElement(text), input(""), isTextHidden(isTextHidden), allowedSymbols(allowedSymbols), minLength(minLength), maxLength(maxLength) {};
 	~MenuElementEditField() {};
 
-	// Интерфейс
 	string str() const;
 	string& getInput();
-	bool recvCommand(KeyEvent keyEvent);
+	bool hasFreeSpace();
+	bool isCharAllowed(char ch);
+	void processKeyEvent(KeyEvent keyEvent);
 	bool isChoosable() { return true; };
 	string getAdditionalText() override
 	{
@@ -125,6 +113,7 @@ public:
 
 	string str() const;
 
+	// TODO: кидать исключение
 	// Если ничего не выбрано (вектор выбора пуст), возвращает MenuElementChoice::noChoicesFoundMessage.
 	string getChoice()
 	{
@@ -139,7 +128,7 @@ public:
 	};
 	auto& getOptions() { return options; };
 	auto& getActiveOption() { return activeOption; };
-	bool recvCommand(KeyEvent keyEvent);
+	void processKeyEvent(KeyEvent keyEvent);
 	bool isChoosable() { return true; };
 };
 
@@ -150,7 +139,6 @@ private:
 	int chosenElementIndex;
 	bool isActive;
 public:
-	// Создание и разрушение
 	MenuElementFolder(string text) : chosenElementIndex(0), isActive(false), MenuElement(text) {};
 	~MenuElementFolder() {
 		for (auto it : elements)
@@ -159,9 +147,8 @@ public:
 		}
 	};
 
-	// Интерфейс
 	string str() const;
-	bool recvCommand(KeyEvent keyEvent);
+	void processKeyEvent(KeyEvent keyEvent);
 	bool isChoosable() { return true; };
 	auto& getElements() { return elements; };
 	auto& getIsActive() { return isActive; };

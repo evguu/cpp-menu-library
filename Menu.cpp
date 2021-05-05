@@ -22,7 +22,7 @@ void Menu::controlLoop()
 	{
 		keyEvent = Utils::getKeyEvent();
 		g_lock.lock();
-		getActive()->recvCommand(keyEvent);
+		getActive()->processKeyEvent(keyEvent);
 		haveUnshownChangesToBufferBeenMade = true;
 		g_lock.unlock();
 	}
@@ -63,11 +63,11 @@ void Menu::printLoop()
 
 string Menu::str() const
 {
-	if (!elements.size()) // Меню не должно быть пустым
+	if (!elements.size())
 	{
 		throw(MenuIsEmpty());
 	}
-	if (chosenElementIndex == -1) // Активный элемент должен быть установлен
+	if (chosenElementIndex == -1)
 	{
 		throw(MenuHasNoChosenElement());
 	}
@@ -112,7 +112,7 @@ string Menu::str() const
 	return ss.str();
 }
 
-void Menu::recvCommand(KeyEvent keyEvent)
+void Menu::processKeyEvent(KeyEvent keyEvent)
 {
 	if (keyEvent.isUpDown())
 	{
@@ -121,7 +121,7 @@ void Menu::recvCommand(KeyEvent keyEvent)
 
 		try
 		{
-			elements[chosenElementIndex]->recvCommand(keyEvent);
+			elements[chosenElementIndex]->processKeyEvent(keyEvent);
 		}
 		catch (FolderLeaveAttempt)
 		{
@@ -148,7 +148,7 @@ void Menu::recvCommand(KeyEvent keyEvent)
 	}
 	else
 	{
-		elements[chosenElementIndex]->recvCommand(keyEvent);
+		elements[chosenElementIndex]->processKeyEvent(keyEvent);
 	}
 }
 

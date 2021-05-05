@@ -34,7 +34,7 @@ public:
 		}
 	};
 	string str() const;
-	void recvCommand(KeyEvent keyEvent);
+	void processKeyEvent(KeyEvent keyEvent);
 	void addElement(MenuElement* ref);
 	void addToStack();
 	auto& getElements() { return elements; }

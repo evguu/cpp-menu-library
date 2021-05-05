@@ -3,8 +3,6 @@
 #include <ctime>
 #include <sstream>
 
-//
-
 MenuElement::MenuElement(string text) : text(text)
 {
 };
@@ -22,8 +20,6 @@ auto& MenuElement::getText()
 {
 	return this->text;
 };
-
-//
 
 string MenuElementTitle::str() const
 {
@@ -46,14 +42,12 @@ string MenuElementFunctionButton::str() const
 	return ss.str();
 }
 
-bool MenuElementFunctionButton::recvCommand(KeyEvent keyEvent)
+void MenuElementFunctionButton::processKeyEvent(KeyEvent keyEvent)
 {
 	if (keyEvent.isSpecial && keyEvent.code == KC_ENTER)
 	{
 		func();
-		return true;
 	}
-	return false;
 }
 
 string MenuElementEditField::str() const
@@ -80,22 +74,29 @@ string& MenuElementEditField::getInput()
 	return input;
 }
 
-bool MenuElementEditField::recvCommand(KeyEvent keyEvent)
+bool MenuElementEditField::hasFreeSpace()
+{
+	return (!maxLength || (input.length() < maxLength));
+}
+
+bool MenuElementEditField::isCharAllowed(char ch)
+{
+	return (!allowedSymbols.length() || (allowedSymbols.find(ch) != string::npos));
+}
+
+void MenuElementEditField::processKeyEvent(KeyEvent keyEvent)
 {
 	if (!keyEvent.isSpecial)
 	{
-		if (((allowedSymbols.length() == 0) || (allowedSymbols.find((char)keyEvent.code) != string::npos)) && ((maxLength == 0) || (input.length() < maxLength)))
+		if (this->isCharAllowed(keyEvent.code) && this->hasFreeSpace())
 		{
-			input += (char)keyEvent.code;
-			return true;
+			input += keyEvent.code;
 		}
 	}
 	else if (keyEvent.code == KC_DELETE || keyEvent.code == KC_BACKSPACE)
 	{
 		if (input.length()) input.pop_back();
-		return true;
 	}
-	return false;
 }
 
 const string MenuElementChoice::noChoicesFoundMessage = "LML_RESERVED_MESSAGE::NO_CHOICES_FOUND";
@@ -126,7 +127,7 @@ const int _maximalComboInterval = 200;
 const int _maxTrueSpeed = 64;
 const int _doublingTime = 3000;
 
-bool MenuElementChoice::recvCommand(KeyEvent keyEvent)
+void MenuElementChoice::processKeyEvent(KeyEvent keyEvent)
 {
 	if (keyEvent.isLeftRight())
 	{
@@ -151,9 +152,7 @@ bool MenuElementChoice::recvCommand(KeyEvent keyEvent)
 			activeOption = (options.size() + (isRight ? (1) : (-1)) * trueSpeed + activeOption) % options.size();
 		}
 		_lastClock = clock();
-		return true;
 	}
-	return false;
 }
 
 string MenuElementFolder::str() const
@@ -182,7 +181,7 @@ string MenuElementFolder::str() const
 	return ss.str();
 }
 
-bool MenuElementFolder::recvCommand(KeyEvent keyEvent)
+void MenuElementFolder::processKeyEvent(KeyEvent keyEvent)
 {
 	if (keyEvent.isUpDown())
 	{
@@ -203,7 +202,6 @@ bool MenuElementFolder::recvCommand(KeyEvent keyEvent)
 			}
 			throw(FolderProcessedUpDownKeyEvent());
 		}
-		return false; // Чтобы варнинги не кидало
 	}
 	else if (keyEvent.isSpecial && keyEvent.code == KC_ENTER)
 	{
@@ -214,16 +212,14 @@ bool MenuElementFolder::recvCommand(KeyEvent keyEvent)
 		}
 		else
 		{
-			elements[chosenElementIndex]->recvCommand(keyEvent);
+			elements[chosenElementIndex]->processKeyEvent(keyEvent);
 		}
-		return true;
 	}
 	else
 	{
 		if (isActive)
 		{
-			return elements[chosenElementIndex]->recvCommand(keyEvent);
+			return elements[chosenElementIndex]->processKeyEvent(keyEvent);
 		}
-		return false;
 	}
 }

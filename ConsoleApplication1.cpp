@@ -15,7 +15,9 @@ int main()
 	LM_FD_BUTTON(@main.misc, "Сменить тему", []() {
 		system(("color "s + themes[(++activeTheme) % themes.size()]).c_str());
 	});
+	for (int i = 0; i < 10; i++)
 	LM_FD_BUTTON(@main.misc, "Выйти из программы", []() { Menu::finish(); });
+	for (int i = 0; i < 50; i++)
 	LM_ADD_BUTTON("b", []() {});
 	LM_DECL_END(#main);
 	LM_ID(#main)->addToStack();
