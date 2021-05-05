@@ -134,11 +134,11 @@ void Menu::processKeyEvent(KeyEvent keyEvent)
 
 		if (keyEvent.code == KC_DOWN)
 		{
-			chosenElementIndex = this->getNextChoosableElementIndex();
+			chosenElementIndex = findNextActiveElementIndex(this->elements, this->chosenElementIndex);
 		}
 		else if (keyEvent.code == KC_UP)
 		{
-			chosenElementIndex = this->getPrevChoosableElementIndex();
+			chosenElementIndex = findPrevActiveElementIndex(this->elements, this->chosenElementIndex);
 		}
 
 		if (hasTriedToLeaveFolder && (oldChosenElementIndex != chosenElementIndex))

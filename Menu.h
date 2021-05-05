@@ -54,45 +54,5 @@ public:
 	static auto& getMutex() { return g_lock; };
 	friend ostream &operator << (ostream &, Menu &);
 
-	// TODO: Move these 2 methods to MenuElement
-
-	int getNextChoosableElementIndex()
-	{
-		int result = chosenElementIndex;
-		int index = chosenElementIndex + 1;
-		vector<MenuElement *>::iterator lim = elements.end();
-		bool tmp;
-
-		for (auto it = elements.begin() + chosenElementIndex + 1; it != lim; ++it)
-		{
-			tmp = (*it)->isChoosable();
-			if (tmp)
-			{
-				result = index;
-				break;
-			}
-			++index;
-		}
-		return result;
-	}
-
-	int getPrevChoosableElementIndex()
-	{
-		int result = chosenElementIndex;
-		int index = 0;
-		vector<MenuElement *>::iterator lim = elements.begin() + chosenElementIndex;
-		bool tmp;
-
-		for (auto it = elements.begin(); it != lim; ++it)
-		{
-			tmp = (*it)->isChoosable();
-			if (tmp)
-			{
-				result = index;
-			}
-			++index;
-		}
-		return result;
-	}
 	auto& getContentGenerator() { return contentGenerator; }
 };

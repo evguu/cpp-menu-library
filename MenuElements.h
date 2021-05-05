@@ -34,12 +34,12 @@ public:
 class MenuElementTitle : public MenuElement
 {
 public:
-	MenuElementTitle(string text) : MenuElement(text) {};
+	MenuElementTitle(string text);
 	~MenuElementTitle() {};
 
 	string str() const;
-	void processKeyEvent(KeyEvent keyEvent) {};
-	bool isChoosable() { return false; };
+	void processKeyEvent(KeyEvent keyEvent);
+	bool isChoosable();
 };
 
 class MenuElementSubtitle : public MenuElement
@@ -56,14 +56,14 @@ public:
 class MenuElementFunctionButton : public MenuElement
 {
 private:
-	void(*func)();
+	void(*buttonPressHandler)();
 public:
-	MenuElementFunctionButton(string text, void(*func)()) : MenuElement(text), func(func) {};
+	MenuElementFunctionButton(string text, void(*buttonPressHandler)()) : MenuElement(text), buttonPressHandler(buttonPressHandler) {};
 	~MenuElementFunctionButton() {};
 	string str() const;
 	void processKeyEvent(KeyEvent keyEvent);
 	bool isChoosable() { return true; };
-	auto& getFunc() { return func; };
+	auto& getButtonPressHandler() { return buttonPressHandler; };
 };
 
 class MenuElementEditField : public MenuElement
@@ -153,3 +153,6 @@ public:
 	auto& getElements() { return elements; };
 	auto& getIsActive() { return isActive; };
 };
+
+int findNextActiveElementIndex(vector<MenuElement*> elements, int chosenElementIndex);
+int findPrevActiveElementIndex(vector<MenuElement*> elements, int chosenElementIndex);

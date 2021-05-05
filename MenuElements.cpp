@@ -21,12 +21,25 @@ auto& MenuElement::getText()
 	return this->text;
 };
 
+MenuElementTitle::MenuElementTitle(string text) : MenuElement(text)
+{
+};
+
 string MenuElementTitle::str() const
 {
 	stringstream ss;
 	ss << "-< " << text << " >- " << endl;
 	return ss.str();
 }
+
+void MenuElementTitle::processKeyEvent(KeyEvent keyEvent)
+{
+};
+
+bool MenuElementTitle::isChoosable()
+{ 
+	return false; 
+};
 
 string MenuElementSubtitle::str() const
 {
@@ -46,7 +59,7 @@ void MenuElementFunctionButton::processKeyEvent(KeyEvent keyEvent)
 {
 	if (keyEvent.isSpecial && keyEvent.code == KC_ENTER)
 	{
-		func();
+		buttonPressHandler();
 	}
 }
 
@@ -222,4 +235,43 @@ void MenuElementFolder::processKeyEvent(KeyEvent keyEvent)
 			return elements[chosenElementIndex]->processKeyEvent(keyEvent);
 		}
 	}
+}
+
+int findNextActiveElementIndex(vector<MenuElement*> elements, int chosenElementIndex)
+{
+	int result = chosenElementIndex;
+	int index = chosenElementIndex + 1;
+	vector<MenuElement *>::iterator lim = elements.end();
+	bool tmp;
+
+	for (auto it = elements.begin() + chosenElementIndex + 1; it != lim; ++it)
+	{
+		tmp = (*it)->isChoosable();
+		if (tmp)
+		{
+			result = index;
+			break;
+		}
+		++index;
+	}
+	return result;
+}
+
+int findPrevActiveElementIndex(vector<MenuElement*> elements, int chosenElementIndex)
+{
+	int result = chosenElementIndex;
+	int index = 0;
+	vector<MenuElement *>::iterator lim = elements.begin() + chosenElementIndex;
+	bool tmp;
+
+	for (auto it = elements.begin(); it != lim; ++it)
+	{
+		tmp = (*it)->isChoosable();
+		if (tmp)
+		{
+			result = index;
+		}
+		++index;
+	}
+	return result;
 }
