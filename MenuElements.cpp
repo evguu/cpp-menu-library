@@ -5,7 +5,7 @@
 
 //
 
-MenuElement::MenuElement(string text) : text(text) 
+MenuElement::MenuElement(string text) : text(text)
 {
 };
 
@@ -13,14 +13,14 @@ MenuElement::~MenuElement()
 {
 };
 
-string MenuElement::getAdditionalText() 
+string MenuElement::getAdditionalText()
 {
-	return ""; 
+	return "";
 };
 
-auto& MenuElement::getText() 
+auto& MenuElement::getText()
 {
-	return this->text; 
+	return this->text;
 };
 
 //
@@ -48,7 +48,7 @@ string MenuElementFunctionButton::str() const
 
 bool MenuElementFunctionButton::recvCommand(KeyEvent keyEvent)
 {
-	if(keyEvent.isSpecial && keyEvent.code == KC_ENTER)
+	if (keyEvent.isSpecial && keyEvent.code == KC_ENTER)
 	{
 		func();
 		return true;
@@ -148,7 +148,7 @@ bool MenuElementChoice::recvCommand(KeyEvent keyEvent)
 			{
 				trueSpeed = _maxTrueSpeed;
 			}
-			activeOption = (options.size() + (isRight?(1):(-1)) * trueSpeed + activeOption) % options.size();
+			activeOption = (options.size() + (isRight ? (1) : (-1)) * trueSpeed + activeOption) % options.size();
 		}
 		_lastClock = clock();
 		return true;
@@ -189,20 +189,11 @@ bool MenuElementFolder::recvCommand(KeyEvent keyEvent)
 		if (isActive)
 		{
 			// TODO: check choosability
-			if (chosenElementIndex + 1 != elements.size())
+			if ((chosenElementIndex + 1 != elements.size()) && (keyEvent.code == KC_DOWN))
 			{
 				chosenElementIndex++;
 			}
-			else
-			{
-				throw(FolderLeaveAttempt());
-			}
-			throw(FolderProcessedUpDownKeyEvent());
-		}
-		if (isActive)
-		{
-			// TODO: check choosability
-			if (chosenElementIndex)
+			else if (chosenElementIndex && (keyEvent.code == KC_UP))
 			{
 				chosenElementIndex--;
 			}

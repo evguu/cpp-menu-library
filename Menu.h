@@ -8,6 +8,9 @@ using namespace std;
 
 class Menu;
 
+class MenuIsEmpty : public exception {};
+class MenuHasNoChosenElement : public exception {};
+
 class Menu
 {
 private:

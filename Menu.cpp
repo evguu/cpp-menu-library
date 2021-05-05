@@ -8,9 +8,12 @@
 
 stack<Menu *> Menu::menuStack = stack<Menu *>();
 bool Menu::isLoopRunning = true;
-bool Menu::hasMenuChanged = true;
 mutex Menu::g_lock;
 const int Menu::viewField = 12;
+
+
+bool haveUnshownChangesToBufferBeenMade = true;
+int frameDelayInMilliseconds = 50;
 
 void Menu::controlLoop()
 {
@@ -18,13 +21,10 @@ void Menu::controlLoop()
 	while (isLoopRunning)
 	{
 		keyEvent = Utils::getKeyEvent();
-		bool hasReacted = getActive()->recvCommand(keyEvent);
-		if (hasReacted)
-		{
-			g_lock.lock();
-			hasMenuChanged = true;
-			g_lock.unlock();
-		}
+		g_lock.lock();
+		getActive()->recvCommand(keyEvent);
+		haveUnshownChangesToBufferBeenMade = true;
+		g_lock.unlock();
 	}
 }
 
@@ -32,10 +32,9 @@ void Menu::printLoop()
 {
 	while (isLoopRunning)
 	{
-		g_lock.lock();
-		if (hasMenuChanged)
+		if (haveUnshownChangesToBufferBeenMade)
 		{
-			hasMenuChanged = false;
+			g_lock.lock();
 			COORD coord;
 			coord.X = 0;
 			coord.Y = 0;
@@ -44,24 +43,21 @@ void Menu::printLoop()
 			{
 				Utils::noBlinkOutput(getActive()->str());
 			}
-			catch (int e)
+			catch (MenuIsEmpty)
 			{
-				if (e == 234)
-				{
-					Utils::noBlinkOutput("Обнаружена попытка распечатать пустое меню.");
-					system("pause");
-					terminate();
-				}
-				if (e == 235)
-				{
-					Utils::noBlinkOutput("Обнаружена попытка распечатать меню без активных элементов.");
-					system("pause");
-					terminate();
-				}
+				Utils::noBlinkOutput("Обнаружена попытка распечатать пустое меню.");
+				system("pause");
+				finish();
 			}
+			catch (MenuHasNoChosenElement)
+			{
+				Utils::noBlinkOutput("Обнаружена попытка распечатать меню без активных элементов.");
+				system("pause");
+				finish();
+			}
+			g_lock.unlock();
 		}
-		g_lock.unlock();
-		Sleep(100);
+		Sleep(frameDelayInMilliseconds);
 	}
 }
 
@@ -69,11 +65,11 @@ string Menu::str() const
 {
 	if (!elements.size()) // Меню не должно быть пустым
 	{
-		throw(234);
+		throw(MenuIsEmpty());
 	}
 	if (chosenElementIndex == -1) // Активный элемент должен быть установлен
 	{
-		throw(235);
+		throw(MenuHasNoChosenElement());
 	}
 
 	stringstream ss;
@@ -123,11 +119,11 @@ bool Menu::recvCommand(KeyEvent keyEvent)
 		int newActiveIndex, oldActiveIndex;
 		bool hasTriedToLeaveFolder = false;
 
-		try 
+		try
 		{
 			elements[chosenElementIndex]->recvCommand(keyEvent);
 		}
-		catch(FolderLeaveAttempt)
+		catch (FolderLeaveAttempt)
 		{
 			hasTriedToLeaveFolder = true;
 		}
@@ -194,6 +190,7 @@ void Menu::initChosenElementIndex()
 
 void Menu::popStack(int popCount)
 {
+	// TODO: normal exception
 	if (menuStack.size() < popCount + 1) throw(969);
 	for (int i = 0; i < popCount; ++i)
 	{
