@@ -16,7 +16,6 @@ class Menu
 private:
 	static stack<Menu *> menuStack;
 	static bool isLoopRunning;
-	static bool hasMenuChanged;
 	static mutex g_lock;
 	static const int viewField;
 	vector<MenuElement *> elements;
@@ -35,7 +34,7 @@ public:
 		}
 	};
 	string str() const;
-	bool recvCommand(KeyEvent keyEvent);
+	void recvCommand(KeyEvent keyEvent);
 	void addElement(MenuElement* ref);
 	void addToStack();
 	auto& getElements() { return elements; }

@@ -112,11 +112,11 @@ string Menu::str() const
 	return ss.str();
 }
 
-bool Menu::recvCommand(KeyEvent keyEvent)
+void Menu::recvCommand(KeyEvent keyEvent)
 {
 	if (keyEvent.isUpDown())
 	{
-		int newActiveIndex, oldActiveIndex;
+		int oldChosenElementIndex = chosenElementIndex;
 		bool hasTriedToLeaveFolder = false;
 
 		try
@@ -129,35 +129,26 @@ bool Menu::recvCommand(KeyEvent keyEvent)
 		}
 		catch (FolderProcessedUpDownKeyEvent)
 		{
-			return true;
+			return;
 		}
 
-		oldActiveIndex = chosenElementIndex;
 		if (keyEvent.code == KC_DOWN)
 		{
-			newActiveIndex = this->getNextChoosableElementIndex();
+			chosenElementIndex = this->getNextChoosableElementIndex();
 		}
-		else
+		else if (keyEvent.code == KC_UP)
 		{
-			newActiveIndex = this->getPrevChoosableElementIndex();
+			chosenElementIndex = this->getPrevChoosableElementIndex();
 		}
 
-		if (hasTriedToLeaveFolder)
+		if (hasTriedToLeaveFolder && (oldChosenElementIndex != chosenElementIndex))
 		{
-			if (oldActiveIndex != chosenElementIndex)
-			{
-				((MenuElementFolder*)(elements[oldActiveIndex]))->getIsActive() = false;
-			}
-			else
-			{
-				return false;
-			}
+			((MenuElementFolder*)(elements[oldChosenElementIndex]))->getIsActive() = false;
 		}
-		return true;
 	}
 	else
 	{
-		return (*(elements.begin() + chosenElementIndex))->recvCommand(keyEvent);
+		elements[chosenElementIndex]->recvCommand(keyEvent);
 	}
 }
 

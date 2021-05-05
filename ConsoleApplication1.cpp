@@ -10,11 +10,13 @@ int main()
 	SETUP_START;
 
 	LM_DECL_START(#main);
+	LM_ADD_BUTTON("a", []() {});
 	LM_ADD_FD(@main.misc, "Дополнительные функции");
 	LM_FD_BUTTON(@main.misc, "Сменить тему", []() {
 		system(("color "s + themes[(++activeTheme) % themes.size()]).c_str());
 	});
 	LM_FD_BUTTON(@main.misc, "Выйти из программы", []() { Menu::finish(); });
+	LM_ADD_BUTTON("b", []() {});
 	LM_DECL_END(#main);
 	LM_ID(#main)->addToStack();
 
