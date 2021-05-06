@@ -1,11 +1,10 @@
 ﻿#include "LML.h"
+#include "Theme.h"
 
-vector<string> themes = { "0F", "07", "87", "78", "70", "F0" }; 
-int activeTheme = 4; 
 
 int main()
 {
-	system(("color "s + themes[activeTheme]).c_str());
+	applyCurrentTheme();
 
 	Utils::hideConsoleCursor(); 
 	Utils::setCorrectEncoding(); 
@@ -14,9 +13,7 @@ int main()
 	LM_DECL_START(#main);
 	LM_ADD_BUTTON("a", []() {});
 	LM_ADD_FD(@main.misc, "Дополнительные функции");
-	LM_FD_BUTTON(@main.misc, "Сменить тему", []() {
-		system(("color "s + themes[(++activeTheme) % themes.size()]).c_str());
-	});
+	LM_FD_BUTTON(@main.misc, "Сменить тему", applyNextAvailableTheme);
 	for (int i = 0; i < 10; i++)
 	LM_FD_BUTTON(@main.misc, "Выйти из программы", []() { Menu::finish(); });
 	for (int i = 0; i < 50; i++)

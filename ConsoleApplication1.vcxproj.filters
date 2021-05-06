@@ -39,6 +39,9 @@
     <ClCompile Include="MenuElements.cpp">
       <Filter>Исходные файлы\MenuLib</Filter>
     </ClCompile>
+    <ClCompile Include="Theme.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Console.h">
@@ -61,6 +64,9 @@
     </ClInclude>
     <ClInclude Include="LML.h">
       <Filter>Файлы заголовков\MenuLib</Filter>
+    </ClInclude>
+    <ClInclude Include="Theme.h">
+      <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
