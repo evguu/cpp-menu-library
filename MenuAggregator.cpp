@@ -12,7 +12,7 @@ Menu* newMenu(string str)
 
 Menu* getMenu(string str)
 {
-	if (menuAggregator.find(str) == menuAggregator.end()) throw(unknownMenuIdentifierException());
+	if (menuAggregator.find(str) == menuAggregator.end()) throw(unknownKeyException());
 	return menuAggregator[str];
 }
 
@@ -25,6 +25,6 @@ MenuElementFolder * newFD(string str, string text)
 
 MenuElementFolder * getFD(string str)
 {
-	if (FDAggregator.find(str) == FDAggregator.end()) throw(unknownMenuIdentifierException());
+	if (FDAggregator.find(str) == FDAggregator.end()) throw(unknownKeyException());
 	return FDAggregator[str];
 }
