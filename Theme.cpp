@@ -8,16 +8,15 @@ void Theme::applyNext()
 	applyCurrent();
 }
 
+void Theme::applyCurrent()
+{
+	apply(getCurrent());
+}
+
 void Theme::advanceCurrentIndex()
 {
 	++currentIndex;
 	currentIndex %= themes.size();
-}
-
-void Theme::applyCurrent()
-{
-	apply(getCurrent());
-
 }
 
 void Theme::apply(std::string theme)
