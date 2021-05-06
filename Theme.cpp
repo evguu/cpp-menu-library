@@ -1,32 +1,33 @@
 #include "Theme.h"
-std::vector<std::string> themes = { "0F", "07", "87", "78", "70", "F0" };
-int currentThemeIndex = 4;
+std::vector<std::string> Theme::themes = { "0F", "07", "87", "78", "70", "F0" };
+int Theme::currentIndex = 4;
 
-void applyNextAvailableTheme()
+void Theme::applyNext()
 {
-	advanceCurrentThemeIndex();
-	applyCurrentTheme();
+	advanceCurrentIndex();
+	applyCurrent();
 }
 
-void advanceCurrentThemeIndex()
+void Theme::advanceCurrentIndex()
 {
-	++currentThemeIndex;
-	currentThemeIndex %= themes.size();
+	++currentIndex;
+	currentIndex %= themes.size();
 }
 
-void applyCurrentTheme()
+void Theme::applyCurrent()
 {
-	applyTheme(getCurrentTheme());
+	apply(getCurrent());
+
 }
 
-void applyTheme(std::string theme)
+void Theme::apply(std::string theme)
 {
 	std::string command = "color ";
 	command += theme;
 	system(command.c_str());
 }
 
-std::string getCurrentTheme()
+std::string Theme::getCurrent()
 {
-	return themes[currentThemeIndex];
+	return themes[currentIndex];
 }

@@ -2,8 +2,16 @@
 #include <vector>
 #include <string>
 
-void applyNextAvailableTheme();
-void advanceCurrentThemeIndex();
-void applyCurrentTheme();
-void applyTheme(std::string theme);
-std::string getCurrentTheme();
+class Theme
+{
+private:
+	Theme() = delete;
+	static std::vector<std::string> themes;
+	static int currentIndex;
+	static void advanceCurrentIndex();
+	static void apply(std::string theme);
+	static std::string getCurrent();
+public:
+	static void applyNext();
+	static void applyCurrent();
+};
