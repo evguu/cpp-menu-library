@@ -21,7 +21,5 @@ struct KeyEvent
 	bool isLeftRight() { return isSpecial && (code == KC_LEFT || code == KC_RIGHT); }
 };
 
-namespace Utils
-{
-	KeyEvent getKeyEvent();
-}
+KeyEvent getKeyEvent();
+char convertWideCharToChar(wchar_t w);

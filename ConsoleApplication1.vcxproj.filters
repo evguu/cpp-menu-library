@@ -40,7 +40,7 @@
       <Filter>Исходные файлы\MenuLib</Filter>
     </ClCompile>
     <ClCompile Include="Theme.cpp">
-      <Filter>Исходные файлы</Filter>
+      <Filter>Исходные файлы\MenuLib</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -66,7 +66,7 @@
       <Filter>Файлы заголовков\MenuLib</Filter>
     </ClInclude>
     <ClInclude Include="Theme.h">
-      <Filter>Файлы заголовков</Filter>
+      <Filter>Файлы заголовков\MenuLib</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
