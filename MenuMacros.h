@@ -3,32 +3,29 @@
 // Этот файл подразумевает подключение MenuAggregator.h
 
 // Элементы
-#define LM_ADD_TITLE(...) menu->addElement(new MenuElementTitle(__VA_ARGS__));
-#define LM_ADD_SUBTITLE(...) menu->addElement(new MenuElementSubtitle(__VA_ARGS__));
-#define LM_ADD_BUTTON(...) menu->addElement(new MenuElementFunctionButton(__VA_ARGS__));
-#define LM_ADD_REDIR(name, mid) menu->addElement(new MenuElementFunctionButton(name, [](){getMenu(#mid)->addToStack();}));
-#define LM_ADD_FIELD(...) menu->addElement(new MenuElementEditField(__VA_ARGS__));
-#define LM_ADD_CHOICE(...) menu->addElement(new MenuElementChoice(__VA_ARGS__));
+#define TITLE(...) menu->addElement(new MenuElementTitle(__VA_ARGS__));
+#define SUBTITLE(...) menu->addElement(new MenuElementSubtitle(__VA_ARGS__));
+#define BUTTON(...) menu->addElement(new MenuElementFunctionButton(__VA_ARGS__));
+#define REDIRECT(name, mid) menu->addElement(new MenuElementFunctionButton(name, [](){getMenu(#mid)->addToStack();}));
+#define FIELD(...) menu->addElement(new MenuElementEditField(__VA_ARGS__));
+#define CHOICE(...) menu->addElement(new MenuElementChoice(__VA_ARGS__));
+#define FOLDER(id, ...) newFD(#id, __VA_ARGS__); menu->addElement(getFD(#id));
 
-#define LM_ADD_FD(id, ...) newFD(#id, __VA_ARGS__); menu->addElement(getFD(#id));
-#define LM_FD(id) getFD(#id)->getElements()
-#define LM_FD_TITLE(id, ...) LM_FD(id).push_back(new MenuElementTitle(__VA_ARGS__));
-#define LM_FD_SUBTITLE(id, ...) LM_FD(id).push_back(new MenuElementSubtitle(__VA_ARGS__));
-#define LM_FD_BUTTON(id, ...) LM_FD(id).push_back(new MenuElementFunctionButton(__VA_ARGS__));
-#define LM_FD_REDIR(id, name, mid) LM_FD(id).push_back(new MenuElementFunctionButton(name, [](){getMenu(#mid)->addToStack();}));
-#define LM_FD_FIELD(id, ...) LM_FD(id).push_back(new MenuElementEditField(__VA_ARGS__));
-#define LM_FD_CHOICE(id, ...) LM_FD(id).push_back(new MenuElementChoice(__VA_ARGS__));
-
-// Добавление папок в папки настолько затруднительно, что я воздержусь.
-// #define LM_FD_FD(pid, id, ...) MenuElementFolder* MenuElementFolder__##id## = new MenuElementFolder(__VA_ARGS__);MenuElementFolder__##pid##->getElements().push_back(MenuElementFolder__##id##);
+#define FOLDERED(id) getFD(#id)->getElements()
+#define FOLDERED_TITLE(id, ...) FOLDERED(id).push_back(new MenuElementTitle(__VA_ARGS__));
+#define FOLDERED_SUBTITLE(id, ...) FOLDERED(id).push_back(new MenuElementSubtitle(__VA_ARGS__));
+#define FOLDERED_BUTTON(id, ...) FOLDERED(id).push_back(new MenuElementFunctionButton(__VA_ARGS__));
+#define FOLDERED_REDIRECT(id, name, mid) FOLDERED(id).push_back(new MenuElementFunctionButton(name, [](){getMenu(#mid)->addToStack();}));
+#define FOLDERED_FIELD(id, ...) FOLDERED(id).push_back(new MenuElementEditField(__VA_ARGS__));
+#define FOLDERED_CHOICE(id, ...) FOLDERED(id).push_back(new MenuElementChoice(__VA_ARGS__));
 
 // Объявления
-#define LM_DECL_START(id) {\
+#define START(id) {\
 auto contentGenerator=[](){\
 	try{\
 		Menu *menu, *buf; \
 		try{menu = getMenu(#id);}\
-		catch(unknownMenuIdentifierException){menu = nullptr;};\
+		catch(unknownKeyException){menu = nullptr;};\
 		buf = newMenu(#id);\
 		if (menu) { \
 			buf->getContentGenerator() = menu->getContentGenerator();\
@@ -36,10 +33,9 @@ auto contentGenerator=[](){\
 		};\
 		menu = buf;
 
-#define LM_DECL_END(id) \
+#define END(id) \
 		menu->initChosenElementIndex(); return menu; }\
-		catch(bad_alloc){ string ans; LM_CON_SHARE_START;cout << "Смерть твоему компьютеру, оперативы ноль! Продолжить? Y/N" << endl; cin >> ans; if (ans != "Y") throw; else cout << "Корректная работа не гарантируется." << endl; LM_CON_SHARE_END;}\
-		catch(unknownMenuIdentifierException){ LM_CON_SHARE_START; cout << "Зафиксировано обращение к несуществующему меню." << endl; LM_CON_SHARE_END; throw;};\
+		catch(unknownKeyException){ CON_START; cout << "Зафиксировано обращение к несуществующему меню." << endl; CON_END; throw;};\
 		return (Menu *)nullptr;\
 	}; \
 	contentGenerator(); \
@@ -47,9 +43,9 @@ auto contentGenerator=[](){\
 }
 
 // Прочее
-#define LM_GET_PREVIOUS_ELEMENT menu->getElements().back()
-#define LM_ID(id) getMenu(#id)
+#define PREVIOUS_ELEMENT menu->getElements().back()
+#define MENU(id) getMenu(#id)
 
 // Управление мьютексом
-#define LM_CON_SHARE_START Menu::getMutex().lock();system("MODE CON: COLS=128 LINES=200");system("cls");
-#define LM_CON_SHARE_END system("pause");system("MODE CON: COLS=128 LINES=40");system("cls");Menu::getMutex().unlock();
+#define CON_START Menu::getMutex().lock();system("MODE CON: COLS=128 LINES=200");system("cls");
+#define CON_END system("pause");Menu::setConsoleResolution();system("cls");Menu::getMutex().unlock();
