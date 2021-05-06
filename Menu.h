@@ -22,6 +22,7 @@ private:
 	int chosenElementIndex;
 	static void controlLoop();
 	static void printLoop();
+	static void noBlinkOutput(string src);
 	Menu* (*contentGenerator)();
 public:
 	// По умолчанию индекс выбранного элемента -1, что приведет к падению программы при некорректной инициализации меню
@@ -52,7 +53,7 @@ public:
 	}
 	static void finish() { isLoopRunning = false; };
 	static auto& getMutex() { return g_lock; };
-	friend ostream &operator << (ostream &, Menu &);
+	static void setConsoleResolution();
 
 	auto& getContentGenerator() { return contentGenerator; }
 };

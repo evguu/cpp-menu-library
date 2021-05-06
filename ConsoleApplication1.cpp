@@ -7,7 +7,9 @@ int main()
 {
 	system(("color "s + themes[activeTheme]).c_str());
 
-	SETUP_START;
+	Utils::hideConsoleCursor(); 
+	Utils::setCorrectEncoding(); 
+	Menu::setConsoleResolution();
 
 	LM_DECL_START(#main);
 	LM_ADD_BUTTON("a", []() {});
@@ -22,5 +24,7 @@ int main()
 	LM_DECL_END(#main);
 	LM_ID(#main)->addToStack();
 
-	SETUP_END;
+	Menu::run(); 
+	system("cls"); 
+	cout << "Выход из программы..." << endl;
 }

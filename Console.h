@@ -4,7 +4,6 @@ using namespace std;
 
 namespace Utils
 {
-	void setupResolution();
-	void setupEncoding();
-	void noBlinkOutput(string src);
+	void hideConsoleCursor();
+	void setCorrectEncoding();
 }

@@ -11,6 +11,8 @@ bool Menu::isLoopRunning = true;
 mutex Menu::g_lock;
 const int Menu::viewField = 12;
 
+const int columns = 128;
+const int lines = 40;
 
 bool haveUnshownChangesToBufferBeenMade = true;
 int frameDelayInMilliseconds = 50;
@@ -35,23 +37,24 @@ void Menu::printLoop()
 		if (haveUnshownChangesToBufferBeenMade)
 		{
 			g_lock.lock();
+			haveUnshownChangesToBufferBeenMade = false;
 			COORD coord;
 			coord.X = 0;
 			coord.Y = 0;
 			SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 			try
 			{
-				Utils::noBlinkOutput(getActive()->str());
+				noBlinkOutput(getActive()->str());
 			}
 			catch (MenuIsEmpty)
 			{
-				Utils::noBlinkOutput("Обнаружена попытка распечатать пустое меню.");
+				noBlinkOutput("Обнаружена попытка распечатать пустое меню.");
 				system("pause");
 				finish();
 			}
 			catch (MenuHasNoChosenElement)
 			{
-				Utils::noBlinkOutput("Обнаружена попытка распечатать меню без активных элементов.");
+				noBlinkOutput("Обнаружена попытка распечатать меню без активных элементов.");
 				system("pause");
 				finish();
 			}
@@ -60,6 +63,53 @@ void Menu::printLoop()
 		Sleep(frameDelayInMilliseconds);
 	}
 }
+
+void Menu::setConsoleResolution()
+{
+	system(("MODE CON: COLS=" + to_string(columns) + " LINES=" + to_string(lines + 1)).c_str());
+}
+
+void Menu::noBlinkOutput(string src)
+{
+	char res[lines][columns];
+	int line = 0;
+	int pos = 0;
+	for (auto i : src)
+	{
+		if (i == '\n')
+		{
+			while (pos != columns - 1)
+			{
+				res[line][pos++] = ' ';
+			}
+			res[line][pos++] = '\n';
+			++line;
+			pos = 0;
+		}
+		else
+		{
+			res[line][pos++] = i;
+			if (pos == columns - 1)
+			{
+				res[line][pos++] = '\n';
+				++line;
+				pos = 0;
+			}
+		}
+	}
+	while (line < lines)
+	{
+		while (pos != columns - 1)
+		{
+			res[line][pos++] = ' ';
+		}
+		res[line][pos++] = '\n';
+		++line;
+		pos = 0;
+	}
+	res[lines - 1][columns - 1] = 0;
+	cout << (char *)res;
+};
 
 string Menu::str() const
 {
@@ -187,10 +237,4 @@ void Menu::popStack(int popCount)
 	{
 		menuStack.pop();
 	}
-}
-
-ostream & operator<<(ostream &out, Menu &menu)
-{
-	out << menu.str();
-	return out;
 }
