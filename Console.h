@@ -1,9 +1,13 @@
 #pragma once
 #include <string>
-using namespace std;
 
-namespace Utils
+class Console
 {
-	void hideConsoleCursor();
-	void setCorrectEncoding();
-}
+public:
+	static void hideCursor();
+	static void fixEncoding();
+	static void sayGoodbye();
+private:
+	Console() = delete;
+	static std::string goodbyeMessage;
+};

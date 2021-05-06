@@ -1,14 +1,12 @@
 ﻿#include "LML.h"
 #include "Theme.h"
 
-
 int main()
 {
-	Theme::applyCurrent();
-
-	Utils::hideConsoleCursor(); 
-	Utils::setCorrectEncoding(); 
+	Console::hideCursor(); 
+	Console::fixEncoding(); 
 	Menu::setConsoleResolution();
+	Theme::applyCurrent();
 
 	LM_DECL_START(#main);
 	LM_ADD_BUTTON("a", []() {});
@@ -22,6 +20,5 @@ int main()
 	LM_ID(#main)->addToStack();
 
 	Menu::run(); 
-	system("cls"); 
-	cout << "Выход из программы..." << endl;
+	Console::sayGoodbye();
 }

@@ -1,4 +1,5 @@
 #include "Theme.h"
+
 std::vector<std::string> Theme::themes = { "0F", "07", "87", "78", "70", "F0" };
 int Theme::currentIndex = 4;
 
