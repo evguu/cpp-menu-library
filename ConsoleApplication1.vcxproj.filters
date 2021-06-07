@@ -42,6 +42,9 @@
     <ClCompile Include="Theme.cpp">
       <Filter>Исходные файлы\MenuLib</Filter>
     </ClCompile>
+    <ClCompile Include="NewMenuMacros.h">
+      <Filter>Файлы заголовков\MenuLib</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Console.h">

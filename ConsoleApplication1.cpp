@@ -1,6 +1,8 @@
 ﻿#include "LML.h"
 #include "Theme.h"
 
+#include "NewMenuMacros.h"
+
 int main()
 {
 	Console::hideCursor();
@@ -9,23 +11,16 @@ int main()
 	Theme::applyCurrent();
 
 
-	START(#main);
-	TITLE("Лабораторная работа 6. Главное меню");
+	getMenuWithGeneratorMigration("#main")->getContentGenerator() = []()
+	{
+		return getMenuWithGeneratorMigration("#main")->
+			addElement(new MenuElementTitle("Проверка работы цепного добавления элементов"))->
+			addElement(new MenuElementFunctionButton("Тестовая кнопка", []() {}))->
+			initChosenElementIndex();
+	};
+	getMenu("#main")->getContentGenerator()();
+	getMenu("#main")->addToStack();
 
-	FOLDER(@main.main, "Основные функции");
-	FOLDERED_REDIRECT(@main.main, "Добавить лекарство в контейнер", #addMedicine);
-	FOLDERED_REDIRECT(@main.main, "Редактировать первое доступное лекарство", #editMedicine);
-	
-	FOLDER(@main.misc, "Дополнительные функции");
-	FOLDERED_BUTTON(@main.misc, "Сменить тему", Theme::applyNext);
-	FOLDERED_BUTTON(@main.misc, "Выйти из программы", []() {
-		Menu::finish();
-	});
-
-	END(#main);
-	MENU(#main)->addToStack();
-
-	
 	START(#addMedicine);
 	TITLE("Добавить лекарство");
 

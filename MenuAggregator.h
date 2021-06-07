@@ -9,5 +9,7 @@ class unknownKeyException : exception {};
 
 Menu* newMenu(string str);
 Menu* getMenu(string str);
+Menu* getMenuWithGeneratorMigration(string str);
+
 MenuElementFolder* newFD(string str, string text);
 MenuElementFolder* getFD(string str);

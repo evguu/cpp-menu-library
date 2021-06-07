@@ -16,6 +16,23 @@ Menu* getMenu(string str)
 	return menuAggregator[str];
 }
 
+Menu* getMenuWithGeneratorMigration(string str)
+{
+	Menu *menu, *buf;
+	try { menu = getMenu(str); }
+	catch (unknownKeyException) { menu = nullptr; };
+	buf = newMenu(str);
+	if (menu)
+	{
+		buf->getContentGenerator() = menu->getContentGenerator();
+		delete menu;
+	};
+	menu = buf;
+	return menu;
+}
+
+
+
 MenuElementFolder * newFD(string str, string text)
 {
 	MenuElementFolder* menu = new MenuElementFolder(text);

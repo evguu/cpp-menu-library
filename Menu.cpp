@@ -14,8 +14,9 @@ const int Menu::viewField = 12;
 const int columns = 128;
 const int lines = 40;
 
+const int frameDelayInMilliseconds = 50;
+
 bool haveUnshownChangesToBufferBeenMade = true;
-int frameDelayInMilliseconds = 50;
 
 void Menu::controlLoop()
 {
@@ -202,9 +203,10 @@ void Menu::processKeyEvent(KeyEvent keyEvent)
 	}
 }
 
-void Menu::addElement(MenuElement * ref)
+Menu* Menu::addElement(MenuElement * ref)
 {
 	elements.push_back(ref);
+	return this;
 }
 
 void Menu::addToStack()
@@ -212,7 +214,7 @@ void Menu::addToStack()
 	menuStack.push(this->contentGenerator());
 }
 
-void Menu::initChosenElementIndex()
+Menu* Menu::initChosenElementIndex()
 {
 	int index = 0;
 	bool tmp;
@@ -222,11 +224,12 @@ void Menu::initChosenElementIndex()
 		if (tmp)
 		{
 			chosenElementIndex = index;
-			return;
+			return this;
 		}
 		++index;
 	}
 	chosenElementIndex = -1;
+	return this;
 }
 
 void Menu::popStack(int popCount)

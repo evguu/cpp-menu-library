@@ -36,11 +36,11 @@ public:
 	};
 	string str() const;
 	void processKeyEvent(KeyEvent keyEvent);
-	void addElement(MenuElement* ref);
+	Menu* addElement(MenuElement* ref);
 	void addToStack();
 	auto& getElements() { return elements; }
 	// ¬ычисл€ет индекс первого элемента, который можно выбрать и выбирает его
-	void initChosenElementIndex();
+	Menu* initChosenElementIndex();
 	int getChosenElementIndex() { return chosenElementIndex; };
 	static Menu* getActive() { return menuStack.top(); };
 	static void popStack(int popCount = 1);
