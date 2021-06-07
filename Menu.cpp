@@ -23,8 +23,8 @@ void Menu::controlLoop()
 	while (isLoopRunning)
 	{
 		keyEvent = getKeyEvent();
-		g_lock.lock();
 		getActive()->processKeyEvent(keyEvent);
+		g_lock.lock();
 		haveUnshownChangesToBufferBeenMade = true;
 		g_lock.unlock();
 	}

@@ -19,6 +19,14 @@
 #define FOLDERED_FIELD(id, ...) FOLDERED(id).push_back(new MenuElementEditField(__VA_ARGS__));
 #define FOLDERED_CHOICE(id, ...) FOLDERED(id).push_back(new MenuElementChoice(__VA_ARGS__));
 
+#define AS(type, expr) ((type)(expr))
+#define AS_TITLE(expr) AS(MenuElementTitle*, expr)
+#define AS_SUBTITLE(expr) AS(MenuElementSubtitle*, expr)
+#define AS_BUTTON(expr) AS(MenuElementFunctionButton*, expr)
+#define AS_FIELD(expr) AS(MenuElementEditField*, expr)
+#define AS_CHOICE(expr) AS(MenuElementChoice*, expr)
+#define AS_FOLDER(expr) AS(MenuElementFolder*, expr)
+
 // ќбъ€влени€
 #define START(id) {\
 auto contentGenerator=[](){\
@@ -47,5 +55,7 @@ auto contentGenerator=[](){\
 #define MENU(id) getMenu(#id)
 
 // ”правление мьютексом
-#define CON_START Menu::getMutex().lock();system("MODE CON: COLS=128 LINES=200");system("cls");
-#define CON_END system("pause");Menu::setConsoleResolution();system("cls");Menu::getMutex().unlock();
+#define CON_START_NOLOCK system("MODE CON: COLS=128 LINES=200");system("cls");
+#define CON_END_NOLOCK system("pause");Menu::setConsoleResolution();system("cls");
+#define CON_START Menu::getMutex().lock();CON_START_NOLOCK;
+#define CON_END CON_END_NOLOCK;Menu::getMutex().unlock();
