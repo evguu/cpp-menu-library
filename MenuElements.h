@@ -152,6 +152,12 @@ public:
 	bool isChoosable() { return true; };
 	auto& getElements() { return elements; };
 	auto& getIsActive() { return isActive; };
+
+	MenuElementFolder* addElement(MenuElement * ref)
+	{
+		elements.push_back(ref);
+		return this;
+	}
 };
 
 int findNextActiveElementIndex(vector<MenuElement*> elements, int chosenElementIndex);

@@ -16,7 +16,7 @@ Menu* getMenu(string str)
 	return menuAggregator[str];
 }
 
-Menu* getMenuWithGeneratorMigration(string str)
+Menu* getMenuForGenerator(string str)
 {
 	Menu *menu, *buf;
 	try { menu = getMenu(str); }

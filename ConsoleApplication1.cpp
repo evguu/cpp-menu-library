@@ -11,33 +11,26 @@ int main()
 	Theme::applyCurrent();
 
 
-	getMenuWithGeneratorMigration("#main")->getContentGenerator() = []()
+	newMenu("#main")->getContentGenerator() = []()
 	{
-		return getMenuWithGeneratorMigration("#main")->
+		return getMenuForGenerator("#main")->
 			addElement(new MenuElementTitle("Проверка работы цепного добавления элементов"))->
-			addElement(new MenuElementFunctionButton("Тестовая кнопка", []() {}))->
+			addElement(new MenuElementFunctionButton("Добавить лекарство", []() { getMenu("#addMedicine")->addToStack(); }))->
+			addElement(new MenuElementFunctionButton("Выйти", []() { Menu::finish(); }))->
 			initChosenElementIndex();
 	};
-	getMenu("#main")->getContentGenerator()();
-	getMenu("#main")->addToStack();
+	getMenu("#main")->getContentGenerator()()->addToStack();
 
-	START(#addMedicine);
-	TITLE("Добавить лекарство");
-
-	FOLDER(@addMedicine.main, "Основные функции");
-	FOLDERED_FIELD(@addMedicine.main, "Имя");
-	FOLDERED_BUTTON(@addMedicine.main, "Назад", []() {Menu::popStack(); });
-
-	END(#addMedicine);
-
-
-	START(#editMedicine);
-	TITLE("Редактировать первое доступное лекарство");
-	FOLDER(@editMedicine.main, "Основные функции");
-	FOLDERED_BUTTON(@editMedicine.main, "Назад", []() {Menu::popStack(); });
-
-	END(#editMedicine);
-
+	newMenu("#addMedicine")->getContentGenerator() = []()
+	{
+		return getMenuForGenerator("#addMedicine")->
+			addElement(new MenuElementTitle("Добавить лекарство"))->
+			addElement(newFD("@addMedicine.main", "Основные функции")->
+				addElement(new MenuElementEditField("Имя"))->
+				addElement(new MenuElementFunctionButton("Назад", []() { Menu::popStack(); })))->
+			initChosenElementIndex();
+	};
+	getMenu("#addMedicine")->getContentGenerator()();
 
 	Menu::run();
 	Console::sayGoodbye();
