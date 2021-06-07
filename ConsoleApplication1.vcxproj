@@ -106,9 +106,9 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <PreprocessToFile>true</PreprocessToFile>
-      <PreprocessSuppressLineNumbers>true</PreprocessSuppressLineNumbers>
-      <PreprocessKeepComments>true</PreprocessKeepComments>
+      <PreprocessToFile>false</PreprocessToFile>
+      <PreprocessSuppressLineNumbers>false</PreprocessSuppressLineNumbers>
+      <PreprocessKeepComments>false</PreprocessKeepComments>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

@@ -6,7 +6,8 @@
 #define MD_START(mid) newMenu(mid)->getContentGenerator() = [](){return getMenuForGenerator(mid)
 #define MD_END ->initChosenElementIndex();};
 
-#define ADD(type, ...) ->addElement(new MenuElement##type(__VA_ARGS__))
+#define ADD(type, ...) ->addElement([](){auto e = new MenuElement##type(__VA_ARGS__);
+#define $ return e;}())
 #define ADD_FOLDER(fid, name, ...) ->addElement(newFD(fid, name)__VA_ARGS__)
 
 #define AS(type, expr) ((MenuElement##type*)(expr))
