@@ -157,7 +157,6 @@
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="MenuAggregator.cpp" />
     <ClCompile Include="MenuElements.cpp" />
-    <ClCompile Include="NewMenuMacros.h" />
     <ClCompile Include="Theme.cpp" />
   </ItemGroup>
   <ItemGroup>
