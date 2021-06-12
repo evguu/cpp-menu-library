@@ -14,15 +14,8 @@ class MenuHasNoChosenElement : public exception {};
 class Menu : Component
 {
 private:
-	static stack<Menu *> menuStack;
-	static bool isLoopRunning;
-	static mutex g_lock;
-	static const int viewField;
 	vector<Component *> elements;
 	int chosenElementIndex;
-	static void controlLoop();
-	static void printLoop();
-	static void noBlinkOutput(string src);
 	Menu* (*contentGenerator)();
 public:
 	// По умолчанию индекс выбранного элемента -1, что приведет к падению программы при некорректной инициализации меню
@@ -37,23 +30,8 @@ public:
 	string str() const;
 	void processKeyEvent(KeyEvent keyEvent);
 	Menu* addElement(Component* ref);
-	void addToStack();
 	auto& getElements() { return elements; }
-	// Вычисляет индекс первого элемента, который можно выбрать и выбирает его
 	Menu* initChosenElementIndex();
 	int getChosenElementIndex() { return chosenElementIndex; };
-	static Menu* getActive() { return menuStack.top(); };
-	static void popStack(int popCount = 1);
-	static void run()
-	{
-		thread t1(controlLoop);
-		thread t2(printLoop);
-		t1.join();
-		t2.join();
-	}
-	static void finish() { isLoopRunning = false; };
-	static auto& getMutex() { return g_lock; };
-	static void setConsoleResolution();
-
 	auto& getContentGenerator() { return contentGenerator; }
 };

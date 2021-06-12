@@ -1,4 +1,5 @@
 ﻿#include "LML.h"
+#include "MenuManager.h"
 #include "Theme.h"
 
 #include "Title.h"
@@ -11,25 +12,25 @@ int main()
 {
 	Console::hideCursor();
 	Console::fixEncoding();
-	Menu::setConsoleResolution();
+	MenuManager::setConsoleResolution();
 	Theme::applyCurrent();
 
 
 	MD_START("#main")
 		->addElement(new Title("Проверка работы цепного добавления элементов"))
-		->addElement(new Button("Субменю", []() { getMenu("#sub")->addToStack(); }))
-		->addElement(new Button("Выйти", []() { Menu::finish(); }))
+		->addElement(new Button("Субменю", []() { MenuManager::addToStack(getMenu("#sub")); }))
+		->addElement(new Button("Выйти", []() { MenuManager::finish(); }))
 		MD_END;
 
 	MD_START("#sub")
 		->addElement(new Title("Субменю"))
 		->addElement(new Field("Пустое поле"))
 		->addElement([]() {auto e = new Field("Заранее заполненное поле"); e->getInput() = "Данные"; return e; }())
-		->addElement(new Button("Назад", []() { Menu::popStack(); }))
+		->addElement(new Button("Назад", []() { MenuManager::popStack(); }))
 		MD_END;
 
-	getMenu("#main")->addToStack();
+	MenuManager::addToStack(getMenu("#main"));
 
-	Menu::run();
+	MenuManager::run();
 	Console::sayGoodbye();
 }

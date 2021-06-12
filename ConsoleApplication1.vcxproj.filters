@@ -25,31 +25,22 @@
     <Filter Include="Файлы заголовков\MenuLib\Components">
       <UniqueIdentifier>{70a7d014-0f89-4be6-bebe-e76fadf03701}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Исходные файлы\MenuLib\Utils">
+      <UniqueIdentifier>{1a66e9d4-9120-4ac8-96f6-81670e266830}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\MenuLib\Utils">
+      <UniqueIdentifier>{a670dee5-6d70-4c12-b5ec-8ddc198231c7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Console.cpp">
-      <Filter>Исходные файлы\MenuLib</Filter>
-    </ClCompile>
     <ClCompile Include="ConsoleApplication1.cpp">
       <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="Input.cpp">
-      <Filter>Исходные файлы\MenuLib</Filter>
     </ClCompile>
     <ClCompile Include="MenuAggregator.cpp">
       <Filter>Исходные файлы\MenuLib</Filter>
     </ClCompile>
-    <ClCompile Include="Theme.cpp">
-      <Filter>Исходные файлы\MenuLib</Filter>
-    </ClCompile>
     <ClCompile Include="Title.cpp">
       <Filter>Исходные файлы\MenuLib\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="KeyEvent.cpp">
-      <Filter>Исходные файлы\MenuLib</Filter>
-    </ClCompile>
-    <ClCompile Include="StringTree.cpp">
-      <Filter>Исходные файлы\MenuLib</Filter>
     </ClCompile>
     <ClCompile Include="Choice.cpp">
       <Filter>Исходные файлы\MenuLib\Components</Filter>
@@ -69,14 +60,23 @@
     <ClCompile Include="Menu.cpp">
       <Filter>Исходные файлы\MenuLib\Components</Filter>
     </ClCompile>
+    <ClCompile Include="MenuManager.cpp">
+      <Filter>Исходные файлы\MenuLib</Filter>
+    </ClCompile>
+    <ClCompile Include="Input.cpp">
+      <Filter>Исходные файлы\MenuLib\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Console.cpp">
+      <Filter>Исходные файлы\MenuLib\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyEvent.cpp">
+      <Filter>Исходные файлы\MenuLib\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Theme.cpp">
+      <Filter>Исходные файлы\MenuLib\Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Console.h">
-      <Filter>Файлы заголовков\MenuLib</Filter>
-    </ClInclude>
-    <ClInclude Include="Input.h">
-      <Filter>Файлы заголовков\MenuLib</Filter>
-    </ClInclude>
     <ClInclude Include="MenuAggregator.h">
       <Filter>Файлы заголовков\MenuLib</Filter>
     </ClInclude>
@@ -86,17 +86,8 @@
     <ClInclude Include="LML.h">
       <Filter>Файлы заголовков\MenuLib</Filter>
     </ClInclude>
-    <ClInclude Include="Theme.h">
-      <Filter>Файлы заголовков\MenuLib</Filter>
-    </ClInclude>
     <ClInclude Include="Title.h">
       <Filter>Файлы заголовков\MenuLib\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="KeyEvent.h">
-      <Filter>Файлы заголовков\MenuLib</Filter>
-    </ClInclude>
-    <ClInclude Include="StringTree.h">
-      <Filter>Файлы заголовков\MenuLib</Filter>
     </ClInclude>
     <ClInclude Include="Text.h">
       <Filter>Файлы заголовков\MenuLib\Components</Filter>
@@ -115,6 +106,21 @@
     </ClInclude>
     <ClInclude Include="Menu.h">
       <Filter>Файлы заголовков\MenuLib\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Console.h">
+      <Filter>Файлы заголовков\MenuLib\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Input.h">
+      <Filter>Файлы заголовков\MenuLib\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyEvent.h">
+      <Filter>Файлы заголовков\MenuLib\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Theme.h">
+      <Filter>Файлы заголовков\MenuLib\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuManager.h">
+      <Filter>Файлы заголовков\MenuLib</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
