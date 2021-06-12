@@ -1,11 +1,11 @@
 #pragma once
 #include <string>
-#include "MenuElements.h"
+#include "Component.h"
 
-class Text : public MenuElement
+class Text : public Component
 {
 public:
-	Text(std::string text) : MenuElement(text, false) {};
+	Text(std::string text) : Component(text, false) {};
 	~Text() {};
 
 	std::string str() const { return "placeholder"; };

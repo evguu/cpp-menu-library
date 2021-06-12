@@ -42,15 +42,6 @@
     <ClCompile Include="Theme.cpp">
       <Filter>Исходные файлы\MenuLib</Filter>
     </ClCompile>
-    <ClCompile Include="Component.cpp">
-      <Filter>Исходные файлы\MenuLib\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Menu.cpp">
-      <Filter>Исходные файлы\MenuLib</Filter>
-    </ClCompile>
-    <ClCompile Include="MenuElements.cpp">
-      <Filter>Исходные файлы\MenuLib</Filter>
-    </ClCompile>
     <ClCompile Include="Title.cpp">
       <Filter>Исходные файлы\MenuLib\Components</Filter>
     </ClCompile>
@@ -70,6 +61,12 @@
       <Filter>Исходные файлы\MenuLib\Components</Filter>
     </ClCompile>
     <ClCompile Include="Text.cpp">
+      <Filter>Исходные файлы\MenuLib\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Component.cpp">
+      <Filter>Исходные файлы\MenuLib\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu.cpp">
       <Filter>Исходные файлы\MenuLib\Components</Filter>
     </ClCompile>
   </ItemGroup>
@@ -92,15 +89,6 @@
     <ClInclude Include="Theme.h">
       <Filter>Файлы заголовков\MenuLib</Filter>
     </ClInclude>
-    <ClInclude Include="Component.h">
-      <Filter>Файлы заголовков\MenuLib\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Menu.h">
-      <Filter>Файлы заголовков\MenuLib</Filter>
-    </ClInclude>
-    <ClInclude Include="MenuElements.h">
-      <Filter>Файлы заголовков\MenuLib</Filter>
-    </ClInclude>
     <ClInclude Include="Title.h">
       <Filter>Файлы заголовков\MenuLib\Components</Filter>
     </ClInclude>
@@ -120,6 +108,12 @@
       <Filter>Файлы заголовков\MenuLib\Components</Filter>
     </ClInclude>
     <ClInclude Include="Field.h">
+      <Filter>Файлы заголовков\MenuLib\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>Файлы заголовков\MenuLib\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu.h">
       <Filter>Файлы заголовков\MenuLib\Components</Filter>
     </ClInclude>
   </ItemGroup>

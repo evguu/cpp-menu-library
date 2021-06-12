@@ -1,6 +1,6 @@
 #pragma once
 #include "Menu.h"
-#include "MenuElements.h"
+#include "Component.h"
 #include <map>
 #include <string>
 using namespace std;

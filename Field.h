@@ -1,8 +1,8 @@
 #pragma once
 #include <string>
-#include "MenuElements.h"
+#include "Component.h"
 
-class Field : public MenuElement
+class Field : public Component
 {
 private:
 	string input;
@@ -12,7 +12,7 @@ private:
 	int minLength;
 public:
 	Field(string text, bool isTextHidden = false, string allowedSymbols = "", int minLength = 0, int maxLength = 0) :
-		MenuElement(text, true), input(""), isTextHidden(isTextHidden), allowedSymbols(allowedSymbols), minLength(minLength), maxLength(maxLength) {};
+		Component(text, true), input(""), isTextHidden(isTextHidden), allowedSymbols(allowedSymbols), minLength(minLength), maxLength(maxLength) {};
 	~Field() {};
 
 	string str() const { return "placeholder"; };

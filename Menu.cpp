@@ -30,11 +30,11 @@ bool haveUnshownChangesToBufferBeenMade = true;
 
 
 
-int findNextActiveElementIndex(vector<MenuElement*> elements, int chosenElementIndex)
+int findNextActiveElementIndex(vector<Component*> elements, int chosenElementIndex)
 {
 	int result = chosenElementIndex;
 	int index = chosenElementIndex + 1;
-	vector<MenuElement *>::iterator lim = elements.end();
+	vector<Component *>::iterator lim = elements.end();
 	bool tmp;
 
 	for (auto it = elements.begin() + chosenElementIndex + 1; it != lim; ++it)
@@ -50,11 +50,11 @@ int findNextActiveElementIndex(vector<MenuElement*> elements, int chosenElementI
 	return result;
 }
 
-int findPrevActiveElementIndex(vector<MenuElement*> elements, int chosenElementIndex)
+int findPrevActiveElementIndex(vector<Component*> elements, int chosenElementIndex)
 {
 	int result = chosenElementIndex;
 	int index = 0;
-	vector<MenuElement *>::iterator lim = elements.begin() + chosenElementIndex;
+	vector<Component *>::iterator lim = elements.begin() + chosenElementIndex;
 	bool tmp;
 
 	for (auto it = elements.begin(); it != lim; ++it)
@@ -252,7 +252,7 @@ void Menu::processKeyEvent(KeyEvent keyEvent)
 	}
 }
 
-Menu* Menu::addElement(MenuElement * ref)
+Menu* Menu::addElement(Component * ref)
 {
 	elements.push_back(ref);
 	return this;

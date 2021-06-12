@@ -1,13 +1,13 @@
 #pragma once
 #include <string>
-#include "MenuElements.h"
+#include "Component.h"
 
-class Button : public MenuElement
+class Button : public Component
 {
 private:
 	void(*buttonPressHandler)();
 public:
-	Button(std::string text, void(*buttonPressHandler)()) : MenuElement(text, true), buttonPressHandler(buttonPressHandler) {};
+	Button(std::string text, void(*buttonPressHandler)()) : Component(text, true), buttonPressHandler(buttonPressHandler) {};
 	~Button() {};
 	string str() const { return "placeholder"; };
 	void processKeyEvent(KeyEvent keyEvent);

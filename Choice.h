@@ -1,8 +1,8 @@
 #pragma once
 #include <string>
-#include "MenuElements.h"
+#include "Component.h"
 
-class Choice : public MenuElement
+class Choice : public Component
 {
 public:
 	static const string noChoicesFoundMessage;
@@ -10,8 +10,8 @@ private:
 	vector<string> options;
 	int activeOption = 0;
 public:
-	Choice(string text, vector<string> options) : MenuElement(text, true), options(options) {};
-	Choice(string text, int rangeStart, int rangeEnd, int rangeStep = 1) : MenuElement(text, true)
+	Choice(string text, vector<string> options) : Component(text, true), options(options) {};
+	Choice(string text, int rangeStart, int rangeEnd, int rangeStep = 1) : Component(text, true)
 	{
 		for (int i = rangeStart; i < rangeEnd; i += rangeStep)
 		{

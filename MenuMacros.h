@@ -6,10 +6,10 @@
 #define MD_START(mid) newMenu(mid)->getContentGenerator() = [](){return getMenuForGenerator(mid)
 #define MD_END ->initChosenElementIndex();};
 
-#define ADD(type, ...) ->addElement([](){auto e = new MenuElement##type(__VA_ARGS__);
+#define ADD(type, ...) ->addElement([](){auto e = new Component##type(__VA_ARGS__);
 #define $ return e;}())
 
-#define AS(type, expr) ((MenuElement##type*)(expr))
+#define AS(type, expr) ((Component##type*)(expr))
 
 // ”правление мьютексом
 #define CON_START_NOLOCK system("MODE CON: COLS=128 LINES=200");system("cls");

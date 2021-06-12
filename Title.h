@@ -1,8 +1,8 @@
 #pragma once
 #include <string>
-#include "MenuElements.h"
+#include "Component.h"
 
-class Title : public MenuElement
+class Title : public Component
 {
 public:
 	Title(std::string text);

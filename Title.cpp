@@ -1,6 +1,6 @@
 #include "Title.h"
 
-Title::Title(std::string text) : MenuElement(text, false)
+Title::Title(std::string text) : Component(text, false)
 {
 };
 
