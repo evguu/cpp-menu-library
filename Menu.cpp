@@ -39,7 +39,7 @@ int findNextActiveElementIndex(vector<MenuElement*> elements, int chosenElementI
 
 	for (auto it = elements.begin() + chosenElementIndex + 1; it != lim; ++it)
 	{
-		tmp = (*it)->isChoosable();
+		tmp = (*it)->getIsChoosable();
 		if (tmp)
 		{
 			result = index;
@@ -59,7 +59,7 @@ int findPrevActiveElementIndex(vector<MenuElement*> elements, int chosenElementI
 
 	for (auto it = elements.begin(); it != lim; ++it)
 	{
-		tmp = (*it)->isChoosable();
+		tmp = (*it)->getIsChoosable();
 		if (tmp)
 		{
 			result = index;
@@ -201,7 +201,7 @@ string Menu::str() const
 		{
 			ss << "/\\/\\/\\/\\/\\ /\\/\\/\\/\\/\\ /\\/\\/\\/\\/\\ /\\/\\/\\/\\/\\ /\\/\\/\\/\\/\\" << endl;
 		}
-		tmp = elements[index]->isChoosable();
+		tmp = elements[index]->getIsChoosable();
 		if (tmp)
 		{
 			if (chosenElementIndex == index)
@@ -269,7 +269,7 @@ Menu* Menu::initChosenElementIndex()
 	bool tmp;
 	for (const auto& it : elements)
 	{
-		tmp = it->isChoosable();
+		tmp = it->getIsChoosable();
 		if (tmp)
 		{
 			chosenElementIndex = index;

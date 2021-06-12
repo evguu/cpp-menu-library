@@ -20,7 +20,7 @@ public:
 
 	virtual string str() const = 0;
 	virtual void processKeyEvent(KeyEvent keyEvent) = 0;
-	bool isChoosable() { return isFocusable; };
+	bool getIsChoosable() const { return isFocusable; };
 	virtual string getAdditionalText();
 	auto& getText();
 };
