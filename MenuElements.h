@@ -13,13 +13,14 @@ class MenuElement
 {
 protected:
 	string text;
+	bool isFocusable;
 public:
-	MenuElement(string text);
+	MenuElement(string text, bool isFocusable);
 	virtual ~MenuElement();
 
 	virtual string str() const = 0;
 	virtual void processKeyEvent(KeyEvent keyEvent) = 0;
-	virtual bool isChoosable() = 0;
+	bool isChoosable() { return isFocusable; };
 	virtual string getAdditionalText();
 	auto& getText();
 };

@@ -1,6 +1,6 @@
 #include "Title.h"
 
-Title::Title(std::string text) : MenuElement(text)
+Title::Title(std::string text) : MenuElement(text, false)
 {
 };
 
@@ -15,7 +15,3 @@ void Title::processKeyEvent(KeyEvent keyEvent)
 {
 };
 
-bool Title::isChoosable()
-{
-	return false;
-};

@@ -10,6 +10,5 @@ public:
 
 	std::string str() const;
 	void processKeyEvent(KeyEvent keyEvent);
-	bool isChoosable();
 };
 

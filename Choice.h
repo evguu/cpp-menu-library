@@ -10,8 +10,8 @@ private:
 	vector<string> options;
 	int activeOption = 0;
 public:
-	Choice(string text, vector<string> options) : MenuElement(text), options(options) {};
-	Choice(string text, int rangeStart, int rangeEnd, int rangeStep = 1) : MenuElement(text)
+	Choice(string text, vector<string> options) : MenuElement(text, true), options(options) {};
+	Choice(string text, int rangeStart, int rangeEnd, int rangeStep = 1) : MenuElement(text, true)
 	{
 		for (int i = rangeStart; i < rangeEnd; i += rangeStep)
 		{
@@ -39,6 +39,5 @@ public:
 	auto& getOptions() { return options; };
 	auto& getActiveOption() { return activeOption; };
 	void processKeyEvent(KeyEvent keyEvent);
-	bool isChoosable() { return true; };
 };
 

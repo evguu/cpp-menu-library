@@ -5,11 +5,10 @@
 class Text : public MenuElement
 {
 public:
-	Text(std::string text) : MenuElement(text) {};
+	Text(std::string text) : MenuElement(text, false) {};
 	~Text() {};
 
 	std::string str() const { return "placeholder"; };
 	void processKeyEvent(KeyEvent keyEvent) {};
-	bool isChoosable() { return false; };
 };
 

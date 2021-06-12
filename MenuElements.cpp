@@ -3,7 +3,7 @@
 #include <ctime>
 #include <sstream>
 
-MenuElement::MenuElement(string text) : text(text)
+MenuElement::MenuElement(string text, bool isFocusable) : text(text), isFocusable(isFocusable)
 {
 };
 

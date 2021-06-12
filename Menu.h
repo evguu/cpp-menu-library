@@ -26,7 +26,7 @@ private:
 	Menu* (*contentGenerator)();
 public:
 	// По умолчанию индекс выбранного элемента -1, что приведет к падению программы при некорректной инициализации меню
-	Menu() : MenuElement(""), chosenElementIndex(-1) {};
+	Menu() : MenuElement("", true), chosenElementIndex(-1) {};
 	~Menu()
 	{
 		for (auto it : elements)
@@ -36,7 +36,6 @@ public:
 	};
 	string str() const;
 	void processKeyEvent(KeyEvent keyEvent);
-	bool isChoosable() { return true; };
 	Menu* addElement(MenuElement* ref);
 	void addToStack();
 	auto& getElements() { return elements; }
