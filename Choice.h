@@ -21,7 +21,7 @@ public:
 
 	~Choice() {};
 
-	std::string str() const { return "placeholder"; };
+	std::string str() const;
 
 	// TODO: кидать исключение
 	// ≈сли ничего не выбрано (вектор выбора пуст), возвращает MenuElementChoice::noChoicesFoundMessage.

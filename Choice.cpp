@@ -3,6 +3,27 @@
 const std::string Choice::noChoicesFoundMessage = "LML_RESERVED_MESSAGE::NO_CHOICES_FOUND";
 
 
+std::string Choice::str() const
+{
+	std::stringstream ss;
+	ss << text << ": ";
+	int len = options.size();
+	if (len == 0)
+	{
+		ss << "-< Не из чего выбирать... >-";
+	}
+	else if (len == 1)
+	{
+		ss << "--" << options[activeOption] << "--";
+	}
+	else
+	{
+		ss << "<-" << options[activeOption] << "->";
+	}
+	ss << std::endl;
+	return ss.str();
+}
+
 clock_t _lastClock = 0;
 bool _wasPreviousDirectionRight = false;
 int _timeCounter = 0;

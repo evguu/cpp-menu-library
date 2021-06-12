@@ -15,15 +15,14 @@ public:
 		Component(text, true), input(""), isTextHidden(isTextHidden), allowedSymbols(allowedSymbols), minLength(minLength), maxLength(maxLength) {};
 	~Field() {};
 
-	std::string str() const { return "placeholder"; };
+	std::string str() const { return text+": "+input; };
 	std::string& getInput();
 	bool hasFreeSpace();
 	bool isCharAllowed(char ch);
 	void processKeyEvent(KeyEvent keyEvent);
 	std::string getAdditionalText() override
 	{
-		return "        Не менее " + std::to_string(minLength) + " символов.\n"
-			"        Доступные символы: " + allowedSymbols;
+		return "Не менее " + std::to_string(minLength) + " символов.\nДоступные символы: " + allowedSymbols;
 	}
 };
 
