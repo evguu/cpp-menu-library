@@ -1,4 +1,6 @@
-﻿#include "LML.h"
+﻿#include "Console.h"
+#include "MenuAggregator.h"
+#include "MenuMacros.h"
 #include "MenuManager.h"
 #include "Theme.h"
 
@@ -10,7 +12,6 @@
 
 int main()
 {
-	Console::hideCursor();
 	Console::fixEncoding();
 	MenuManager::setConsoleResolution();
 	Theme::applyCurrent();
@@ -20,6 +21,7 @@ int main()
 		->addElement(new Title("Проверка работы цепного добавления элементов"))
 		->addElement(new Button("Субменю", []() { MenuManager::addToStack(getMenu("#sub")); }))
 		->addElement(new Button("Выйти", []() { MenuManager::finish(); }))
+		->addElement(new Button("Выйти", []() { CON_START; cout << "everything is ok"; CON_END; }))
 		MD_END;
 
 	MD_START("#sub")

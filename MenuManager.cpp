@@ -10,52 +10,54 @@ mutex MenuManager::g_lock;
 const int columns = 128;
 const int lines = 40;
 const int frameDelayInMilliseconds = 50;
-bool haveUnshownChangesToBufferBeenMade = true;
 
 
 void MenuManager::controlLoop()
 {
 	KeyEvent keyEvent;
+
 	while (isLoopRunning)
 	{
-		keyEvent = getKeyEvent();
-		getActive()->processKeyEvent(keyEvent);
 		g_lock.lock();
-		haveUnshownChangesToBufferBeenMade = true;
+		keyEvent = getKeyEvent();
 		g_lock.unlock();
+
+		getActive()->processKeyEvent(keyEvent);
 	}
 }
 
 void MenuManager::printLoop()
 {
+	COORD coord;
+	coord.X = 0;
+	coord.Y = 0;
+
 	while (isLoopRunning)
 	{
-		if (haveUnshownChangesToBufferBeenMade)
+		string contentToPrint;
+		try
 		{
-			g_lock.lock();
-			haveUnshownChangesToBufferBeenMade = false;
-			COORD coord;
-			coord.X = 0;
-			coord.Y = 0;
-			SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
-			try
-			{
-				noBlinkOutput(getActive()->str());
-			}
-			catch (MenuIsEmpty)
-			{
-				noBlinkOutput("Обнаружена попытка распечатать пустое меню.");
-				system("pause");
-				finish();
-			}
-			catch (MenuHasNoChosenElement)
-			{
-				noBlinkOutput("Обнаружена попытка распечатать меню без активных элементов.");
-				system("pause");
-				finish();
-			}
-			g_lock.unlock();
+			contentToPrint = getActive()->str();
 		}
+		catch (MenuIsEmpty)
+		{
+			noBlinkOutput("Обнаружена попытка распечатать пустое меню.");
+			system("pause");
+			finish();
+		}
+		catch (MenuHasNoChosenElement)
+		{
+			noBlinkOutput("Обнаружена попытка распечатать меню без активных элементов.");
+			system("pause");
+			finish();
+		}
+
+		g_lock.lock();
+		Console::hideCursor();
+		SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+		noBlinkOutput(contentToPrint);
+		g_lock.unlock();
+
 		Sleep(frameDelayInMilliseconds);
 	}
 }

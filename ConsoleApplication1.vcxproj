@@ -175,7 +175,6 @@
     <ClInclude Include="Console.h" />
     <ClInclude Include="Field.h" />
     <ClInclude Include="KeyEvent.h" />
-    <ClInclude Include="LML.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="MenuAggregator.h" />
