@@ -23,14 +23,10 @@ int main()
 
 	MD_START("#sub")
 		->addElement(new Title("Субменю"))
-		->addElement([]() {
-		auto e = newFD("@sub.main", "Основные функции");
-		e->addElement(new Field("Пустое поле"))
-			->addElement([]() {auto e = new Field("Заранее заполненное поле"); e->getInput() = "Данные"; return e; }())
-			->addElement(new Button("Назад", []() { Menu::popStack(); }));
-		return e;
-	}())
-			MD_END;
+		->addElement(new Field("Пустое поле"))
+		->addElement([]() {auto e = new Field("Заранее заполненное поле"); e->getInput() = "Данные"; return e; }())
+		->addElement(new Button("Назад", []() { Menu::popStack(); }))
+		MD_END;
 
 	getMenu("#main")->addToStack();
 

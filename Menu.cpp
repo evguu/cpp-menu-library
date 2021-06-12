@@ -18,6 +18,70 @@ const int frameDelayInMilliseconds = 50;
 
 bool haveUnshownChangesToBufferBeenMade = true;
 
+
+
+
+
+
+
+
+
+
+
+
+
+int findNextActiveElementIndex(vector<MenuElement*> elements, int chosenElementIndex)
+{
+	int result = chosenElementIndex;
+	int index = chosenElementIndex + 1;
+	vector<MenuElement *>::iterator lim = elements.end();
+	bool tmp;
+
+	for (auto it = elements.begin() + chosenElementIndex + 1; it != lim; ++it)
+	{
+		tmp = (*it)->isChoosable();
+		if (tmp)
+		{
+			result = index;
+			break;
+		}
+		++index;
+	}
+	return result;
+}
+
+int findPrevActiveElementIndex(vector<MenuElement*> elements, int chosenElementIndex)
+{
+	int result = chosenElementIndex;
+	int index = 0;
+	vector<MenuElement *>::iterator lim = elements.begin() + chosenElementIndex;
+	bool tmp;
+
+	for (auto it = elements.begin(); it != lim; ++it)
+	{
+		tmp = (*it)->isChoosable();
+		if (tmp)
+		{
+			result = index;
+		}
+		++index;
+	}
+	return result;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 void Menu::controlLoop()
 {
 	KeyEvent keyEvent;
@@ -170,18 +234,8 @@ void Menu::processKeyEvent(KeyEvent keyEvent)
 		int oldChosenElementIndex = chosenElementIndex;
 		bool hasTriedToLeaveFolder = false;
 
-		try
-		{
-			elements[chosenElementIndex]->processKeyEvent(keyEvent);
-		}
-		catch (FolderLeaveAttempt)
-		{
-			hasTriedToLeaveFolder = true;
-		}
-		catch (FolderProcessedUpDownKeyEvent)
-		{
-			return;
-		}
+
+		elements[chosenElementIndex]->processKeyEvent(keyEvent);
 
 		if (keyEvent.code == KC_DOWN)
 		{
@@ -190,11 +244,6 @@ void Menu::processKeyEvent(KeyEvent keyEvent)
 		else if (keyEvent.code == KC_UP)
 		{
 			chosenElementIndex = findPrevActiveElementIndex(this->elements, this->chosenElementIndex);
-		}
-
-		if (hasTriedToLeaveFolder && (oldChosenElementIndex != chosenElementIndex))
-		{
-			((MenuElementFolder*)(elements[oldChosenElementIndex]))->getIsActive() = false;
 		}
 	}
 	else
