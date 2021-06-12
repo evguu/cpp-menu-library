@@ -125,5 +125,8 @@
     <ClInclude Include="Theme.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="Dialog.h">
+      <Filter>Файлы заголовков\MenuLib\Components</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

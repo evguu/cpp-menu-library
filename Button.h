@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include "Component.h"
+#include "Display.h"
 
 template <class T>
 class BasicButton : public Component
@@ -21,5 +22,3 @@ public:
 
 	T& getButtonPressHandler() { return buttonPressHandler; };
 };
-
-typedef BasicButton<void(*)()> Button;

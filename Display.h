@@ -18,10 +18,6 @@ public:
 
 	static void setMode(Mode mode);
 	static void printStringWithoutBlinking(std::string src);
-
-	static void startDialog() { Display::setMode(Display::modeDialog); }
-	static void endDialog() { system("pause"); Display::setMode(Display::modeMenu); }
-	static auto dialog(void(*wrapped)()) { return [wrapped]() { startDialog(); wrapped(); endDialog(); }; };
 private:
 	Display() = delete;
 };
