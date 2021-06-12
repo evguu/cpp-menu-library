@@ -12,3 +12,4 @@ public:
 	void processKeyEvent(KeyEvent keyEvent);
 	bool isChoosable();
 };
+

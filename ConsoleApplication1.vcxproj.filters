@@ -60,6 +60,18 @@
     <ClCompile Include="StringTree.cpp">
       <Filter>Исходные файлы\MenuLib</Filter>
     </ClCompile>
+    <ClCompile Include="Choice.cpp">
+      <Filter>Исходные файлы\MenuLib\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>Исходные файлы\MenuLib\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Field.cpp">
+      <Filter>Исходные файлы\MenuLib\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Text.cpp">
+      <Filter>Исходные файлы\MenuLib\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Console.h">
@@ -97,6 +109,18 @@
     </ClInclude>
     <ClInclude Include="StringTree.h">
       <Filter>Файлы заголовков\MenuLib</Filter>
+    </ClInclude>
+    <ClInclude Include="Text.h">
+      <Filter>Файлы заголовков\MenuLib\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>Файлы заголовков\MenuLib\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Choice.h">
+      <Filter>Файлы заголовков\MenuLib\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Field.h">
+      <Filter>Файлы заголовков\MenuLib\Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

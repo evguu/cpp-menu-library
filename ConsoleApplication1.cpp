@@ -2,6 +2,10 @@
 #include "Theme.h"
 
 #include "Title.h"
+#include "Text.h"
+#include "Button.h"
+#include "Choice.h"
+#include "Field.h"
 
 int main()
 {
@@ -13,17 +17,20 @@ int main()
 
 	MD_START("#main")
 		->addElement(new Title("Проверка работы цепного добавления элементов"))
-		ADD(FunctionButton, "Субменю", []() { getMenu("#sub")->addToStack(); })$
-		ADD(FunctionButton, "Выйти", []() { Menu::finish(); })$
+		->addElement(new Button("Субменю", []() { getMenu("#sub")->addToStack(); }))
+		->addElement(new Button("Выйти", []() { Menu::finish(); }))
 		MD_END;
 
 	MD_START("#sub")
 		->addElement(new Title("Субменю"))
-		ADD_FOLDER("@sub.main", "Основные функции",
-			ADD(EditField, "Пустое поле")$
-			ADD(EditField, "Заранее заполненное поле") e->getInput() = "Данные"; $
-			ADD(FunctionButton, "Назад", []() { Menu::popStack(); })$)
-		MD_END;
+		->addElement([]() {
+		auto e = newFD("@sub.main", "Основные функции");
+		e->addElement(new Field("Пустое поле"))
+			->addElement([]() {auto e = new Field("Заранее заполненное поле"); e->getInput() = "Данные"; return e; }())
+			->addElement(new Button("Назад", []() { Menu::popStack(); }));
+		return e;
+	}())
+			MD_END;
 
 	getMenu("#main")->addToStack();
 
