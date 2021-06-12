@@ -2,7 +2,7 @@
 #include "MenuAggregator.h"
 #include "MenuMacros.h"
 #include "MenuManager.h"
-#include "Theme.h"
+#include "Display.h"
 
 #include "Title.h"
 #include "Text.h"
@@ -10,18 +10,25 @@
 #include "Choice.h"
 #include "Field.h"
 
+#include "Theme.h"
+
+auto exampleDialog = Display::dialog([]() {});
+typedef BasicButton<decltype(exampleDialog)> Dialog;
+
+
+// Управление мьютексом
+
 int main()
 {
 	Console::fixEncoding();
-	MenuManager::setConsoleResolution();
+	Display::setMode(Display::modeMenu);
 	Theme::applyCurrent();
-
 
 	MD_START("#main")
 		->addElement(new Title("Проверка работы цепного добавления элементов"))
 		->addElement(new Button("Субменю", []() { MenuManager::addToMenuStack(getMenu("#sub")); }))
 		->addElement(new Button("Выйти", []() { MenuManager::stopLoops(); }))
-		->addElement(new Button("Выйти", []() { CON_START; cout << "everything is ok"; CON_END; }))
+		->addElement(new Dialog("everything is ok", Display::dialog([]() {cout << "everything is ok";})))
 		MD_END;
 
 	MD_START("#sub")

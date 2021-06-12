@@ -2,15 +2,24 @@
 #include <string>
 #include "Component.h"
 
-class Button : public Component
+template <class T>
+class BasicButton : public Component
 {
 private:
-	void(*buttonPressHandler)();
+	T buttonPressHandler;
 public:
-	Button(std::string text, void(*buttonPressHandler)()) : Component(text, true), buttonPressHandler(buttonPressHandler) {};
-	~Button() {};
+	BasicButton(std::string text, T buttonPressHandler) : Component(text, true), buttonPressHandler(buttonPressHandler) {};
+	~BasicButton() {};
 	string str() const { return "placeholder"; };
-	void processKeyEvent(KeyEvent keyEvent);
-	auto& getButtonPressHandler() { return buttonPressHandler; };
+	void processKeyEvent(KeyEvent keyEvent)
+	{
+		if (keyEvent.isSpecial && keyEvent.code == KC_ENTER)
+		{
+			buttonPressHandler();
+		}
+	}
+
+	T& getButtonPressHandler() { return buttonPressHandler; };
 };
 
+typedef BasicButton<void(*)()> Button;
