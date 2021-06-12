@@ -51,11 +51,14 @@
     <ClCompile Include="MenuElements.cpp">
       <Filter>Исходные файлы\MenuLib</Filter>
     </ClCompile>
-    <ClCompile Include="StringTree.cpp">
-      <Filter>Исходные файлы</Filter>
+    <ClCompile Include="Title.cpp">
+      <Filter>Исходные файлы\MenuLib\Components</Filter>
     </ClCompile>
     <ClCompile Include="KeyEvent.cpp">
-      <Filter>Исходные файлы</Filter>
+      <Filter>Исходные файлы\MenuLib</Filter>
+    </ClCompile>
+    <ClCompile Include="StringTree.cpp">
+      <Filter>Исходные файлы\MenuLib</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -86,11 +89,14 @@
     <ClInclude Include="MenuElements.h">
       <Filter>Файлы заголовков\MenuLib</Filter>
     </ClInclude>
-    <ClInclude Include="StringTree.h">
-      <Filter>Файлы заголовков</Filter>
+    <ClInclude Include="Title.h">
+      <Filter>Файлы заголовков\MenuLib\Components</Filter>
     </ClInclude>
     <ClInclude Include="KeyEvent.h">
-      <Filter>Файлы заголовков</Filter>
+      <Filter>Файлы заголовков\MenuLib</Filter>
+    </ClInclude>
+    <ClInclude Include="StringTree.h">
+      <Filter>Файлы заголовков\MenuLib</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

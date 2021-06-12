@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include <sstream>
 #include "Input.h"
 
 using namespace std;
@@ -29,17 +30,6 @@ public:
 	virtual bool isChoosable() = 0;
 	virtual string getAdditionalText();
 	auto& getText();
-};
-
-class MenuElementTitle : public MenuElement
-{
-public:
-	MenuElementTitle(string text);
-	~MenuElementTitle() {};
-
-	string str() const;
-	void processKeyEvent(KeyEvent keyEvent);
-	bool isChoosable();
 };
 
 class MenuElementSubtitle : public MenuElement

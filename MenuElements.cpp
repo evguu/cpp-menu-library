@@ -21,26 +21,6 @@ auto& MenuElement::getText()
 	return this->text;
 };
 
-MenuElementTitle::MenuElementTitle(string text) : MenuElement(text)
-{
-};
-
-string MenuElementTitle::str() const
-{
-	stringstream ss;
-	ss << "-< " << text << " >- " << endl;
-	return ss.str();
-}
-
-void MenuElementTitle::processKeyEvent(KeyEvent keyEvent)
-{
-};
-
-bool MenuElementTitle::isChoosable()
-{ 
-	return false; 
-};
-
 string MenuElementSubtitle::str() const
 {
 	stringstream ss;

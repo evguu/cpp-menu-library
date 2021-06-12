@@ -164,6 +164,7 @@
     <ClCompile Include="MenuElements.cpp" />
     <ClCompile Include="StringTree.cpp" />
     <ClCompile Include="Theme.cpp" />
+    <ClCompile Include="Title.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Component.h" />
@@ -177,6 +178,7 @@
     <ClInclude Include="MenuMacros.h" />
     <ClInclude Include="StringTree.h" />
     <ClInclude Include="Theme.h" />
+    <ClInclude Include="Title.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
