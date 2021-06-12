@@ -25,7 +25,7 @@ int main()
 		->addElement(new Title("Проверка работы цепного добавления элементов"))
 		->addElement(new Button("Субменю", []() { MenuManager::addToMenuStack(getMenu("#sub")); }))
 		->addElement(new Button("Выйти", []() { MenuManager::stopLoops(); }))
-		->addElement(new DialogButton("everything is ok", Dialog::fromVoid([]() {cout << "everything is ok\n";})))
+		->addElement(new DialogButton("everything is ok", Dialog::fromVoid([]() {std::cout << "everything is ok\n";})))
 		MD_END;
 
 	MD_START("#sub")

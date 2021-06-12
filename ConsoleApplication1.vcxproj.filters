@@ -129,4 +129,7 @@
       <Filter>Файлы заголовков\MenuLib\Components</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
+  </ItemGroup>
 </Project>

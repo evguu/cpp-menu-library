@@ -5,21 +5,19 @@
 #include <sstream>
 #include "Input.h"
 
-using namespace std;
-
 class Component
 {
 protected:
-	string text;
+	std::string text;
 	bool isFocusable;
 public:
-	Component(string text, bool isFocusable);
+	Component(std::string text, bool isFocusable);
 	virtual ~Component();
 
-	virtual string str() const = 0;
+	virtual std::string str() const = 0;
 	virtual void processKeyEvent(KeyEvent keyEvent) = 0;
-	virtual string getAdditionalText();
+	virtual std::string getAdditionalText();
 
-	string getText() const;	
+	std::string getText() const;
 	bool getIsFocusable() const;
 };

@@ -3,10 +3,9 @@
 #include "Component.h"
 #include <map>
 #include <string>
-using namespace std;
 
-class unknownKeyException : exception {};
+class unknownKeyException : std::exception {};
 
-Menu* newMenu(string str);
-Menu* getMenu(string str);
-Menu* getMenuForGenerator(string str);
+Menu* newMenu(std::string str);
+Menu* getMenu(std::string str);
+Menu* getMenuForGenerator(std::string str);

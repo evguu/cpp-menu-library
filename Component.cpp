@@ -3,7 +3,7 @@
 #include <ctime>
 #include <sstream>
 
-Component::Component(string text, bool isFocusable) : text(text), isFocusable(isFocusable)
+Component::Component(std::string text, bool isFocusable) : text(text), isFocusable(isFocusable)
 {
 };
 
@@ -11,12 +11,12 @@ Component::~Component()
 {
 };
 
-string Component::getAdditionalText()
+std::string Component::getAdditionalText()
 {
 	return "";
 };
 
-string Component::getText() const
+std::string Component::getText() const
 {
 	return text;
 };

@@ -5,27 +5,27 @@
 class Choice : public Component
 {
 public:
-	static const string noChoicesFoundMessage;
+	static const std::string noChoicesFoundMessage;
 private:
-	vector<string> options;
+	std::vector<std::string> options;
 	int activeOption = 0;
 public:
-	Choice(string text, vector<string> options) : Component(text, true), options(options) {};
-	Choice(string text, int rangeStart, int rangeEnd, int rangeStep = 1) : Component(text, true)
+	Choice(std::string text, std::vector<std::string> options) : Component(text, true), options(options) {};
+	Choice(std::string text, int rangeStart, int rangeEnd, int rangeStep = 1) : Component(text, true)
 	{
 		for (int i = rangeStart; i < rangeEnd; i += rangeStep)
 		{
-			options.push_back(to_string(i));
+			options.push_back(std::to_string(i));
 		}
 	};
 
 	~Choice() {};
 
-	string str() const { return "placeholder"; };
+	std::string str() const { return "placeholder"; };
 
 	// TODO: кидать исключение
 	// ≈сли ничего не выбрано (вектор выбора пуст), возвращает MenuElementChoice::noChoicesFoundMessage.
-	string getChoice()
+	std::string getChoice()
 	{
 		if (options.size())
 		{

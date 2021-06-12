@@ -4,9 +4,9 @@
 #include "MenuManager.h"
 #include "Display.h"
 
-stack<Menu *> MenuManager::menuStack = stack<Menu *>();
+std::stack<Menu *> MenuManager::menuStack = std::stack<Menu *>();
 bool MenuManager::areLoopsRunning = true;
-mutex MenuManager::loopLock;
+std::mutex MenuManager::loopLock;
 
 const int FRAME_DELAY = 50;
 
@@ -32,7 +32,7 @@ void MenuManager::renderLoop()
 
 	while (areLoopsRunning)
 	{
-		string contentToPrint;
+		std::string contentToPrint;
 		try
 		{
 			contentToPrint = getActiveMenu()->str();

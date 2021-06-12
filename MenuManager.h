@@ -5,9 +5,9 @@ class MenuManager
 {
 private:
 	MenuManager() = delete;
-	static stack<Menu *> menuStack;
+	static std::stack<Menu *> menuStack;
 	static bool areLoopsRunning;
-	static mutex loopLock;
+	static std::mutex loopLock;
 	static void logicLoop();
 	static void renderLoop();
 public:
@@ -16,8 +16,8 @@ public:
 	static void addToMenuStack(Menu* menu);
 	static void runLoops()
 	{
-		thread t1(logicLoop);
-		thread t2(renderLoop);
+		std::thread t1(logicLoop);
+		std::thread t2(renderLoop);
 		t1.join();
 		t2.join();
 	}

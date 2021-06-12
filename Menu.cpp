@@ -4,11 +4,11 @@
 #include "Menu.h"
 
 
-int findNextActiveElementIndex(vector<Component*> elements, int chosenElementIndex)
+int findNextActiveElementIndex(std::vector<Component*> elements, int chosenElementIndex)
 {
 	int result = chosenElementIndex;
 	int index = chosenElementIndex + 1;
-	vector<Component *>::iterator lim = elements.end();
+	std::vector<Component *>::iterator lim = elements.end();
 	bool tmp;
 
 	for (auto it = elements.begin() + chosenElementIndex + 1; it != lim; ++it)
@@ -24,11 +24,11 @@ int findNextActiveElementIndex(vector<Component*> elements, int chosenElementInd
 	return result;
 }
 
-int findPrevActiveElementIndex(vector<Component*> elements, int chosenElementIndex)
+int findPrevActiveElementIndex(std::vector<Component*> elements, int chosenElementIndex)
 {
 	int result = chosenElementIndex;
 	int index = 0;
-	vector<Component *>::iterator lim = elements.begin() + chosenElementIndex;
+	std::vector<Component *>::iterator lim = elements.begin() + chosenElementIndex;
 	bool tmp;
 
 	for (auto it = elements.begin(); it != lim; ++it)
@@ -57,7 +57,7 @@ int findPrevActiveElementIndex(vector<Component*> elements, int chosenElementInd
 
 const int VIEW_FIELD = 12;
 
-string Menu::str() const
+std::string Menu::str() const
 {
 	if (!elements.size())
 	{
@@ -68,7 +68,7 @@ string Menu::str() const
 		throw(MenuHasNoChosenElement());
 	}
 
-	stringstream ss;
+	std::stringstream ss;
 
 	bool tmp;
 	int index = -1;
@@ -80,30 +80,30 @@ string Menu::str() const
 		index = metaIndex + offset;
 		if (metaIndex == 0 && index != 0)
 		{
-			ss << "/\\/\\/\\/\\/\\ /\\/\\/\\/\\/\\ /\\/\\/\\/\\/\\ /\\/\\/\\/\\/\\ /\\/\\/\\/\\/\\" << endl;
+			ss << "/\\/\\/\\/\\/\\ /\\/\\/\\/\\/\\ /\\/\\/\\/\\/\\ /\\/\\/\\/\\/\\ /\\/\\/\\/\\/\\" << std::endl;
 		}
 		tmp = elements[index]->getIsFocusable();
 		if (tmp)
 		{
 			if (chosenElementIndex == index)
 			{
-				ss << ">>";
+				ss << ">> ";
 			}
 			else
 			{
-				ss << " +";
+				ss << " + ";
 			}
 		}
-		ss << elements[index]->str();
-		string additionalText = elements[index]->getAdditionalText();
+		ss << elements[index]->str() << std::endl;
+		std::string additionalText = elements[index]->getAdditionalText();
 		if ((additionalText != "") && (index == chosenElementIndex))
 		{
-			ss << additionalText << endl;
+			ss << additionalText << std::endl;
 		}
 	}
 	if (index < elements.size() - 1)
 	{
-		ss << "\\/\\/\\/\\/\\/ \\/\\/\\/\\/\\/ \\/\\/\\/\\/\\/ \\/\\/\\/\\/\\/ \\/\\/\\/\\/\\/" << endl;
+		ss << "\\/\\/\\/\\/\\/ \\/\\/\\/\\/\\/ \\/\\/\\/\\/\\/ \\/\\/\\/\\/\\/ \\/\\/\\/\\/\\/" << std::endl;
 	}
 	return ss.str();
 }

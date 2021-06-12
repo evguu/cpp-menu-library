@@ -1,6 +1,6 @@
 #include "Field.h"
 
-string& Field::getInput()
+std::string& Field::getInput()
 {
 	return input;
 }
@@ -12,7 +12,7 @@ bool Field::hasFreeSpace()
 
 bool Field::isCharAllowed(char ch)
 {
-	return (!allowedSymbols.length() || (allowedSymbols.find(ch) != string::npos));
+	return (!allowedSymbols.length() || (allowedSymbols.find(ch) != std::string::npos));
 }
 
 void Field::processKeyEvent(KeyEvent keyEvent)

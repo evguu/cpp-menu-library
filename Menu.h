@@ -4,17 +4,15 @@
 #include <mutex>
 #include "Component.h"
 
-using namespace std;
-
 class Menu;
 
-class MenuIsEmpty : public exception {};
-class MenuHasNoChosenElement : public exception {};
+class MenuIsEmpty : public std::exception {};
+class MenuHasNoChosenElement : public std::exception {};
 
 class Menu : Component
 {
 private:
-	vector<Component *> elements;
+	std::vector<Component *> elements;
 	int chosenElementIndex;
 	Menu* (*contentGenerator)();
 public:
@@ -27,7 +25,7 @@ public:
 			delete it;
 		}
 	};
-	string str() const;
+	std::string str() const;
 	void processKeyEvent(KeyEvent keyEvent);
 	Menu* addElement(Component* ref);
 	auto& getElements() { return elements; }

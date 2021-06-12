@@ -7,7 +7,7 @@ Title::Title(std::string text) : Component(text, false)
 std::string Title::str() const
 {
 	std::stringstream ss;
-	ss << "-< " << text << " >- " << endl;
+	ss << "-< " << text << " >- " << std::endl;
 	return ss.str();
 }
 

@@ -11,7 +11,7 @@ private:
 public:
 	BasicButton(std::string text, T buttonPressHandler) : Component(text, true), buttonPressHandler(buttonPressHandler) {};
 	~BasicButton() {};
-	string str() const { return "placeholder"; };
+	std::string str() const { return text; };
 	void processKeyEvent(KeyEvent keyEvent)
 	{
 		if (keyEvent.isSpecial && keyEvent.code == KC_ENTER)

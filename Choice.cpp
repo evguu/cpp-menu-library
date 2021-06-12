@@ -1,6 +1,6 @@
 #include "Choice.h"
 
-const string Choice::noChoicesFoundMessage = "LML_RESERVED_MESSAGE::NO_CHOICES_FOUND";
+const std::string Choice::noChoicesFoundMessage = "LML_RESERVED_MESSAGE::NO_CHOICES_FOUND";
 
 
 clock_t _lastClock = 0;
