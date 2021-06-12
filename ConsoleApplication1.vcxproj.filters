@@ -75,6 +75,9 @@
     <ClCompile Include="Theme.cpp">
       <Filter>Исходные файлы\MenuLib\Utils</Filter>
     </ClCompile>
+    <ClCompile Include="Display.cpp">
+      <Filter>Исходные файлы\MenuLib\Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MenuAggregator.h">
@@ -118,6 +121,9 @@
     </ClInclude>
     <ClInclude Include="MenuManager.h">
       <Filter>Файлы заголовков\MenuLib</Filter>
+    </ClInclude>
+    <ClInclude Include="Display.h">
+      <Filter>Файлы заголовков\MenuLib\Utils</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

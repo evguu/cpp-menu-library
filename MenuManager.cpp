@@ -4,58 +4,58 @@
 #include "MenuManager.h"
 
 stack<Menu *> MenuManager::menuStack = stack<Menu *>();
-bool MenuManager::isLoopRunning = true;
-mutex MenuManager::g_lock;
+bool MenuManager::areLoopsRunning = true;
+mutex MenuManager::loopLock;
 
 const int COLUMNS = 128;
 const int LINES = 40;
 const int FRAME_DELAY = 50;
 
 
-void MenuManager::controlLoop()
+void MenuManager::logicLoop()
 {
 	KeyEvent keyEvent;
 
-	while (isLoopRunning)
+	while (areLoopsRunning)
 	{
 		keyEvent = getKeyEvent();
-		getActive()->processKeyEvent(keyEvent);
-		g_lock.lock();
-		g_lock.unlock();
+		getActiveMenu()->processKeyEvent(keyEvent);
+		loopLock.lock();
+		loopLock.unlock();
 	}
 }
 
-void MenuManager::printLoop()
+void MenuManager::renderLoop()
 {
 	COORD coord;
 	coord.X = 0;
 	coord.Y = 0;
 
-	while (isLoopRunning)
+	while (areLoopsRunning)
 	{
 		string contentToPrint;
 		try
 		{
-			contentToPrint = getActive()->str();
+			contentToPrint = getActiveMenu()->str();
 		}
 		catch (MenuIsEmpty)
 		{
-			noBlinkOutput("Обнаружена попытка распечатать пустое меню.");
+			printStringWithoutBlinking("Обнаружена попытка распечатать пустое меню.");
 			system("pause");
-			finish();
+			stopLoops();
 		}
 		catch (MenuHasNoChosenElement)
 		{
-			noBlinkOutput("Обнаружена попытка распечатать меню без активных элементов.");
+			printStringWithoutBlinking("Обнаружена попытка распечатать меню без активных элементов.");
 			system("pause");
-			finish();
+			stopLoops();
 		}
 
-		g_lock.lock();
+		loopLock.lock();
 		Console::hideCursor();
 		SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
-		noBlinkOutput(contentToPrint);
-		g_lock.unlock();
+		printStringWithoutBlinking(contentToPrint);
+		loopLock.unlock();
 
 		Sleep(FRAME_DELAY);
 	}
@@ -66,7 +66,7 @@ void MenuManager::setConsoleResolution()
 	system(("MODE CON: COLS=" + to_string(COLUMNS) + " LINES=" + to_string(LINES + 1)).c_str());
 }
 
-void MenuManager::noBlinkOutput(string src)
+void MenuManager::printStringWithoutBlinking(string src)
 {
 	char res[LINES][COLUMNS];
 	int line = 0;
@@ -108,7 +108,7 @@ void MenuManager::noBlinkOutput(string src)
 	cout << (char *)res;
 };
 
-void MenuManager::popStack(int popCount)
+void MenuManager::removeFromMenuStack(int popCount)
 {
 	// TODO: normal exception
 	if (menuStack.size() < popCount + 1) throw(969);
@@ -119,7 +119,7 @@ void MenuManager::popStack(int popCount)
 }
 
 
-void MenuManager::addToStack(Menu* menu)
+void MenuManager::addToMenuStack(Menu* menu)
 {
 	menuStack.push(menu->getContentGenerator()());
 }

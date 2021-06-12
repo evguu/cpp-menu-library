@@ -5,23 +5,23 @@ class MenuManager
 {
 private:
 	static stack<Menu *> menuStack;
-	static bool isLoopRunning;
-	static mutex g_lock;
-	static void controlLoop();
-	static void printLoop();
-	static void noBlinkOutput(string src);
+	static bool areLoopsRunning;
+	static mutex loopLock;
+	static void logicLoop();
+	static void renderLoop();
+	static void printStringWithoutBlinking(string src);
 public:
-	static Menu* getActive() { return menuStack.top(); };
-	static void popStack(int popCount = 1);
-	static void addToStack(Menu* menu);
-	static void run()
+	static Menu* getActiveMenu() { return menuStack.top(); };
+	static void removeFromMenuStack(int popCount = 1);
+	static void addToMenuStack(Menu* menu);
+	static void runLoops()
 	{
-		thread t1(controlLoop);
-		thread t2(printLoop);
+		thread t1(logicLoop);
+		thread t2(renderLoop);
 		t1.join();
 		t2.join();
 	}
-	static void finish() { isLoopRunning = false; };
-	static auto& getMutex() { return g_lock; };
+	static void stopLoops() { areLoopsRunning = false; };
+	static auto& getLoopLock() { return loopLock; };
 	static void setConsoleResolution();
 };
