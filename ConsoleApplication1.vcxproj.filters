@@ -19,6 +19,12 @@
     <Filter Include="Файлы заголовков\MenuLib">
       <UniqueIdentifier>{c8a9de41-179a-4d06-a7f6-020cf4b9de06}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Исходные файлы\MenuLib\Components">
+      <UniqueIdentifier>{cb95cc0e-b6bc-4473-b150-f5f5ec36a81d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\MenuLib\Components">
+      <UniqueIdentifier>{70a7d014-0f89-4be6-bebe-e76fadf03701}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Console.cpp">
@@ -30,17 +36,17 @@
     <ClCompile Include="Input.cpp">
       <Filter>Исходные файлы\MenuLib</Filter>
     </ClCompile>
-    <ClCompile Include="Menu.cpp">
-      <Filter>Исходные файлы\MenuLib</Filter>
-    </ClCompile>
     <ClCompile Include="MenuAggregator.cpp">
-      <Filter>Исходные файлы\MenuLib</Filter>
-    </ClCompile>
-    <ClCompile Include="MenuElements.cpp">
       <Filter>Исходные файлы\MenuLib</Filter>
     </ClCompile>
     <ClCompile Include="Theme.cpp">
       <Filter>Исходные файлы\MenuLib</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuElements.cpp">
+      <Filter>Исходные файлы\MenuLib\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu.cpp">
+      <Filter>Исходные файлы\MenuLib\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -50,13 +56,7 @@
     <ClInclude Include="Input.h">
       <Filter>Файлы заголовков\MenuLib</Filter>
     </ClInclude>
-    <ClInclude Include="Menu.h">
-      <Filter>Файлы заголовков\MenuLib</Filter>
-    </ClInclude>
     <ClInclude Include="MenuAggregator.h">
-      <Filter>Файлы заголовков\MenuLib</Filter>
-    </ClInclude>
-    <ClInclude Include="MenuElements.h">
       <Filter>Файлы заголовков\MenuLib</Filter>
     </ClInclude>
     <ClInclude Include="MenuMacros.h">
@@ -67,6 +67,12 @@
     </ClInclude>
     <ClInclude Include="Theme.h">
       <Filter>Файлы заголовков\MenuLib</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuElements.h">
+      <Filter>Файлы заголовков\MenuLib\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu.h">
+      <Filter>Файлы заголовков\MenuLib\Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
