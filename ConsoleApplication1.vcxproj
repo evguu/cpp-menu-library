@@ -182,7 +182,7 @@
     <ClInclude Include="Menu.h" />
     <ClInclude Include="MenuAggregator.h" />
     <ClInclude Include="Component.h" />
-    <ClInclude Include="MenuMacros.h" />
+    <ClInclude Include="LML.h" />
     <ClInclude Include="MenuManager.h" />
     <ClInclude Include="Text.h" />
     <ClInclude Include="Theme.h" />

@@ -31,13 +31,16 @@
     <Filter Include="Файлы заголовков\MenuLib\Utils">
       <UniqueIdentifier>{a670dee5-6d70-4c12-b5ec-8ddc198231c7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Файлы заголовков\MenuLib\Core">
+      <UniqueIdentifier>{f5f9cc9a-4aec-4a47-a97e-690a09f02c48}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\MenuLib\Core">
+      <UniqueIdentifier>{5960c426-c4e5-4979-809e-19c622e2d95a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ConsoleApplication1.cpp">
       <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="MenuAggregator.cpp">
-      <Filter>Исходные файлы\MenuLib</Filter>
     </ClCompile>
     <ClCompile Include="Title.cpp">
       <Filter>Исходные файлы\MenuLib\Components</Filter>
@@ -60,9 +63,6 @@
     <ClCompile Include="Menu.cpp">
       <Filter>Исходные файлы\MenuLib\Components</Filter>
     </ClCompile>
-    <ClCompile Include="MenuManager.cpp">
-      <Filter>Исходные файлы\MenuLib</Filter>
-    </ClCompile>
     <ClCompile Include="Input.cpp">
       <Filter>Исходные файлы\MenuLib\Utils</Filter>
     </ClCompile>
@@ -78,14 +78,14 @@
     <ClCompile Include="Theme.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="MenuAggregator.cpp">
+      <Filter>Исходные файлы\MenuLib\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuManager.cpp">
+      <Filter>Исходные файлы\MenuLib\Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="MenuAggregator.h">
-      <Filter>Файлы заголовков\MenuLib</Filter>
-    </ClInclude>
-    <ClInclude Include="MenuMacros.h">
-      <Filter>Файлы заголовков\MenuLib</Filter>
-    </ClInclude>
     <ClInclude Include="Title.h">
       <Filter>Файлы заголовков\MenuLib\Components</Filter>
     </ClInclude>
@@ -116,9 +116,6 @@
     <ClInclude Include="KeyEvent.h">
       <Filter>Файлы заголовков\MenuLib\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="MenuManager.h">
-      <Filter>Файлы заголовков\MenuLib</Filter>
-    </ClInclude>
     <ClInclude Include="Display.h">
       <Filter>Файлы заголовков\MenuLib\Utils</Filter>
     </ClInclude>
@@ -127,6 +124,15 @@
     </ClInclude>
     <ClInclude Include="Dialog.h">
       <Filter>Файлы заголовков\MenuLib\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="LML.h">
+      <Filter>Файлы заголовков\MenuLib</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuAggregator.h">
+      <Filter>Файлы заголовков\MenuLib\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuManager.h">
+      <Filter>Файлы заголовков\MenuLib\Core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -4,9 +4,10 @@
 class Dialog
 {
 public:
+	static auto fromVoid(void(*wrapped)()) { return [wrapped]() { start(); wrapped(); end(); }; };
+private:
 	static void start() { Display::setMode(Display::modeDialog); }
 	static void end() { system("pause"); Display::setMode(Display::modeMenu); }
-	static auto fromVoid(void(*wrapped)()) { return [wrapped]() { start(); wrapped(); end(); }; };
 };
 
 static auto __dialogExample = Dialog::fromVoid([]() {});;
