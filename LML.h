@@ -7,11 +7,11 @@
 #include "Display.h"
 
 // Elements
-#include "Title.h"
-#include "Text.h"
-#include "Button.h"
-#include "Choice.h"
-#include "Field.h"
+#include "Components/Title.h"
+#include "Components/Text.h"
+#include "Components/Button.h"
+#include "Components/Choice.h"
+#include "Components/Field.h"
 
 // Utils
 #include "DialogDecorator.h"

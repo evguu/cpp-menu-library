@@ -1,8 +1,7 @@
 #pragma once
 #include <string>
 #include "Component.h"
-#include "Display.h"
-#include "Executable.h"
+#include "../Executable.h"
 
 class Button : public Component
 {

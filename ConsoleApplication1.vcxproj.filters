@@ -42,27 +42,6 @@
     <ClCompile Include="ConsoleApplication1.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Title.cpp">
-      <Filter>Исходные файлы\MenuLib\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Choice.cpp">
-      <Filter>Исходные файлы\MenuLib\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Button.cpp">
-      <Filter>Исходные файлы\MenuLib\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Field.cpp">
-      <Filter>Исходные файлы\MenuLib\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Text.cpp">
-      <Filter>Исходные файлы\MenuLib\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Component.cpp">
-      <Filter>Исходные файлы\MenuLib\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Menu.cpp">
-      <Filter>Исходные файлы\MenuLib\Components</Filter>
-    </ClCompile>
     <ClCompile Include="Input.cpp">
       <Filter>Исходные файлы\MenuLib\Utils</Filter>
     </ClCompile>
@@ -90,29 +69,29 @@
     <ClCompile Include="DialogDecorator.cpp">
       <Filter>Исходные файлы\MenuLib\Utils</Filter>
     </ClCompile>
+    <ClCompile Include="Components\Button.cpp">
+      <Filter>Исходные файлы\MenuLib\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Choice.cpp">
+      <Filter>Исходные файлы\MenuLib\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Component.cpp">
+      <Filter>Исходные файлы\MenuLib\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Field.cpp">
+      <Filter>Исходные файлы\MenuLib\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Menu.cpp">
+      <Filter>Исходные файлы\MenuLib\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Text.cpp">
+      <Filter>Исходные файлы\MenuLib\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Title.cpp">
+      <Filter>Исходные файлы\MenuLib\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Title.h">
-      <Filter>Файлы заголовков\MenuLib\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Text.h">
-      <Filter>Файлы заголовков\MenuLib\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Button.h">
-      <Filter>Файлы заголовков\MenuLib\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Choice.h">
-      <Filter>Файлы заголовков\MenuLib\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Field.h">
-      <Filter>Файлы заголовков\MenuLib\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Component.h">
-      <Filter>Файлы заголовков\MenuLib\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Menu.h">
-      <Filter>Файлы заголовков\MenuLib\Components</Filter>
-    </ClInclude>
     <ClInclude Include="Console.h">
       <Filter>Файлы заголовков\MenuLib\Utils</Filter>
     </ClInclude>
@@ -142,6 +121,27 @@
     </ClInclude>
     <ClInclude Include="DialogDecorator.h">
       <Filter>Файлы заголовков\MenuLib\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Button.h">
+      <Filter>Файлы заголовков\MenuLib\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Choice.h">
+      <Filter>Файлы заголовков\MenuLib\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Component.h">
+      <Filter>Файлы заголовков\MenuLib\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Field.h">
+      <Filter>Файлы заголовков\MenuLib\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Menu.h">
+      <Filter>Файлы заголовков\MenuLib\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Text.h">
+      <Filter>Файлы заголовков\MenuLib\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Title.h">
+      <Filter>Файлы заголовков\MenuLib\Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

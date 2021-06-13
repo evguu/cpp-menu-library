@@ -1,5 +1,5 @@
 #include "Component.h"
-#include "Input.h"
+#include "../Input.h"
 #include <ctime>
 #include <sstream>
 
