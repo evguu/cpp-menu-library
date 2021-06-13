@@ -1,5 +1,5 @@
 #pragma once
-#include "Components/Menu.h"
+#include "../Components/Menu.h"
 
 class MenuManager 
 {

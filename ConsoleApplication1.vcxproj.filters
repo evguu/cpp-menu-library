@@ -42,33 +42,6 @@
     <ClCompile Include="ConsoleApplication1.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Input.cpp">
-      <Filter>Исходные файлы\MenuLib\Utils</Filter>
-    </ClCompile>
-    <ClCompile Include="Console.cpp">
-      <Filter>Исходные файлы\MenuLib\Utils</Filter>
-    </ClCompile>
-    <ClCompile Include="KeyEvent.cpp">
-      <Filter>Исходные файлы\MenuLib\Utils</Filter>
-    </ClCompile>
-    <ClCompile Include="Display.cpp">
-      <Filter>Исходные файлы\MenuLib\Utils</Filter>
-    </ClCompile>
-    <ClCompile Include="Theme.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="MenuAggregator.cpp">
-      <Filter>Исходные файлы\MenuLib\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="MenuManager.cpp">
-      <Filter>Исходные файлы\MenuLib\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="Executable.cpp">
-      <Filter>Исходные файлы\MenuLib\Utils</Filter>
-    </ClCompile>
-    <ClCompile Include="DialogDecorator.cpp">
-      <Filter>Исходные файлы\MenuLib\Utils</Filter>
-    </ClCompile>
     <ClCompile Include="Components\Button.cpp">
       <Filter>Исходные файлы\MenuLib\Components</Filter>
     </ClCompile>
@@ -90,37 +63,37 @@
     <ClCompile Include="Components\Title.cpp">
       <Filter>Исходные файлы\MenuLib\Components</Filter>
     </ClCompile>
+    <ClCompile Include="Core\MenuAggregator.cpp">
+      <Filter>Исходные файлы\MenuLib\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\MenuManager.cpp">
+      <Filter>Исходные файлы\MenuLib\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils\Console.cpp">
+      <Filter>Исходные файлы\MenuLib\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils\DialogDecorator.cpp">
+      <Filter>Исходные файлы\MenuLib\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils\Display.cpp">
+      <Filter>Исходные файлы\MenuLib\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils\Executable.cpp">
+      <Filter>Исходные файлы\MenuLib\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils\Input.cpp">
+      <Filter>Исходные файлы\MenuLib\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils\KeyEvent.cpp">
+      <Filter>Исходные файлы\MenuLib\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils\Theme.cpp">
+      <Filter>Исходные файлы\MenuLib\Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Console.h">
-      <Filter>Файлы заголовков\MenuLib\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="Input.h">
-      <Filter>Файлы заголовков\MenuLib\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="KeyEvent.h">
-      <Filter>Файлы заголовков\MenuLib\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="Display.h">
-      <Filter>Файлы заголовков\MenuLib\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="Theme.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="LML.h">
       <Filter>Файлы заголовков\MenuLib</Filter>
-    </ClInclude>
-    <ClInclude Include="MenuAggregator.h">
-      <Filter>Файлы заголовков\MenuLib\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="MenuManager.h">
-      <Filter>Файлы заголовков\MenuLib\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Executable.h">
-      <Filter>Файлы заголовков\MenuLib\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="DialogDecorator.h">
-      <Filter>Файлы заголовков\MenuLib\Utils</Filter>
     </ClInclude>
     <ClInclude Include="Components\Button.h">
       <Filter>Файлы заголовков\MenuLib\Components</Filter>
@@ -142,6 +115,33 @@
     </ClInclude>
     <ClInclude Include="Components\Title.h">
       <Filter>Файлы заголовков\MenuLib\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\MenuAggregator.h">
+      <Filter>Файлы заголовков\MenuLib\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\MenuManager.h">
+      <Filter>Файлы заголовков\MenuLib\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\Console.h">
+      <Filter>Файлы заголовков\MenuLib\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\DialogDecorator.h">
+      <Filter>Файлы заголовков\MenuLib\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\Display.h">
+      <Filter>Файлы заголовков\MenuLib\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\Executable.h">
+      <Filter>Файлы заголовков\MenuLib\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\Input.h">
+      <Filter>Файлы заголовков\MenuLib\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\KeyEvent.h">
+      <Filter>Файлы заголовков\MenuLib\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\Theme.h">
+      <Filter>Файлы заголовков\MenuLib\Utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

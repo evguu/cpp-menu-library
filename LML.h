@@ -1,10 +1,8 @@
 #pragma once
 
 // Core
-#include "Console.h"
-#include "MenuAggregator.h"
-#include "MenuManager.h"
-#include "Display.h"
+#include "Core/MenuAggregator.h"
+#include "Core/MenuManager.h"
 
 // Elements
 #include "Components/Title.h"
@@ -14,4 +12,8 @@
 #include "Components/Field.h"
 
 // Utils
-#include "DialogDecorator.h"
+#include "Utils/DialogDecorator.h"
+#include "Utils/Console.h"
+#include "Utils/Display.h"
+#include "Utils/Theme.h"
+#include "Utils/Executable.h"

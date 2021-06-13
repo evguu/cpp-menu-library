@@ -1,5 +1,4 @@
 #include <cassert>
-#include "Input.h"
 #include <sstream>
 #include "Menu.h"
 

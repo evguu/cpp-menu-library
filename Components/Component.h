@@ -3,7 +3,7 @@
 #include <vector>
 #include <iostream>
 #include <sstream>
-#include "../Input.h"
+#include "../Utils/Input.h"
 
 class Component
 {

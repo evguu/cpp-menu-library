@@ -161,16 +161,16 @@
     <ClCompile Include="Components\Menu.cpp" />
     <ClCompile Include="Components\Text.cpp" />
     <ClCompile Include="Components\Title.cpp" />
-    <ClCompile Include="Console.cpp" />
     <ClCompile Include="ConsoleApplication1.cpp" />
-    <ClCompile Include="DialogDecorator.cpp" />
-    <ClCompile Include="Display.cpp" />
-    <ClCompile Include="Executable.cpp" />
-    <ClCompile Include="Input.cpp" />
-    <ClCompile Include="KeyEvent.cpp" />
-    <ClCompile Include="MenuAggregator.cpp" />
-    <ClCompile Include="MenuManager.cpp" />
-    <ClCompile Include="Theme.cpp" />
+    <ClCompile Include="Core\MenuAggregator.cpp" />
+    <ClCompile Include="Core\MenuManager.cpp" />
+    <ClCompile Include="Utils\Console.cpp" />
+    <ClCompile Include="Utils\DialogDecorator.cpp" />
+    <ClCompile Include="Utils\Display.cpp" />
+    <ClCompile Include="Utils\Executable.cpp" />
+    <ClCompile Include="Utils\Input.cpp" />
+    <ClCompile Include="Utils\KeyEvent.cpp" />
+    <ClCompile Include="Utils\Theme.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Components\Button.h" />
@@ -180,16 +180,16 @@
     <ClInclude Include="Components\Menu.h" />
     <ClInclude Include="Components\Text.h" />
     <ClInclude Include="Components\Title.h" />
-    <ClInclude Include="Console.h" />
-    <ClInclude Include="DialogDecorator.h" />
-    <ClInclude Include="Display.h" />
-    <ClInclude Include="Executable.h" />
-    <ClInclude Include="KeyEvent.h" />
-    <ClInclude Include="Input.h" />
-    <ClInclude Include="MenuAggregator.h" />
+    <ClInclude Include="Core\MenuAggregator.h" />
+    <ClInclude Include="Core\MenuManager.h" />
     <ClInclude Include="LML.h" />
-    <ClInclude Include="MenuManager.h" />
-    <ClInclude Include="Theme.h" />
+    <ClInclude Include="Utils\Console.h" />
+    <ClInclude Include="Utils\DialogDecorator.h" />
+    <ClInclude Include="Utils\Display.h" />
+    <ClInclude Include="Utils\Executable.h" />
+    <ClInclude Include="Utils\Input.h" />
+    <ClInclude Include="Utils\KeyEvent.h" />
+    <ClInclude Include="Utils\Theme.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

@@ -1,7 +1,4 @@
 ﻿#include "LML.h"
-#include "Theme.h"
-
-#include "Executable.h"
 
 int main()
 {

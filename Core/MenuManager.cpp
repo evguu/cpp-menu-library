@@ -1,8 +1,8 @@
 #include <Windows.h>
 #include <mutex>
-#include "Console.h"
+#include "../Utils/Console.h"
 #include "MenuManager.h"
-#include "Display.h"
+#include "../Utils/Display.h"
 
 std::stack<Menu *> MenuManager::menuStack = std::stack<Menu *>();
 bool MenuManager::areLoopsRunning = true;
