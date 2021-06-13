@@ -2,23 +2,23 @@
 #include <string>
 #include "Component.h"
 #include "Display.h"
+#include "Executable.h"
 
-template <class T>
-class BasicButton : public Component
+class Button : public Component
 {
 private:
-	T buttonPressHandler;
+	Executable* buttonPressHandler;
 public:
-	BasicButton(std::string text, T buttonPressHandler) : Component(text, true), buttonPressHandler(buttonPressHandler) {};
-	~BasicButton() {};
+	Button(std::string text, Executable* buttonPressHandler) : Component(text, true), buttonPressHandler(buttonPressHandler) {};
+	~Button() { delete buttonPressHandler; };
 	std::string str() const { return text; };
 	void processKeyEvent(KeyEvent keyEvent)
 	{
 		if (keyEvent.isSpecial && keyEvent.code == KC_ENTER)
 		{
-			buttonPressHandler();
+			buttonPressHandler->execute();
 		}
 	}
 
-	T& getButtonPressHandler() { return buttonPressHandler; };
+	Executable*& getButtonPressHandler() { return buttonPressHandler; };
 };

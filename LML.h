@@ -10,6 +10,8 @@
 #include "Title.h"
 #include "Text.h"
 #include "Button.h"
-#include "Dialog.h"
 #include "Choice.h"
 #include "Field.h"
+
+// Utils
+#include "DialogDecorator.h"

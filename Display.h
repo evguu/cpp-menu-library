@@ -14,7 +14,7 @@ public:
 	private:
 		int rows;
 		int columns;
-	} modeMenu, modeDialog;
+	} standardMode;
 
 	static void setMode(Mode mode);
 	static void printStringWithoutBlinking(std::string src);

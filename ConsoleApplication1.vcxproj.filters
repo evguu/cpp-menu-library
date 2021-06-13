@@ -84,6 +84,12 @@
     <ClCompile Include="MenuManager.cpp">
       <Filter>Исходные файлы\MenuLib\Core</Filter>
     </ClCompile>
+    <ClCompile Include="Executable.cpp">
+      <Filter>Исходные файлы\MenuLib\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogDecorator.cpp">
+      <Filter>Исходные файлы\MenuLib\Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Title.h">
@@ -122,9 +128,6 @@
     <ClInclude Include="Theme.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Dialog.h">
-      <Filter>Файлы заголовков\MenuLib\Components</Filter>
-    </ClInclude>
     <ClInclude Include="LML.h">
       <Filter>Файлы заголовков\MenuLib</Filter>
     </ClInclude>
@@ -133,6 +136,12 @@
     </ClInclude>
     <ClInclude Include="MenuManager.h">
       <Filter>Файлы заголовков\MenuLib\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Executable.h">
+      <Filter>Файлы заголовков\MenuLib\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogDecorator.h">
+      <Filter>Файлы заголовков\MenuLib\Utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

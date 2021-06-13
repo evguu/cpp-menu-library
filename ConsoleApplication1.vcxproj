@@ -158,7 +158,9 @@
     <ClCompile Include="Choice.cpp" />
     <ClCompile Include="Console.cpp" />
     <ClCompile Include="ConsoleApplication1.cpp" />
+    <ClCompile Include="DialogDecorator.cpp" />
     <ClCompile Include="Display.cpp" />
+    <ClCompile Include="Executable.cpp" />
     <ClCompile Include="Field.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="KeyEvent.cpp" />
@@ -174,8 +176,9 @@
     <ClInclude Include="Button.h" />
     <ClInclude Include="Choice.h" />
     <ClInclude Include="Console.h" />
-    <ClInclude Include="Dialog.h" />
+    <ClInclude Include="DialogDecorator.h" />
     <ClInclude Include="Display.h" />
+    <ClInclude Include="Executable.h" />
     <ClInclude Include="Field.h" />
     <ClInclude Include="KeyEvent.h" />
     <ClInclude Include="Input.h" />
