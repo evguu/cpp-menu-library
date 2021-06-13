@@ -25,4 +25,3 @@ Executable* Executable::from(T func)
 {
 	return new __ExecutableImpl<T>(func);
 }
-

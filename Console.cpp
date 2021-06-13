@@ -3,7 +3,16 @@
 #include <iostream>
 #include "Console.h"
 
+
+Console::Mode Console::standardMode{ 40, 128 };
 std::string Console::goodbyeMessage = "Выход из программы...";
+
+
+void Console::setMode(Mode mode)
+{
+	system(("MODE CON: COLS=" + std::to_string(mode.getColumns()) + " LINES=" + std::to_string(mode.getRows() + 1)).c_str());
+	system("cls");
+}
 
 void Console::hideCursor()
 {

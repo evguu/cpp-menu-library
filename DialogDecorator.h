@@ -1,19 +1,19 @@
 #pragma once
-#include "Display.h"
+#include "Console.h"
 #include "Executable.h"
 
 class DialogDecorator
 {
 public:
-	static Display::Mode dialogMode;
+	static Console::Mode dialogMode;
 
 	static Executable* apply(Executable* wrappee)
 	{
 		return Executable::from([wrappee]() {
-			Display::setMode(dialogMode);
+			Console::setMode(dialogMode);
 			wrappee->execute();
 			system("pause");
-			Display::setMode(Display::standardMode);
+			Console::setMode(Console::standardMode);
 		});
 	}
 };

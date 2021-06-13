@@ -1,52 +1,46 @@
 #include "Display.h"
 #include <iostream>
 
-Display::Mode Display::standardMode{ 40, 128 };
-
-void Display::setMode(Mode mode)
-{
-	system(("MODE CON: COLS=" + std::to_string(mode.getColumns()) + " LINES=" + std::to_string(mode.getRows() + 1)).c_str());
-	system("cls");
-}
-
 void Display::printStringWithoutBlinking(std::string src)
 {
-	char* res = new char[standardMode.getRows()*standardMode.getColumns()];
-	int line = 0;
-	int pos = 0;
+	int rows = Console::standardMode.getRows();
+	int columns = Console::standardMode.getColumns();
+	char* res = new char[rows*columns];
+	int activeRow = 0;
+	int activeColumn = 0;
 	for (auto i : src)
 	{
 		if (i == '\n')
 		{
-			while (pos != standardMode.getColumns() - 1)
+			while (activeColumn != columns - 1)
 			{
-				res[line*standardMode.getColumns() + pos++] = ' ';
+				res[activeRow*columns + activeColumn++] = ' ';
 			}
-			res[line*standardMode.getColumns() + pos++] = '\n';
-			++line;
-			pos = 0;
+			res[activeRow*columns + activeColumn++] = '\n';
+			++activeRow;
+			activeColumn = 0;
 		}
 		else
 		{
-			res[line*standardMode.getColumns() + pos++] = i;
-			if (pos == standardMode.getColumns() - 1)
+			res[activeRow*columns + activeColumn++] = i;
+			if (activeColumn == columns - 1)
 			{
-				res[line*standardMode.getColumns() + pos++] = '\n';
-				++line;
-				pos = 0;
+				res[activeRow*columns + activeColumn++] = '\n';
+				++activeRow;
+				activeColumn = 0;
 			}
 		}
 	}
-	while (line < standardMode.getRows())
+	while (activeRow < rows)
 	{
-		while (pos != standardMode.getColumns() - 1)
+		while (activeColumn != columns - 1)
 		{
-			res[line*standardMode.getColumns() + pos++] = ' ';
+			res[activeRow*columns + activeColumn++] = ' ';
 		}
-		res[line*standardMode.getColumns() + pos++] = '\n';
-		++line;
-		pos = 0;
+		res[activeRow*columns + activeColumn++] = '\n';
+		++activeRow;
+		activeColumn = 0;
 	}
-	res[(standardMode.getRows() - 1) * standardMode.getColumns() + standardMode.getColumns() - 1] = 0;
+	res[rows * columns - 1] = 0;
 	std::cout << (char *)res;
 };
