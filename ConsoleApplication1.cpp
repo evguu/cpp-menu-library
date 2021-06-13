@@ -24,6 +24,7 @@ int main()
 		ADD(Title, "Субменю")$
 		ADD(Field, "Пустое поле")$
 		ADD(Field, "Заранее заполненное поле") e->getInput() = "Данные"; $
+		ADD(Button, "Диалог с тем же контекстом", contextDialog)$
 		ADD(Button, "Назад", Executable::from([]() { MenuManager::removeFromMenuStack(); }))$
 		MD_END;
 
