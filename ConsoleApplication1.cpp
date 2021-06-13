@@ -6,6 +6,7 @@ int main()
 {
 	Console::fixEncoding();
 	Console::setMode(Console::standardMode);
+	Display::setBuffer(new char[Console::standardMode.getColumns()*Console::standardMode.getRows()]);
 	Theme::applyCurrent();
 
 	int context = 0;

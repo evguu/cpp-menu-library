@@ -1,11 +1,12 @@
 #include "Display.h"
 #include <iostream>
 
+char* Display::buffer = nullptr;
+
 void Display::printStringWithoutBlinking(std::string src)
 {
 	int rows = Console::standardMode.getRows();
 	int columns = Console::standardMode.getColumns();
-	char* res = new char[rows*columns];
 	int activeRow = 0;
 	int activeColumn = 0;
 	for (auto i : src)
@@ -14,18 +15,18 @@ void Display::printStringWithoutBlinking(std::string src)
 		{
 			while (activeColumn != columns - 1)
 			{
-				res[activeRow*columns + activeColumn++] = ' ';
+				buffer[activeRow*columns + activeColumn++] = ' ';
 			}
-			res[activeRow*columns + activeColumn++] = '\n';
+			buffer[activeRow*columns + activeColumn++] = '\n';
 			++activeRow;
 			activeColumn = 0;
 		}
 		else
 		{
-			res[activeRow*columns + activeColumn++] = i;
+			buffer[activeRow*columns + activeColumn++] = i;
 			if (activeColumn == columns - 1)
 			{
-				res[activeRow*columns + activeColumn++] = '\n';
+				buffer[activeRow*columns + activeColumn++] = '\n';
 				++activeRow;
 				activeColumn = 0;
 			}
@@ -35,12 +36,21 @@ void Display::printStringWithoutBlinking(std::string src)
 	{
 		while (activeColumn != columns - 1)
 		{
-			res[activeRow*columns + activeColumn++] = ' ';
+			buffer[activeRow*columns + activeColumn++] = ' ';
 		}
-		res[activeRow*columns + activeColumn++] = '\n';
+		buffer[activeRow*columns + activeColumn++] = '\n';
 		++activeRow;
 		activeColumn = 0;
 	}
-	res[rows * columns - 1] = 0;
-	std::cout << (char *)res;
-};
+	buffer[rows * columns - 1] = 0;
+	std::cout << (char *)buffer;
+}
+void Display::setBuffer(char * buffer)
+{
+	if (Display::buffer)
+	{
+		delete Display::buffer;
+	}
+	Display::buffer = buffer;
+}
+;
