@@ -3,11 +3,11 @@
 #include "Menu.h"
 
 
-int findNextActiveElementIndex(std::vector<Component*> elements, int chosenElementIndex)
+int findNextActiveElementIndex(std::vector<std::shared_ptr<Component>> elements, int chosenElementIndex)
 {
 	int result = chosenElementIndex;
 	int index = chosenElementIndex + 1;
-	std::vector<Component *>::iterator lim = elements.end();
+	std::vector<std::shared_ptr<Component>>::iterator lim = elements.end();
 	bool tmp;
 
 	for (auto it = elements.begin() + chosenElementIndex + 1; it != lim; ++it)
@@ -23,11 +23,11 @@ int findNextActiveElementIndex(std::vector<Component*> elements, int chosenEleme
 	return result;
 }
 
-int findPrevActiveElementIndex(std::vector<Component*> elements, int chosenElementIndex)
+int findPrevActiveElementIndex(std::vector<std::shared_ptr<Component>> elements, int chosenElementIndex)
 {
 	int result = chosenElementIndex;
 	int index = 0;
-	std::vector<Component *>::iterator lim = elements.begin() + chosenElementIndex;
+	std::vector<std::shared_ptr<Component>>::iterator lim = elements.begin() + chosenElementIndex;
 	bool tmp;
 
 	for (auto it = elements.begin(); it != lim; ++it)
@@ -132,7 +132,7 @@ void Menu::processKeyEvent(KeyEvent keyEvent)
 	}
 }
 
-Menu* Menu::addElement(Component * ref)
+Menu* Menu::addElement(std::shared_ptr<Component> ref)
 {
 	elements.push_back(ref);
 	return this;
