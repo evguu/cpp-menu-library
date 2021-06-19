@@ -4,9 +4,7 @@
 std::function<void()> contextDialog()
 {
 	static int context = 0;
-
-	std::function<void()> test = [&]() {std::cout << "Ты нажал уже " << ++context << " раз. Остановись!" << std::endl; };
-	return DialogDecorator::apply(test);
+	return DialogDecorator::apply([&]() {std::cout << "Ты нажал уже " << ++context << " раз. Остановись!" << std::endl; });
 }
 
 int main()
