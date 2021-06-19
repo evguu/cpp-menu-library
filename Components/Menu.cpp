@@ -132,13 +132,12 @@ void Menu::processKeyEvent(KeyEvent keyEvent)
 	}
 }
 
-Menu* Menu::addElement(std::shared_ptr<Component> ref)
+void Menu::addElement(std::shared_ptr<Component> ref)
 {
 	elements.push_back(ref);
-	return this;
 }
 
-Menu* Menu::initChosenElementIndex()
+void Menu::initChosenElementIndex()
 {
 	int index = 0;
 	bool tmp;
@@ -148,11 +147,10 @@ Menu* Menu::initChosenElementIndex()
 		if (tmp)
 		{
 			chosenElementIndex = index;
-			return this;
+			return;
 		}
 		++index;
 	}
 	chosenElementIndex = -1;
-	return this;
 }
 

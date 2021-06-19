@@ -21,9 +21,9 @@ public:
 	Menu() : Component("", true), chosenElementIndex(-1) {};
 	std::string str() const;
 	void processKeyEvent(KeyEvent keyEvent);
-	Menu* addElement(std::shared_ptr<Component> ref);
+	void addElement(std::shared_ptr<Component> ref);
 	auto& getElements() { return elements; }
-	Menu* initChosenElementIndex();
+	void initChosenElementIndex();
 	int getChosenElementIndex() { return chosenElementIndex; };
 	auto& getContentGenerator() { return contentGenerator; }
 };
