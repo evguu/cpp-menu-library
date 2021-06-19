@@ -167,7 +167,6 @@
     <ClCompile Include="Utils\Console.cpp" />
     <ClCompile Include="Utils\DialogDecorator.cpp" />
     <ClCompile Include="Utils\Display.cpp" />
-    <ClCompile Include="Utils\Executable.cpp" />
     <ClCompile Include="Utils\Input.cpp" />
     <ClCompile Include="Utils\KeyEvent.cpp" />
     <ClCompile Include="Utils\Theme.cpp" />
@@ -186,7 +185,6 @@
     <ClInclude Include="Utils\Console.h" />
     <ClInclude Include="Utils\DialogDecorator.h" />
     <ClInclude Include="Utils\Display.h" />
-    <ClInclude Include="Utils\Executable.h" />
     <ClInclude Include="Utils\Input.h" />
     <ClInclude Include="Utils\KeyEvent.h" />
     <ClInclude Include="Utils\Theme.h" />

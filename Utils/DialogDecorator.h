@@ -1,19 +1,19 @@
 #pragma once
 #include "Console.h"
-#include "Executable.h"
+#include <functional>
 
 class DialogDecorator
 {
 public:
 	static Console::Mode dialogMode;
 
-	static Executable* apply(Executable* wrappee)
+	static std::function<void()> apply(std::function<void()> wrappee)
 	{
-		return Executable::from([wrappee]() {
+		return [wrappee]() {
 			Console::setMode(dialogMode);
-			wrappee->execute();
+			wrappee();
 			system("pause");
 			Console::setMode(Console::standardMode);
-		});
+		};
 	}
 };

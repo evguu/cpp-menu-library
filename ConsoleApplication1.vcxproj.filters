@@ -75,9 +75,6 @@
     <ClCompile Include="Utils\Display.cpp">
       <Filter>Исходные файлы\MenuLib\Utils</Filter>
     </ClCompile>
-    <ClCompile Include="Utils\Executable.cpp">
-      <Filter>Исходные файлы\MenuLib\Utils</Filter>
-    </ClCompile>
     <ClCompile Include="Utils\Input.cpp">
       <Filter>Исходные файлы\MenuLib\Utils</Filter>
     </ClCompile>
@@ -129,9 +126,6 @@
       <Filter>Файлы заголовков\MenuLib\Utils</Filter>
     </ClInclude>
     <ClInclude Include="Utils\Display.h">
-      <Filter>Файлы заголовков\MenuLib\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="Utils\Executable.h">
       <Filter>Файлы заголовков\MenuLib\Utils</Filter>
     </ClInclude>
     <ClInclude Include="Utils\Input.h">
