@@ -137,7 +137,7 @@
     <ClInclude Include="Utils\Theme.h">
       <Filter>Файлы заголовков\MenuLib\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="MenuStream.h">
+    <ClInclude Include="Utils\MenuStream.h">
       <Filter>Файлы заголовков\MenuLib\Utils</Filter>
     </ClInclude>
   </ItemGroup>

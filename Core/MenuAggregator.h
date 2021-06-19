@@ -6,8 +6,6 @@
 #include <string>
 
 // Вспомогательные макросы
-#define MD_START(mid) newMenu(mid)->getContentGenerator() = [](){return MenuStream(getMenuForGenerator(mid))
-#define MD_END .init();};
 #define ADD(type, ...) ([](){auto e = std::make_shared<type>(__VA_ARGS__);
 #define $ return e;}())
 #define AS(type, expr) ((type*)(expr))
