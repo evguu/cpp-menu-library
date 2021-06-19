@@ -1,7 +1,7 @@
 #pragma once
 #include "../Components/Menu.h"
 #include "../Components/Component.h"
-#include "../MenuStream.h"
+#include "../Utils/MenuStream.h"
 #include <map>
 #include <string>
 
