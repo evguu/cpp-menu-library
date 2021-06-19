@@ -182,6 +182,7 @@
     <ClInclude Include="Core\MenuAggregator.h" />
     <ClInclude Include="Core\MenuManager.h" />
     <ClInclude Include="LML.h" />
+    <ClInclude Include="MenuStream.h" />
     <ClInclude Include="Utils\Console.h" />
     <ClInclude Include="Utils\DialogDecorator.h" />
     <ClInclude Include="Utils\Display.h" />

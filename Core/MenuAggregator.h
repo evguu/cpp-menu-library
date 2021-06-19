@@ -1,13 +1,14 @@
 #pragma once
 #include "../Components/Menu.h"
 #include "../Components/Component.h"
+#include "../MenuStream.h"
 #include <map>
 #include <string>
 
 // Вспомогательные макросы
-#define MD_START(mid) newMenu(mid)->getContentGenerator() = [](){return getMenuForGenerator(mid)
-#define MD_END ->initChosenElementIndex();};
-#define ADD(type, ...) ->addElement([](){auto e = std::make_shared<type>(__VA_ARGS__);
+#define MD_START(mid) newMenu(mid)->getContentGenerator() = [](){return MenuStream(getMenuForGenerator(mid))
+#define MD_END .init();};
+#define ADD(type, ...) ([](){auto e = std::make_shared<type>(__VA_ARGS__);
 #define $ return e;}())
 #define AS(type, expr) ((type*)(expr))
 
