@@ -5,6 +5,7 @@ class MenuStream
 {
 public:
 	MenuStream(std::string menu) : menu(getMenuForGenerator(menu)) {};
+	MenuStream(Menu* menu) : menu(menu) {};
 	MenuStream& operator()(std::shared_ptr<Component> cmp)
 	{
 		menu->addElement(cmp);

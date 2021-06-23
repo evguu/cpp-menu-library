@@ -1,5 +1,4 @@
 ﻿#include "LML.h"
-#include <functional>
 
 std::function<void()> contextDialog()
 {
@@ -7,9 +6,9 @@ std::function<void()> contextDialog()
 	return DialogDecorator::apply([&]() {std::cout << "Ты нажал уже " << ++context << " раз. Остановись!" << std::endl; });
 }
 
-Menu* mainMenu()
+void mainMenu(Menu* m)
 {
-	return MenuStream("#main")
+	MenuStream(m)
 		ADD(Title, "Главное меню")$
 		ADD(Button, "Субменю", []() { MenuManager::addToMenuStack(getMenu("#sub")); })$
 		ADD(Button, "Простой диалог", DialogDecorator::apply([]() {std::cout << "Все в порядке!\n"; }))$
@@ -18,9 +17,9 @@ Menu* mainMenu()
 		.init();
 }
 
-Menu* subMenu()
+void subMenu(Menu* m)
 {
-	return MenuStream("#sub")
+	MenuStream(m)
 		ADD(Title, "Субменю")$
 		ADD(Field, "Пустое поле")$
 		ADD(Field, "Заранее заполненное поле") e->getInput() = "Данные"; $

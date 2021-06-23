@@ -3,6 +3,7 @@
 #include <vector>
 #include <mutex>
 #include <memory>
+#include <functional>
 #include "Component.h"
 
 class Menu;
@@ -15,7 +16,7 @@ class Menu : Component
 private:
 	std::vector<std::shared_ptr<Component>> elements;
 	int chosenElementIndex;
-	Menu* (*contentGenerator)();
+	std::function<void(Menu*)> contentGenerator;
 public:
 	// По умолчанию индекс выбранного элемента -1, что приведет к падению программы при некорректной инициализации меню
 	Menu() : Component("", true), chosenElementIndex(-1) {};

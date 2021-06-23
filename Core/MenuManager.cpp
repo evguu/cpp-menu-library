@@ -74,5 +74,7 @@ void MenuManager::removeFromMenuStack(int popCount)
 
 void MenuManager::addToMenuStack(Menu* menu)
 {
-	menuStack.push(menu->getContentGenerator()());
+	menu->getElements().clear();
+	menu->getContentGenerator()(menu);
+	menuStack.push(menu);
 }
