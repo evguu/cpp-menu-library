@@ -3,6 +3,7 @@
 #include "../Utils/Console.h"
 #include "MenuManager.h"
 #include "../Utils/Display.h"
+#include "../Utils/Exceptions.h"
 
 std::stack<std::shared_ptr<Menu>> MenuManager::menuStack = std::stack<std::shared_ptr<Menu>>();
 bool MenuManager::areLoopsRunning = true;
@@ -20,8 +21,14 @@ void MenuManager::logicLoop()
 		keyEvent = getKeyEvent();
 		loopLock.lock();
 
-
-		getActiveMenu()->processKeyEvent(keyEvent);
+		try 
+		{
+			getActiveMenu()->processKeyEvent(keyEvent);
+		}
+		catch (ManipulativeException e)
+		{
+			/* Ignore */
+		}
 
 		loopLock.unlock();
 	}

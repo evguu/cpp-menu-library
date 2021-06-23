@@ -140,5 +140,8 @@
     <ClInclude Include="Utils\MenuStream.h">
       <Filter>Файлы заголовков\MenuLib\Utils</Filter>
     </ClInclude>
+    <ClInclude Include="Utils\Exceptions.h">
+      <Filter>Файлы заголовков\MenuLib\Utils</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

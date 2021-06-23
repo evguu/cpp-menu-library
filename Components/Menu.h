@@ -5,6 +5,7 @@
 #include <memory>
 #include <functional>
 #include "Component.h"
+#include "../Utils/Exceptions.h"
 
 class Menu;
 

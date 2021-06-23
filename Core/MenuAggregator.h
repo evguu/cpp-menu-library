@@ -14,4 +14,3 @@ class unknownKeyException : std::exception {};
 
 std::shared_ptr<Menu> newMenu(std::string str);
 std::shared_ptr<Menu> getMenu(std::string str);
-std::shared_ptr<Menu> getMenuForGenerator(std::string str);

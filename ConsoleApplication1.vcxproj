@@ -185,6 +185,7 @@
     <ClInclude Include="Utils\Console.h" />
     <ClInclude Include="Utils\DialogDecorator.h" />
     <ClInclude Include="Utils\Display.h" />
+    <ClInclude Include="Utils\Exceptions.h" />
     <ClInclude Include="Utils\Input.h" />
     <ClInclude Include="Utils\KeyEvent.h" />
     <ClInclude Include="Utils\MenuStream.h" />

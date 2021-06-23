@@ -55,6 +55,9 @@ int findPrevActiveElementIndex(std::vector<std::shared_ptr<Component>> elements,
 
 
 const int VIEW_FIELD = 12;
+const std::string UP_LEAVE = "U";
+const std::string DOWN_LEAVE = "D";
+const std::string CAUGHT_YA = "C";
 
 std::string Menu::str() const
 {
@@ -111,22 +114,52 @@ void Menu::processKeyEvent(KeyEvent keyEvent)
 {
 	if (keyEvent.isUpDown())
 	{
-		elements[chosenElementIndex]->processKeyEvent(keyEvent);
+		try
+		{
+			elements[chosenElementIndex]->processKeyEvent(keyEvent);
+		}
+		catch (ManipulativeException e)
+		{
+			std::string content = e.what();
+			if (content == DOWN_LEAVE)
+			{
+				keyEvent = KeyEvent(KC_DOWN, true);
+			}
+			else if (content == UP_LEAVE)
+			{
+				keyEvent = KeyEvent(KC_UP, true);
+			}
+			else if (content == CAUGHT_YA)
+			{
+				return;
+			}
+			else throw new std::exception("BRUH");
+		}
+
+		int oldElementIndex = chosenElementIndex;
 
 		if (keyEvent.code == KC_DOWN)
 		{
 			chosenElementIndex = findNextActiveElementIndex(this->elements, this->chosenElementIndex);
+			if (chosenElementIndex == oldElementIndex)
+			{
+				throw ManipulativeException(DOWN_LEAVE);
+			}
 		}
 		else if (keyEvent.code == KC_UP)
 		{
 			chosenElementIndex = findPrevActiveElementIndex(this->elements, this->chosenElementIndex);
+			if (chosenElementIndex == oldElementIndex)
+			{
+				throw ManipulativeException(UP_LEAVE);
+			}
 		}
+		throw ManipulativeException(CAUGHT_YA);
 	}
 	else
 	{
 		elements[chosenElementIndex]->processKeyEvent(keyEvent);
 	}
-	std::cout << this << " processed " << keyEvent.code << std::endl;
 }
 
 void Menu::addElement(std::shared_ptr<Component> ref)
