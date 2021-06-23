@@ -111,10 +111,6 @@ void Menu::processKeyEvent(KeyEvent keyEvent)
 {
 	if (keyEvent.isUpDown())
 	{
-		int oldChosenElementIndex = chosenElementIndex;
-		bool hasTriedToLeaveFolder = false;
-
-
 		elements[chosenElementIndex]->processKeyEvent(keyEvent);
 
 		if (keyEvent.code == KC_DOWN)
@@ -130,6 +126,7 @@ void Menu::processKeyEvent(KeyEvent keyEvent)
 	{
 		elements[chosenElementIndex]->processKeyEvent(keyEvent);
 	}
+	std::cout << this << " processed " << keyEvent.code << std::endl;
 }
 
 void Menu::addElement(std::shared_ptr<Component> ref)

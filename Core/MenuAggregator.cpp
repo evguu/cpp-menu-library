@@ -1,31 +1,16 @@
 #include "MenuAggregator.h"
 
-std::map<std::string, Menu *> menuAggregator;
+std::map<std::string, std::shared_ptr<Menu>> menuAggregator;
 
-Menu* newMenu(std::string str)
+std::shared_ptr<Menu> newMenu(std::string str)
 {
-	Menu* menu = new Menu();
+	std::shared_ptr<Menu> menu = std::make_shared<Menu>();
 	menuAggregator[str] = menu;
 	return menu;
 }
 
-Menu* getMenu(std::string str)
+std::shared_ptr<Menu> getMenu(std::string str)
 {
 	if (menuAggregator.find(str) == menuAggregator.end()) throw(unknownKeyException());
 	return menuAggregator[str];
-}
-
-Menu* getMenuForGenerator(std::string str)
-{
-	Menu *menu, *buf;
-	try { menu = getMenu(str); }
-	catch (unknownKeyException) { menu = nullptr; };
-	buf = newMenu(str);
-	if (menu)
-	{
-		buf->getContentGenerator() = menu->getContentGenerator();
-		delete menu;
-	};
-	menu = buf;
-	return menu;
 }

@@ -4,17 +4,17 @@
 class MenuStream
 {
 public:
-	MenuStream(std::string menu) : menu(getMenuForGenerator(menu)) {};
-	MenuStream(Menu* menu) : menu(menu) {};
+	MenuStream(std::string menu) : menu(getMenu(menu)) {};
+	MenuStream(std::shared_ptr<Menu> menu) : menu(menu) {};
 	MenuStream& operator()(std::shared_ptr<Component> cmp)
 	{
 		menu->addElement(cmp);
 		return *this;
 	}
-	Menu* init() {
+	std::shared_ptr<Menu> init() {
 		menu->initChosenElementIndex();
 		return menu;
 	}
 private:
-	Menu* menu;
+	std::shared_ptr<Menu> menu;
 };

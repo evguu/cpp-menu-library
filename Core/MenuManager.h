@@ -5,15 +5,15 @@ class MenuManager
 {
 private:
 	MenuManager() = delete;
-	static std::stack<Menu *> menuStack;
+	static std::stack<std::shared_ptr<Menu>> menuStack;
 	static bool areLoopsRunning;
 	static std::mutex loopLock;
 	static void logicLoop();
 	static void renderLoop();
 public:
-	static Menu* getActiveMenu() { return menuStack.top(); };
+	static std::shared_ptr<Menu> getActiveMenu() { return menuStack.top(); };
 	static void removeFromMenuStack(int popCount = 1);
-	static void addToMenuStack(Menu* menu);
+	static void addToMenuStack(std::shared_ptr<Menu> menu);
 	static void runLoops()
 	{
 		std::thread t1(logicLoop);

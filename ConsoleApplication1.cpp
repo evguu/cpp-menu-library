@@ -6,7 +6,7 @@ std::function<void()> contextDialog()
 	return DialogDecorator::apply([&]() {std::cout << "Ты нажал уже " << ++context << " раз. Остановись!" << std::endl; });
 }
 
-void mainMenu(Menu* m)
+void mainMenu(std::shared_ptr<Menu> m)
 {
 	MenuStream(m)
 		ADD(Title, "Главное меню")$
@@ -17,7 +17,7 @@ void mainMenu(Menu* m)
 		.init();
 }
 
-void subMenu(Menu* m)
+void subMenu(std::shared_ptr<Menu> m)
 {
 	MenuStream(m)
 		ADD(Title, "Субменю")$
@@ -25,6 +25,7 @@ void subMenu(Menu* m)
 		ADD(Field, "Заранее заполненное поле") e->getInput() = "Данные"; $
 		ADD(Button, "Диалог с тем же контекстом", contextDialog())$
 		ADD(Button, "Назад", []() { MenuManager::removeFromMenuStack(); })$
+		(std::reinterpret_pointer_cast<Component>(getMenu("#main")))
 		.init();
 }
 

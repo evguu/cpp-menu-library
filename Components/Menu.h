@@ -16,7 +16,7 @@ class Menu : Component
 private:
 	std::vector<std::shared_ptr<Component>> elements;
 	int chosenElementIndex;
-	std::function<void(Menu*)> contentGenerator;
+	std::function<void(std::shared_ptr<Menu>)> contentGenerator;
 public:
 	// По умолчанию индекс выбранного элемента -1, что приведет к падению программы при некорректной инициализации меню
 	Menu() : Component("", true), chosenElementIndex(-1) {};

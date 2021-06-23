@@ -4,7 +4,7 @@
 #include "MenuManager.h"
 #include "../Utils/Display.h"
 
-std::stack<Menu *> MenuManager::menuStack = std::stack<Menu *>();
+std::stack<std::shared_ptr<Menu>> MenuManager::menuStack = std::stack<std::shared_ptr<Menu>>();
 bool MenuManager::areLoopsRunning = true;
 std::mutex MenuManager::loopLock;
 
@@ -19,7 +19,10 @@ void MenuManager::logicLoop()
 	{
 		keyEvent = getKeyEvent();
 		loopLock.lock();
+
+
 		getActiveMenu()->processKeyEvent(keyEvent);
+
 		loopLock.unlock();
 	}
 }
@@ -72,7 +75,7 @@ void MenuManager::removeFromMenuStack(int popCount)
 }
 
 
-void MenuManager::addToMenuStack(Menu* menu)
+void MenuManager::addToMenuStack(std::shared_ptr<Menu> menu)
 {
 	menu->getElements().clear();
 	menu->getContentGenerator()(menu);
