@@ -17,10 +17,11 @@ class Menu : Component
 private:
 	std::vector<std::shared_ptr<Component>> elements;
 	int chosenElementIndex;
+	int tabOffset;
 	std::function<void(std::shared_ptr<Menu>)> contentGenerator;
 public:
 	// По умолчанию индекс выбранного элемента -1, что приведет к падению программы при некорректной инициализации меню
-	Menu() : Component("", true), chosenElementIndex(-1) {};
+	Menu(int tabOffset = 0) : Component("", true), tabOffset(tabOffset), chosenElementIndex(-1) {};
 	std::string str() const;
 	void processKeyEvent(KeyEvent keyEvent);
 	void addElement(std::shared_ptr<Component> ref);

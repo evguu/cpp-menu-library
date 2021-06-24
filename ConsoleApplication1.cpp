@@ -20,34 +20,28 @@ void mainMenu(std::shared_ptr<Menu> m)
 
 void subMenu(std::shared_ptr<Menu> m)
 {
-	std::shared_ptr<Menu> m1 = std::make_shared<Menu>();
-	[](std::shared_ptr<Menu> m)
-	{
-		MenuStream(m)
-			ADD(Title, "Субменю")$
-			ADD(Field, "Пустое поле")$
-			ADD(Field, "Заранее заполненное поле") e->getInput() = "Данные"; $
-			.init();
-	}(m1);
+	std::shared_ptr<Menu> m2 = std::make_shared<Menu>(2);
+	MenuStream(m2)
+		ADD(Title, "Level2")$
+		ADD(Field, "Пустое поле")$
+		ADD(Field, "Пустое поле")$
+		.init();
 
-	std::shared_ptr<Menu> m2 = std::make_shared<Menu>();
-	[](std::shared_ptr<Menu> m)
-	{
-		MenuStream(m)
-			ADD(Title, "Субменю")$
-			ADD(Field, "Пустое поле")$
-			ADD(Field, "Заранее заполненное поле") e->getInput() = "Данные"; $
-			.init();
-	}(m2);
+	std::shared_ptr<Menu> m1 = std::make_shared<Menu>(1);
+	MenuStream(m1)
+		ADD(Title, "Level1")$
+		ADD(Field, "Пустое поле")$
+		ADD(Field, "Пустое поле")$
+		(std::reinterpret_pointer_cast<Component>(m2))
+		.init();
 
 	MenuStream(m)
-		ADD(Title, "Субменю")$
+		ADD(Title, "Level0")$
 		ADD(Field, "Пустое поле")$
 		ADD(Field, "Заранее заполненное поле") e->getInput() = "Данные"; $
 		ADD(Button, "Диалог с тем же контекстом", contextDialog())$
 		ADD(Button, "Назад", []() { MenuManager::removeFromMenuStack(); })$
 		(std::reinterpret_pointer_cast<Component>(m1))
-		(std::reinterpret_pointer_cast<Component>(m2))
 		.init();
 }
 

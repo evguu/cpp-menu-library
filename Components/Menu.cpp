@@ -80,10 +80,17 @@ std::string Menu::str() const
 		if ((offset + 2 * VIEW_FIELD + 1) > elements.size()) offset = elements.size() - 1 - 2 * VIEW_FIELD;
 		if (offset < 0) offset = 0;
 		index = metaIndex + offset;
+
 		if (metaIndex == 0 && index != 0)
 		{
 			ss << "/\\/\\/\\/\\/\\ /\\/\\/\\/\\/\\ /\\/\\/\\/\\/\\ /\\/\\/\\/\\/\\ /\\/\\/\\/\\/\\" << std::endl;
 		}
+
+		for (int i = 0; i < tabOffset; i++)
+		{
+			ss << "    ";
+		}
+
 		tmp = elements[index]->getIsFocusable();
 		if (tmp)
 		{
@@ -100,13 +107,19 @@ std::string Menu::str() const
 		std::string additionalText = elements[index]->getAdditionalText();
 		if ((additionalText != "") && (index == chosenElementIndex))
 		{
+			for (int i = 0; i < tabOffset; i++)
+			{
+				ss << "    ";
+			}
 			ss << additionalText << std::endl;
 		}
 	}
+
 	if (index < elements.size() - 1)
 	{
 		ss << "\\/\\/\\/\\/\\/ \\/\\/\\/\\/\\/ \\/\\/\\/\\/\\/ \\/\\/\\/\\/\\/ \\/\\/\\/\\/\\/" << std::endl;
 	}
+
 	return ss.str();
 }
 
@@ -131,7 +144,7 @@ void Menu::processKeyEvent(KeyEvent keyEvent)
 			}
 			else if (content == CAUGHT_YA)
 			{
-				return;
+				throw;
 			}
 			else throw new std::exception("BRUH");
 		}
