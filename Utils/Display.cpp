@@ -10,6 +10,7 @@ void Display::printStringWithoutBlinking(std::string src)
 
 	int activeRow = 0;
 	int activeColumn = 0;
+
 	for (auto i : src)
 	{
 		if (i == '\n')
@@ -32,6 +33,7 @@ void Display::printStringWithoutBlinking(std::string src)
 				activeColumn = 0;
 			}
 		}
+		if (activeRow >= rows)break;
 	}
 	while (activeRow < rows)
 	{
