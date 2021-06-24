@@ -22,14 +22,14 @@ void subMenu(std::shared_ptr<Menu> m)
 {
 	std::shared_ptr<Menu> m2 = std::make_shared<Menu>(2);
 	MenuStream(m2)
-		ADD(Title, "Level2")$
+		ADD(Text, "Level2")$
 		ADD(Field, "Пустое поле")$
 		ADD(Field, "Пустое поле")$
 		.init();
 
 	std::shared_ptr<Menu> m1 = std::make_shared<Menu>(1);
 	MenuStream(m1)
-		ADD(Title, "Level1")$
+		ADD(Text, "Level1")$
 		ADD(Field, "Пустое поле")$
 		ADD(Field, "Пустое поле")$
 		(std::reinterpret_pointer_cast<Component>(m2))

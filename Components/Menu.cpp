@@ -86,7 +86,7 @@ std::string Menu::str() const
 			ss << "/\\/\\/\\/\\/\\ /\\/\\/\\/\\/\\ /\\/\\/\\/\\/\\ /\\/\\/\\/\\/\\ /\\/\\/\\/\\/\\" << std::endl;
 		}
 
-		for (int i = 0; i < tabOffset; i++)
+		for (int i = 0; i < tabOffset*(!!index); i++)
 		{
 			ss << "    ";
 		}
@@ -107,7 +107,7 @@ std::string Menu::str() const
 		std::string additionalText = elements[index]->getAdditionalText();
 		if ((additionalText != "") && (index == chosenElementIndex))
 		{
-			for (int i = 0; i < tabOffset; i++)
+			for (int i = 0; i < tabOffset*(!!index); i++)
 			{
 				ss << "    ";
 			}
