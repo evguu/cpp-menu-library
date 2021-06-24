@@ -32,11 +32,43 @@ void subMenu(std::shared_ptr<Menu> m)
 		ADD(Text, "Level1")$
 		ADD(Field, "Пустое поле")$
 		ADD(Field, "Пустое поле")$
+		ADD(Field, "Пустое поле")$
+		ADD(Field, "Пустое поле")$
+		ADD(Field, "Пустое поле")$
+		ADD(Field, "Пустое поле")$
+		ADD(Field, "Пустое поле")$
+		ADD(Field, "Пустое поле")$
+		ADD(Field, "Пустое поле")$
+		ADD(Field, "Пустое поле")$
+		ADD(Field, "Пустое поле")$
+		ADD(Field, "Пустое поле")$
+		ADD(Field, "Пустое поле")$
+		ADD(Field, "Пустое поле")$
+		ADD(Field, "Пустое поле")$
+		ADD(Field, "Пустое поле")$
+		ADD(Field, "Пустое поле")$
 		(std::reinterpret_pointer_cast<Component>(m2))
 		.init();
 
 	MenuStream(m)
 		ADD(Title, "Level0")$
+		ADD(Field, "Пустое поле")$
+		ADD(Field, "Пустое поле")$
+		ADD(Field, "Пустое поле")$
+		ADD(Field, "Пустое поле")$
+		ADD(Field, "Пустое поле")$
+		ADD(Field, "Пустое поле")$
+		ADD(Field, "Пустое поле")$
+		ADD(Field, "Пустое поле")$
+		ADD(Field, "Пустое поле")$
+		ADD(Field, "Пустое поле")$
+		ADD(Field, "Пустое поле")$
+		ADD(Field, "Пустое поле")$
+		ADD(Field, "Пустое поле")$
+		ADD(Field, "Пустое поле")$
+		ADD(Field, "Пустое поле")$
+		ADD(Field, "Пустое поле")$
+		ADD(Field, "Пустое поле")$
 		ADD(Field, "Пустое поле")$
 		ADD(Field, "Заранее заполненное поле") e->getInput() = "Данные"; $
 		ADD(Button, "Диалог с тем же контекстом", contextDialog())$
@@ -49,7 +81,6 @@ int main()
 {
 	Console::fixEncoding();
 	Console::setMode(Console::standardMode);
-	Display::setBuffer(new char[Console::standardMode.getColumns()*Console::standardMode.getRows()]);
 	Theme::applyCurrent();
 
 	newMenu("#main")->getContentGenerator() = mainMenu;

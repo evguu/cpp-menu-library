@@ -1,12 +1,13 @@
 #include "Display.h"
 #include <iostream>
 
-char* Display::buffer = nullptr;
+char* Display::buffer = new char[Console::standardMode.getColumns()*Console::standardMode.getRows()];
 
 void Display::printStringWithoutBlinking(std::string src)
 {
 	int rows = Console::standardMode.getRows();
 	int columns = Console::standardMode.getColumns();
+
 	int activeRow = 0;
 	int activeColumn = 0;
 	for (auto i : src)
@@ -45,12 +46,3 @@ void Display::printStringWithoutBlinking(std::string src)
 	buffer[rows * columns - 1] = 0;
 	std::cout << (char *)buffer;
 }
-void Display::setBuffer(char * buffer)
-{
-	if (Display::buffer)
-	{
-		delete Display::buffer;
-	}
-	Display::buffer = buffer;
-}
-;
