@@ -27,6 +27,7 @@ public:
 	void addElement(std::shared_ptr<Component> ref);
 	auto& getElements() { return elements; }
 	void initChosenElementIndex();
-	int getChosenElementIndex() { return chosenElementIndex; };
+	auto& getChosenElementIndex() { return chosenElementIndex; };
 	auto& getContentGenerator() { return contentGenerator; }
+	auto& getTabOffset() { return tabOffset; }
 };

@@ -1,18 +1,33 @@
 ﻿#include "LML.h"
 #include "Transaction.h"
+#include "Student.h"
 
-void mainMenu(std::shared_ptr<Menu> m)
+void refreshMenu(std::string str)
 {
-	static Transaction<int> transaction{std::make_shared<int>(10)};
+	auto menu = getMenu(str);
+	int pos = menu->getChosenElementIndex();
+	menu->getElements().clear();
+	menu->getContentGenerator()(menu);
+	if (pos != -1)
+	menu->getChosenElementIndex() = pos;
+}
+
+void testMenu(std::shared_ptr<Menu> m)
+{
+	static Transaction<int> transaction{ std::make_shared<int>(10) };
 
 	MenuStream(m)
-		ADD(Title, "Главное меню")$
-		(std::make_shared<Button>("Текущее значение транзакции", DialogDecorator::apply([&]() { std::cout << *(transaction.getPtr()) << std::endl; })))
+		ADD(Title, "Транзакции")$
+		(std::make_shared<Text>("Текущее значение транзакции: " + std::to_string(*(transaction.getPtr())) + 
+			(( *(transaction.getPtr()) == *(transaction.getSafePtr()) )?"":"*")
+		))
 		(std::make_shared<Button>("Поднять значение транзакции", [&]() 
 			{ 
 				auto ptr = transaction.getPtr();
 				++*(ptr);
 				transaction.setPtr(ptr); 
+
+				refreshMenu("#test");
 			}
 		))
 		(std::make_shared<Button>("Опустить значение транзакции", [&]()
@@ -20,10 +35,35 @@ void mainMenu(std::shared_ptr<Menu> m)
 				auto ptr = transaction.getPtr();
 				--*(ptr);
 				transaction.setPtr(ptr);
+
+				refreshMenu("#test");
 			}
 		))
-		(std::make_shared<Button>("Сохранить значение транзакции", [&]() { transaction.commit(); }))
-		(std::make_shared<Button>("Откатить значение транзакции", [&]() { transaction.rollback(); }))
+		(std::make_shared<Button>("Сохранить значение транзакции", [&]()
+			{ 
+				transaction.commit(); 
+
+				refreshMenu("#test");
+			}
+		))
+		(std::make_shared<Button>("Откатить значение транзакции", [&]() 
+			{
+				transaction.rollback(); 
+
+				refreshMenu("#test");
+			}
+		))
+		.init();
+}
+
+
+std::shared_ptr<Menu> m1 = std::make_shared<Menu>(1);
+
+void mainMenu(std::shared_ptr<Menu> m)
+{
+	MenuStream(m)
+		ADD(Title, "Главное меню")$
+		(std::reinterpret_pointer_cast<Component>(getMenu("#test")))
 		ADD(Button, "Выйти", []() { MenuManager::stopLoops(); })$
 		.init();
 }
@@ -35,6 +75,9 @@ int main()
 	Theme::applyCurrent();
 
 	newMenu("#main")->getContentGenerator() = mainMenu;
+	newMenu("#test")->getContentGenerator() = testMenu;
+	refreshMenu("#test");
+	getMenu("#test")->getTabOffset() = 1;
 
 	/*
 	7. Разработать набор классов (минимум 5 классов) по теме «Тестирование

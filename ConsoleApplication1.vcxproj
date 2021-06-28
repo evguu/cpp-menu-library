@@ -104,7 +104,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions); _CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PreprocessToFile>false</PreprocessToFile>
       <PreprocessSuppressLineNumbers>false</PreprocessSuppressLineNumbers>
@@ -167,7 +167,7 @@
     <ClCompile Include="Core\MenuManager.cpp" />
     <ClCompile Include="Test.cpp" />
     <ClCompile Include="Transaction.cpp" />
-    <ClCompile Include="User.cpp" />
+    <ClCompile Include="Student.cpp" />
     <ClCompile Include="Utils\Console.cpp" />
     <ClCompile Include="Utils\DialogDecorator.cpp" />
     <ClCompile Include="Utils\Display.cpp" />
@@ -189,7 +189,7 @@
     <ClInclude Include="LML.h" />
     <ClInclude Include="Test.h" />
     <ClInclude Include="Transaction.h" />
-    <ClInclude Include="User.h" />
+    <ClInclude Include="Student.h" />
     <ClInclude Include="Utils\Console.h" />
     <ClInclude Include="Utils\DialogDecorator.h" />
     <ClInclude Include="Utils\Display.h" />

@@ -4,7 +4,6 @@
 
 class Test
 {
-	// «Тест» (название теста, тема теста, перечень вопросов, перечень полученных ответов)
 private:
 	std::string name;
 	std::string topic;

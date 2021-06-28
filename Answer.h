@@ -1,17 +1,27 @@
 #pragma once
 #include <string>
-#include "User.h"
+#include <iostream>
+#include <iomanip>
+#include <ctime>
+#include <sstream>
+#include "Student.h"
 
 class Answer
 {
-	// «Ответ»(дата выполнения теста, ФИО выполнившего тест).
 private:
 	std::string date;
-	User user;
+	Student user;
 public:
-	Answer(std::string date, User user) : date(date), user(user) {}
+	Answer(Student user) : user(user) 
+	{
+		auto t = std::time(nullptr);
+		auto tm = *std::localtime(&t);
+
+		std::ostringstream oss;
+		oss << std::put_time(&tm, "%d-%m-%Y %H-%M-%S");
+		date = oss.str();
+	}
 	auto& getDate() { return date; }
 	auto& getUser() { return user; }
 
 };
-

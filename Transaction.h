@@ -8,6 +8,7 @@ public:
 	Transaction(std::shared_ptr<T> ptr) : ptr(ptr), safePtr(ptr) {}
 
 	std::shared_ptr<T> getPtr() { return std::make_shared<T>(*ptr); }
+	std::shared_ptr<T> getSafePtr() { return std::make_shared<T>(*safePtr); }
 	void setPtr(std::shared_ptr<T> ptr) { this->ptr = ptr; }
 	void rollback() { ptr = safePtr; }
 	void commit() { safePtr = ptr; }
