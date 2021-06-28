@@ -3,6 +3,8 @@
 #include <string>
 #include "Menu.h"
 
+//#define DEBUG
+
 int findNextActiveElementIndex(std::vector<std::shared_ptr<Component>> elements, int chosenElementIndex)
 {
 	int result = chosenElementIndex;
@@ -47,32 +49,56 @@ int findPrevActiveElementIndex(std::vector<std::shared_ptr<Component>> elements,
 
 
 
-
-
-
-
-
-
-
-const int VIEW_FIELD = 9;
 const std::string UP_LEAVE = "U";
 const std::string DOWN_LEAVE = "D";
 const std::string CAUGHT_YA = "C";
 
-
-const std::string UPPER_BOUND_TEXT = "/\\/\\/\\/\\/\\ /\\/\\/\\/\\/\\ /\\/\\/\\/\\/\\ /\\/\\/\\/\\/\\ /\\/\\/\\/\\/\\";
-const std::string LOWER_BOUND_TEXT = "\\/\\/\\/\\/\\/ \\/\\/\\/\\/\\/ \\/\\/\\/\\/\\/ \\/\\/\\/\\/\\/ \\/\\/\\/\\/\\/";
-
-const std::string ACTIVE_SEQUENCE_START = "!@#$%^%$#@#$%^%$#";
-const std::string ACTIVE_SEQUENCE_END =   "!@#$%$@#$#$@#$@#$";
-
 std::pair<int, int> fit(int overallCount, int visibleCount, std::pair<int, int> shouldBeIncluded)
 {
-	return std::make_pair(0, overallCount);
+	int requiredCount = shouldBeIncluded.second - shouldBeIncluded.first;
+
+	// Если нельзя вместить запрошенные строки на экран, вмещаем сколько можем.
+	// Если влезает идеально, тоже обрабатывается здесь.
+	if (requiredCount >= visibleCount) return std::make_pair(shouldBeIncluded.first, shouldBeIncluded.first + visibleCount);
+
+	int availableSpace = visibleCount - requiredCount;
+	int upperSpace = availableSpace / 2;
+
+	// Необходимо предусмотреть граничные случаи.
+	if (shouldBeIncluded.first < upperSpace)
+	{
+		upperSpace = shouldBeIncluded.first;
+	}
+	if (overallCount - 1 < shouldBeIncluded.second + availableSpace - upperSpace)
+	{
+		upperSpace = shouldBeIncluded.second + availableSpace - overallCount;
+	}
+
+	int start = shouldBeIncluded.first - upperSpace;
+	int end = shouldBeIncluded.second + availableSpace - upperSpace;
+
+	if (start < 0) start = 0;
+	if (end > overallCount) end = overallCount;
+
+	return std::make_pair(start, end);
+}
+
+void offsetBy(std::stringstream& ss, int tabOffset)
+{
+	for (int i = 0; i < tabOffset; ++i)
+	{
+		ss << "    ";
+	}
 }
 
 std::string Menu::str() const
 {
+	const int VIEW_FIELD = 40;
+	const std::string UPPER_BOUND_TEXT = "/\\/\\/\\/\\/\\ /\\/\\/\\/\\/\\ /\\/\\/\\/\\/\\ /\\/\\/\\/\\/\\ /\\/\\/\\/\\/\\";
+	const std::string LOWER_BOUND_TEXT = "\\/\\/\\/\\/\\/ \\/\\/\\/\\/\\/ \\/\\/\\/\\/\\/ \\/\\/\\/\\/\\/ \\/\\/\\/\\/\\/";
+	const std::string ACTIVE_SEQUENCE_START = "!@#$%^%$#@#$%^%$#";
+	const std::string ACTIVE_SEQUENCE_END = "!@#$%$@#$#$@#$@#$";
+
 	if (!elements.size())
 	{
 		throw(MenuIsEmpty());
@@ -90,15 +116,18 @@ std::string Menu::str() const
 		if (c == chosenElementIndex)
 		{ 
 			ss << ACTIVE_SEQUENCE_START << std::endl;
+			offsetBy(ss, tabOffset);
 			ss << " >> " << it->str() << std::endl;
 			if (it->getAdditionalText() != "")
 			{
+				offsetBy(ss, tabOffset);
 				ss << it->getAdditionalText() << std::endl;
 			}
 			ss << ACTIVE_SEQUENCE_END << std::endl;
 		}
 		else
 		{
+			offsetBy(ss, tabOffset);
 			ss << (it->getIsFocusable()?" -- ":"") << it->str() << std::endl;
 		}
 		c++;
@@ -129,9 +158,11 @@ std::string Menu::str() const
 
 	ss = std::stringstream();
 
-	ss << "Segment count: " << seglist.size() << "; Display storage: " << VIEW_FIELD - tabOffset << "; Needs [" <<
-		shouldBeIncluded.first << "; " << shouldBeIncluded.second << "); Result: [" <<
-		linesToInclude.first << "; " << linesToInclude.second << ")." << std::endl;
+#ifdef DEBUG
+	ss << "SegC" << seglist.size() << "; DispSpc" << VIEW_FIELD - tabOffset << "; [" <<
+		shouldBeIncluded.first << "; " << shouldBeIncluded.second << ") -> [" <<
+		linesToInclude.first << "; " << linesToInclude.second << ").";
+#endif // DEBUG
 
 	for (int i = linesToInclude.first; i < linesToInclude.second; ++i)
 	{
