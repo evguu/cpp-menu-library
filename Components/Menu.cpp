@@ -2,8 +2,9 @@
 #include <sstream>
 #include <string>
 #include "Menu.h"
+#include "../Utils/Console.h"
 
-//#define DEBUG
+#define DEBUG
 
 int findNextActiveElementIndex(std::vector<std::shared_ptr<Component>> elements, int chosenElementIndex)
 {
@@ -93,11 +94,9 @@ void offsetBy(std::stringstream& ss, int tabOffset)
 
 std::string Menu::str() const
 {
-	const int VIEW_FIELD = 40;
-	const std::string UPPER_BOUND_TEXT = "/\\/\\/\\/\\/\\ /\\/\\/\\/\\/\\ /\\/\\/\\/\\/\\ /\\/\\/\\/\\/\\ /\\/\\/\\/\\/\\";
-	const std::string LOWER_BOUND_TEXT = "\\/\\/\\/\\/\\/ \\/\\/\\/\\/\\/ \\/\\/\\/\\/\\/ \\/\\/\\/\\/\\/ \\/\\/\\/\\/\\/";
-	const std::string ACTIVE_SEQUENCE_START = "!@#$%^%$#@#$%^%$#";
-	const std::string ACTIVE_SEQUENCE_END = "!@#$%$@#$#$@#$@#$";
+	const int VIEW_FIELD = 38;
+	const std::string ACTIVE_SEQUENCE_START = "!~ACTIVE_SEQUENCE_START~!";
+	const std::string ACTIVE_SEQUENCE_END = "!~ACTIVE_SEQUENCE_END~!";
 
 	if (!elements.size())
 	{
@@ -150,20 +149,43 @@ std::string Menu::str() const
 			shouldBeIncluded.second = c;
 			continue;
 		}
-		seglist.push_back(segment);
-		c++;
+
+		int lineWidth = Console::standardMode.getColumns() - 2;
+		if (segment.length() > lineWidth)
+		{
+			int i;
+			for (i = 0; i < segment.length() / lineWidth; ++i)
+			{
+				seglist.push_back(segment.substr(i * lineWidth, lineWidth));
+				c++;
+			}
+			
+			int remainder = segment.length() % lineWidth;
+			if (remainder)
+			{
+				seglist.push_back(segment.substr(i * lineWidth, remainder));
+				c++;
+			}
+		}
+		else
+		{
+			seglist.push_back(segment);
+			c++;
+		}
 	}
 
-	std::pair<int, int> linesToInclude = fit(seglist.size(), VIEW_FIELD - tabOffset, shouldBeIncluded);
+	std::pair<int, int> linesToInclude = fit(seglist.size(), VIEW_FIELD, shouldBeIncluded);
 
 	ss = std::stringstream();
 
+	ss << "---- ---- Μενώ ";
 #ifdef DEBUG
-	ss << "SegC" << seglist.size() << "; DispSpc" << VIEW_FIELD - tabOffset << "; [" <<
+	ss << this << " " << seglist.size() << "s; " << VIEW_FIELD - tabOffset << "sp; [" <<
 		shouldBeIncluded.first << "; " << shouldBeIncluded.second << ") -> [" <<
 		linesToInclude.first << "; " << linesToInclude.second << ").";
 #endif // DEBUG
 
+	ss << " ---- ----" << std::endl;
 	for (int i = linesToInclude.first; i < linesToInclude.second; ++i)
 	{
 		ss << seglist[i] << std::endl;
