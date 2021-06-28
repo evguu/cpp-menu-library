@@ -164,6 +164,7 @@
     <ClCompile Include="ConsoleApplication1.cpp" />
     <ClCompile Include="Core\MenuAggregator.cpp" />
     <ClCompile Include="Core\MenuManager.cpp" />
+    <ClCompile Include="Transaction.cpp" />
     <ClCompile Include="Utils\Console.cpp" />
     <ClCompile Include="Utils\DialogDecorator.cpp" />
     <ClCompile Include="Utils\Display.cpp" />
@@ -182,6 +183,7 @@
     <ClInclude Include="Core\MenuAggregator.h" />
     <ClInclude Include="Core\MenuManager.h" />
     <ClInclude Include="LML.h" />
+    <ClInclude Include="Transaction.h" />
     <ClInclude Include="Utils\Console.h" />
     <ClInclude Include="Utils\DialogDecorator.h" />
     <ClInclude Include="Utils\Display.h" />
