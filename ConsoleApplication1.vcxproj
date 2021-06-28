@@ -154,6 +154,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Answer.cpp" />
     <ClCompile Include="Components\Button.cpp" />
     <ClCompile Include="Components\Choice.cpp" />
     <ClCompile Include="Components\Component.cpp" />
@@ -164,7 +165,9 @@
     <ClCompile Include="ConsoleApplication1.cpp" />
     <ClCompile Include="Core\MenuAggregator.cpp" />
     <ClCompile Include="Core\MenuManager.cpp" />
+    <ClCompile Include="Test.cpp" />
     <ClCompile Include="Transaction.cpp" />
+    <ClCompile Include="User.cpp" />
     <ClCompile Include="Utils\Console.cpp" />
     <ClCompile Include="Utils\DialogDecorator.cpp" />
     <ClCompile Include="Utils\Display.cpp" />
@@ -173,6 +176,7 @@
     <ClCompile Include="Utils\Theme.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Answer.h" />
     <ClInclude Include="Components\Button.h" />
     <ClInclude Include="Components\Choice.h" />
     <ClInclude Include="Components\Component.h" />
@@ -183,7 +187,9 @@
     <ClInclude Include="Core\MenuAggregator.h" />
     <ClInclude Include="Core\MenuManager.h" />
     <ClInclude Include="LML.h" />
+    <ClInclude Include="Test.h" />
     <ClInclude Include="Transaction.h" />
+    <ClInclude Include="User.h" />
     <ClInclude Include="Utils\Console.h" />
     <ClInclude Include="Utils\DialogDecorator.h" />
     <ClInclude Include="Utils\Display.h" />
