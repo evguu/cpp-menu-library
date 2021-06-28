@@ -1,7 +1,7 @@
 #include <cassert>
 #include <sstream>
+#include <string>
 #include "Menu.h"
-
 
 int findNextActiveElementIndex(std::vector<std::shared_ptr<Component>> elements, int chosenElementIndex)
 {
@@ -54,10 +54,22 @@ int findPrevActiveElementIndex(std::vector<std::shared_ptr<Component>> elements,
 
 
 
-const int VIEW_FIELD = 12;
+const int VIEW_FIELD = 9;
 const std::string UP_LEAVE = "U";
 const std::string DOWN_LEAVE = "D";
 const std::string CAUGHT_YA = "C";
+
+
+const std::string UPPER_BOUND_TEXT = "/\\/\\/\\/\\/\\ /\\/\\/\\/\\/\\ /\\/\\/\\/\\/\\ /\\/\\/\\/\\/\\ /\\/\\/\\/\\/\\";
+const std::string LOWER_BOUND_TEXT = "\\/\\/\\/\\/\\/ \\/\\/\\/\\/\\/ \\/\\/\\/\\/\\/ \\/\\/\\/\\/\\/ \\/\\/\\/\\/\\/";
+
+const std::string ACTIVE_SEQUENCE_START = "!@#$%^%$#@#$%^%$#";
+const std::string ACTIVE_SEQUENCE_END =   "!@#$%$@#$#$@#$@#$";
+
+std::pair<int, int> fit(int overallCount, int visibleCount, std::pair<int, int> shouldBeIncluded)
+{
+	return std::make_pair(0, overallCount);
+}
 
 std::string Menu::str() const
 {
@@ -72,52 +84,58 @@ std::string Menu::str() const
 
 	std::stringstream ss;
 
-	bool tmp;
-	int index = -1;
-	for (int metaIndex = 0; metaIndex < ((elements.size() <= (1 + 2 * VIEW_FIELD)) ? (elements.size()) : (1 + 2 * VIEW_FIELD)); ++metaIndex)
+	int c = 0;
+	for (auto it : elements)
 	{
-		int offset = chosenElementIndex - VIEW_FIELD;
-		if ((offset + 2 * VIEW_FIELD + 1) > elements.size()) offset = elements.size() - 1 - 2 * VIEW_FIELD;
-		if (offset < 0) offset = 0;
-		index = metaIndex + offset;
-
-		if (metaIndex == 0 && index != 0)
-		{
-			ss << "/\\/\\/\\/\\/\\ /\\/\\/\\/\\/\\ /\\/\\/\\/\\/\\ /\\/\\/\\/\\/\\ /\\/\\/\\/\\/\\" << std::endl;
-		}
-
-		for (int i = 0; i < tabOffset*(!!index); i++)
-		{
-			ss << "    ";
-		}
-
-		tmp = elements[index]->getIsFocusable();
-		if (tmp)
-		{
-			if (chosenElementIndex == index)
+		if (c == chosenElementIndex)
+		{ 
+			ss << ACTIVE_SEQUENCE_START << std::endl;
+			ss << " >> " << it->str() << std::endl;
+			if (it->getAdditionalText() != "")
 			{
-				ss << ">> ";
+				ss << it->getAdditionalText() << std::endl;
 			}
-			else
-			{
-				ss << " + ";
-			}
+			ss << ACTIVE_SEQUENCE_END << std::endl;
 		}
-		ss << elements[index]->str() << std::endl;
-		std::string additionalText = elements[index]->getAdditionalText();
-		if ((additionalText != "") && (index == chosenElementIndex))
+		else
 		{
-			for (int i = 0; i < tabOffset*(!!index); i++)
-			{
-				ss << "    ";
-			}
-			ss << additionalText << std::endl;
+			ss << (it->getIsFocusable()?" -- ":"") << it->str() << std::endl;
 		}
+		c++;
 	}
 
-	if (index < elements.size() - 1)
+	std::string segment;
+	std::vector<std::string> seglist;
+
+	std::pair<int, int> shouldBeIncluded{ 0, 0 };
+	c = 0;
+	while (std::getline(ss, segment, '\n'))
 	{
-		ss << "\\/\\/\\/\\/\\/ \\/\\/\\/\\/\\/ \\/\\/\\/\\/\\/ \\/\\/\\/\\/\\/ \\/\\/\\/\\/\\/" << std::endl;
+		if (segment == ACTIVE_SEQUENCE_START)
+		{
+			shouldBeIncluded.first = c;
+			continue;
+		}
+		if (segment == ACTIVE_SEQUENCE_END)
+		{
+			shouldBeIncluded.second = c;
+			continue;
+		}
+		seglist.push_back(segment);
+		c++;
+	}
+
+	std::pair<int, int> linesToInclude = fit(seglist.size(), VIEW_FIELD - tabOffset, shouldBeIncluded);
+
+	ss = std::stringstream();
+
+	ss << "Segment count: " << seglist.size() << "; Display storage: " << VIEW_FIELD - tabOffset << "; Needs [" <<
+		shouldBeIncluded.first << "; " << shouldBeIncluded.second << "); Result: [" <<
+		linesToInclude.first << "; " << linesToInclude.second << ")." << std::endl;
+
+	for (int i = linesToInclude.first; i < linesToInclude.second; ++i)
+	{
+		ss << seglist[i] << std::endl;
 	}
 
 	return ss.str();
