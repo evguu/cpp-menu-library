@@ -7,8 +7,7 @@
 // Вспомогательные макросы
 #define ADD(shp, ...) ([](){auto e = shp;{__VA_ARGS__;}return e;}())
 #define MSH(type, ...) std::make_shared<type>(__VA_ARGS__)
-#define AS(type, expr) ((type*)(expr))
-
+#define AS(type, expr) (std::reinterpret_pointer_cast<type>(expr))
 
 class unknownKeyException : std::exception {};
 

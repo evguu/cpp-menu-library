@@ -111,14 +111,46 @@ void intTransactionMG(std::shared_ptr<Menu> m)
 		.init();
 }
 
+void testChosenMG(std::shared_ptr<Menu> m)
+{
+	auto __fm = AS(Menu, MenuManager::getActiveMenu()->getElements()[1]);
+	int testIndex = AS(Choice, __fm->getElements()[0])->getActiveOption();
+
+	Test chosenTest = tests[testIndex];
+	MenuStream(m)
+		(MSH(Text, "Выбранный тест: " + chosenTest.getName()))
+		(MSH(Button, "Назад", []() { MenuManager::removeFromMenuStack(); }))
+		.init();
+}
+
+void testChoiceMG(std::shared_ptr<Menu> m)
+{
+	std::vector<std::string> testNames;
+	for (auto it : tests)
+		testNames.push_back(it.getName());
+
+	MenuStream(m)
+		(MSH(Choice, "Выбор теста", testNames))
+		(MSH(Button, "Выбрать", []() { MenuManager::addToMenuStack(getMenu("#testChosen")); }))
+		.init();
+
+	newMenu("Прохождение теста", "#testChosen")->getContentGenerator() = testChosenMG;
+}
+
+
 void mainMG(std::shared_ptr<Menu> m)
 {
 	std::shared_ptr<Menu> m1 = std::make_shared<Menu>("Транзакции над числом", 1);
 	m1->getContentGenerator() = intTransactionMG;
 	refreshMenu(m1);
 
+	std::shared_ptr<Menu> m2 = std::make_shared<Menu>("Система тестирования", 1);
+	m2->getContentGenerator() = testChoiceMG;
+	refreshMenu(m2);
+
 	MenuStream(m)
 		(std::reinterpret_pointer_cast<Component>(m1))
+		(std::reinterpret_pointer_cast<Component>(m2))
 		(MSH(Button, "Выйти", []() { MenuManager::stopLoops(); }))
 		.init();
 }
@@ -130,6 +162,7 @@ int main()
 	Theme::applyCurrent();
 
 	newMenu("Главное меню", "#main")->getContentGenerator() = mainMG;
+	MenuManager::addToMenuStack(getMenu("#main"));
 
 	/*
 	7. Разработать набор классов (минимум 5 классов) по теме «Тестирование
@@ -144,8 +177,6 @@ int main()
 	Все классы должны быть параметризированными и содержать функции получения и изменения всех полей.
 	Программа должна обеспечивать вывод итоговой информации о выполнении тестов. 
 	*/
-
-	MenuManager::addToMenuStack(getMenu("#main"));
 
 	MenuManager::runLoops();
 	Console::sayGoodbye();
