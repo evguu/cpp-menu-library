@@ -5,7 +5,7 @@ class Option
 {
 public:
 	Option(std::string text, bool isCorrect) : text(text), isCorrect(isCorrect) {};
-	auto& getText() { return text; }
+	auto& getText() const { return text; }
 	auto& getIsCorrect() { return isCorrect; }
 private:
 	std::string text;

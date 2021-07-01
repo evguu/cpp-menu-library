@@ -154,6 +154,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Answer.cpp" />
     <ClCompile Include="Components\Button.cpp" />
     <ClCompile Include="Components\Choice.cpp" />
     <ClCompile Include="Components\Component.cpp" />
@@ -176,6 +177,7 @@
     <ClCompile Include="Utils\Theme.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Answer.h" />
     <ClInclude Include="Components\Button.h" />
     <ClInclude Include="Components\Choice.h" />
     <ClInclude Include="Components\Component.h" />

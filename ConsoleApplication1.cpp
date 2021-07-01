@@ -2,6 +2,7 @@
 #include "Transaction.h"
 #include "Test.h"
 #include "Student.h"
+#include "Answer.h"
 #include <map>
 
 void refreshMenu(std::string str);
@@ -82,7 +83,9 @@ std::vector<Test> tests = {
 };
 
 auto sep = MSH(Text, "\n");
-
+std::vector<Answer> lastTestTransactions;
+std::map<int, bool> anss;
+Test chosenTest = tests[0];
 
 void intTransactionMG(std::shared_ptr<Menu> m)
 {
@@ -131,9 +134,10 @@ void testChosenMG(std::shared_ptr<Menu> m)
 {
 	int testIndex = AS(Choice, getMenu("#testChoice")->getElements()[0])->getActiveOption();
 
-	Test chosenTest = tests[testIndex];
+	chosenTest = tests[testIndex];
 	m->addElement(MSH(Text, "Выбранный тест: " + chosenTest.getName()));
 
+	int optionI = 0;
 	for (Question question : chosenTest.getQuestions())
 	{
 		m->addElement(sep);
@@ -141,10 +145,43 @@ void testChosenMG(std::shared_ptr<Menu> m)
 
 		for (Option option : question.getOptions())
 		{
-			m->addElement(MSH(Button, option.getText(), []() {}));
+			if (anss.find(optionI) == anss.end())
+			{
+				anss[optionI] = false;
+			}
+
+			auto b = MSH(Button, option.getText() + (anss[optionI]?"(+)":"(-)"), []() {});
+			m->addElement(b);
+			b->getButtonPressHandler() = [=]() {
+				anss[optionI] = !anss[optionI];
+				lastTestTransactions.push_back({ {"Евгеньев Евгений Евгеньевич", "ИЭФ", 972303}, question, option, anss[optionI] });
+				refreshMenu("#testChosen");
+			};
+			optionI++;
 		}
 	}
+
 	m->addElement(sep);
+	m->addElement(MSH(Button, "Узнать результат", DialogDecorator::apply([]() {
+		std::cout << "Результаты теста: " << std::endl;
+		int optionI_ = 0;
+		for (Question question : chosenTest.getQuestions())
+		{
+			int correct = 0;
+			int overall = 0;
+			for (Option option : question.getOptions())
+			{
+				if (option.getIsCorrect())
+				{
+					overall++;
+					if (anss[optionI_]) correct++;
+				}
+				optionI_++;
+			}
+			std::cout << question.getText() << " Верно отвечено " << correct << " из " << overall << std::endl;
+		}
+	})));
+
 	m->addElement(MSH(Button, "Назад", []() { MenuManager::removeFromMenuStack(); }));
 	m->initChosenElementIndex();
 }
@@ -159,7 +196,11 @@ void testChoiceMG(std::shared_ptr<Menu> m)
 
 	MenuStream(m)
 		(MSH(Choice, "Выбор теста", testNames))
-		(MSH(Button, "Выбрать", []() { MenuManager::addToMenuStack(getMenu("#testChosen")); }))
+		(MSH(Button, "Выбрать", []() { 
+			lastTestTransactions.clear();
+			anss.clear();
+			MenuManager::addToMenuStack(getMenu("#testChosen")); 
+		}))
 		.init();
 }
 
