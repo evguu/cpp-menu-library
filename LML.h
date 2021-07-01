@@ -5,7 +5,6 @@
 #include "Core/MenuManager.h"
 
 // Elements
-#include "Components/Title.h"
 #include "Components/Text.h"
 #include "Components/Button.h"
 #include "Components/Choice.h"
