@@ -113,8 +113,7 @@ void intTransactionMG(std::shared_ptr<Menu> m)
 
 void testChosenMG(std::shared_ptr<Menu> m)
 {
-	auto __fm = AS(Menu, MenuManager::getActiveMenu()->getElements()[1]);
-	int testIndex = AS(Choice, __fm->getElements()[0])->getActiveOption();
+	int testIndex = AS(Choice, getMenu("#testChoice")->getElements()[0])->getActiveOption();
 
 	Test chosenTest = tests[testIndex];
 	MenuStream(m)
@@ -129,28 +128,26 @@ void testChoiceMG(std::shared_ptr<Menu> m)
 	for (auto it : tests)
 		testNames.push_back(it.getName());
 
+	newMenu("Прохождение теста", "#testChosen")->getContentGenerator() = testChosenMG;
+
 	MenuStream(m)
 		(MSH(Choice, "Выбор теста", testNames))
 		(MSH(Button, "Выбрать", []() { MenuManager::addToMenuStack(getMenu("#testChosen")); }))
 		.init();
-
-	newMenu("Прохождение теста", "#testChosen")->getContentGenerator() = testChosenMG;
 }
 
 
 void mainMG(std::shared_ptr<Menu> m)
 {
-	std::shared_ptr<Menu> m1 = std::make_shared<Menu>("Транзакции над числом", 1);
-	m1->getContentGenerator() = intTransactionMG;
-	refreshMenu(m1);
+	newMenu("Транзакции над числом", "#intTransaction", 1)->getContentGenerator() = intTransactionMG;
+	refreshMenu(getMenu("#intTransaction"));
 
-	std::shared_ptr<Menu> m2 = std::make_shared<Menu>("Система тестирования", 1);
-	m2->getContentGenerator() = testChoiceMG;
-	refreshMenu(m2);
+	newMenu("Система тестирования", "#testChoice", 1)->getContentGenerator() = testChoiceMG;
+	refreshMenu(getMenu("#testChoice"));
 
 	MenuStream(m)
-		(std::reinterpret_pointer_cast<Component>(m1))
-		(std::reinterpret_pointer_cast<Component>(m2))
+		(AS(Component, getMenu("#intTransaction")))
+		(AS(Component, getMenu("#testChoice")))
 		(MSH(Button, "Выйти", []() { MenuManager::stopLoops(); }))
 		.init();
 }

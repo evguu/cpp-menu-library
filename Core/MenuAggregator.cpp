@@ -2,9 +2,9 @@
 
 std::map<std::string, std::shared_ptr<Menu>> menuAggregator;
 
-std::shared_ptr<Menu> newMenu(std::string text, std::string key)
+std::shared_ptr<Menu> newMenu(std::string text, std::string key, int tabOffset)
 {
-	std::shared_ptr<Menu> menu = std::make_shared<Menu>(text);
+	std::shared_ptr<Menu> menu = std::make_shared<Menu>(text, tabOffset);
 	menuAggregator[key] = menu;
 	return menu;
 }
