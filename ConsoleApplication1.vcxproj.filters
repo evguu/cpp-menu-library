@@ -60,9 +60,6 @@
     <ClCompile Include="Components\Text.cpp">
       <Filter>Исходные файлы\MenuLib\Components</Filter>
     </ClCompile>
-    <ClCompile Include="Components\Title.cpp">
-      <Filter>Исходные файлы\MenuLib\Components</Filter>
-    </ClCompile>
     <ClCompile Include="Core\MenuAggregator.cpp">
       <Filter>Исходные файлы\MenuLib\Core</Filter>
     </ClCompile>
@@ -120,9 +117,6 @@
       <Filter>Файлы заголовков\MenuLib\Components</Filter>
     </ClInclude>
     <ClInclude Include="Components\Text.h">
-      <Filter>Файлы заголовков\MenuLib\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Components\Title.h">
       <Filter>Файлы заголовков\MenuLib\Components</Filter>
     </ClInclude>
     <ClInclude Include="Core\MenuAggregator.h">

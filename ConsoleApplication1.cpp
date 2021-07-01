@@ -27,10 +27,10 @@ void intTransactionMG(std::shared_ptr<Menu> m)
 	static Transaction<int> transaction{ std::make_shared<int>(10) };
 
 	MenuStream(m)
-		(std::make_shared<Text>("Текущее значение транзакции: " + std::to_string(*(transaction.getPtr())) + 
+		(MSH(Text, "Текущее значение транзакции: " + std::to_string(*(transaction.getPtr())) +
 			(( *(transaction.getPtr()) == *(transaction.getSafePtr()) )?"":"*")
 		))
-		(std::make_shared<Button>("Поднять значение транзакции", [=]() 
+		(MSH(Button, "Поднять значение транзакции", [=]()
 			{ 
 				auto ptr = transaction.getPtr();
 				++*(ptr);
@@ -39,7 +39,7 @@ void intTransactionMG(std::shared_ptr<Menu> m)
 				refreshMenu(m);
 			}
 		))
-		(std::make_shared<Button>("Опустить значение транзакции", [=]()
+		(MSH(Button, "Опустить значение транзакции", [=]()
 			{
 				auto ptr = transaction.getPtr();
 				--*(ptr);
@@ -48,17 +48,17 @@ void intTransactionMG(std::shared_ptr<Menu> m)
 				refreshMenu(m);
 			}
 		))
-		(std::make_shared<Button>("Сохранить значение транзакции", [=]()
+		(MSH(Button, "Сохранить значение транзакции", [=]()
 			{ 
 				transaction.commit(); 
 
 				refreshMenu(m);
 			}
 		))
-		(std::make_shared<Button>("Откатить значение транзакции", [=]() 
+		(MSH(Button, "Откатить значение транзакции", [=]() 
 			{
 				transaction.rollback(); 
-
+				
 				refreshMenu(m);
 			}
 		))

@@ -161,7 +161,6 @@
     <ClCompile Include="Components\Field.cpp" />
     <ClCompile Include="Components\Menu.cpp" />
     <ClCompile Include="Components\Text.cpp" />
-    <ClCompile Include="Components\Title.cpp" />
     <ClCompile Include="ConsoleApplication1.cpp" />
     <ClCompile Include="Core\MenuAggregator.cpp" />
     <ClCompile Include="Core\MenuManager.cpp" />
@@ -183,7 +182,6 @@
     <ClInclude Include="Components\Field.h" />
     <ClInclude Include="Components\Menu.h" />
     <ClInclude Include="Components\Text.h" />
-    <ClInclude Include="Components\Title.h" />
     <ClInclude Include="Core\MenuAggregator.h" />
     <ClInclude Include="Core\MenuManager.h" />
     <ClInclude Include="LML.h" />
