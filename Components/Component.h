@@ -16,7 +16,7 @@ public:
 
 	virtual std::string str() const = 0;
 	virtual void processKeyEvent(KeyEvent keyEvent) = 0;
-	virtual std::string getAdditionalText();
+	virtual std::string getAdditionalText() const;
 
 	std::string getText() const;
 	bool getIsFocusable() const;

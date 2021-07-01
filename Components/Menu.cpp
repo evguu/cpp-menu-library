@@ -194,6 +194,11 @@ std::string Menu::str() const
 	return ss.str();
 }
 
+std::string Menu::getAdditionalText() const
+{
+	return "HENLO";
+}
+
 void Menu::processKeyEvent(KeyEvent keyEvent)
 {
 	if (keyEvent.isUpDown())

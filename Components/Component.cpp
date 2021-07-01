@@ -11,7 +11,7 @@ Component::~Component()
 {
 };
 
-std::string Component::getAdditionalText()
+std::string Component::getAdditionalText() const
 {
 	return "";
 };
