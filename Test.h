@@ -1,20 +1,18 @@
 #pragma once
 #include <string>
 #include <vector>
+#include "Question.h"
 
 class Test
 {
-private:
-	std::string name;
-	std::string topic;
-	std::vector<std::string> questions;
-	std::vector<std::string> answers;
 public:
-	Test(std::string name, std::string topic, std::vector<std::string> questions) :
-		name(name), topic(topic), questions(questions), answers({}) {}
+	Test(std::string name, std::string topic, std::vector<Question> questions) : name(name), topic(topic), questions(questions) {};
 	auto& getName() { return name; }
 	auto& getTopic() { return topic; }
 	auto& getQuestions() { return questions; }
-	auto& getAnswers() { return answers; }
+private:
+	std::string name;
+	std::string topic;
+	std::vector<Question> questions;
 };
 

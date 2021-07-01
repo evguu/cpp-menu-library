@@ -1,6 +1,8 @@
 ﻿#include "LML.h"
 #include "Transaction.h"
+#include "Test.h"
 #include "Student.h"
+#include <map>
 
 void refreshMenu(std::string str);
 void refreshMenu(std::shared_ptr<Menu> menu);
@@ -10,7 +12,6 @@ void refreshMenu(std::string str)
 	auto menu = getMenu(str);
 	refreshMenu(menu);
 }
-
 void refreshMenu(std::shared_ptr<Menu> menu)
 {
 	int pos = menu->getChosenElementIndex();
@@ -20,6 +21,51 @@ void refreshMenu(std::shared_ptr<Menu> menu)
 		menu->getChosenElementIndex() = pos;
 }
 
+
+std::vector<Test> tests = {
+	{
+		"Тест по животным", "Биология", 
+			{
+				{
+					"Кто из этих животных кукарекает?",
+					{
+						{"Петух", true},
+						{"Коза", false},
+						{"Корова", false}
+					}
+				},
+				{
+					"Кто из них относится к кошачьим?",
+					{
+						{"Кот", true},
+						{"Кошка", true},
+						{"Собака", false}
+					}
+				},
+			}
+	},
+	{
+		"Тест по числам", "Математика",
+			{
+				{
+					"1+1?",
+					{
+						{"2", true},
+						{"3", false},
+						{"4", false}
+					}
+				},
+				{
+					"Выберите цифры.",
+					{
+						{"1", true},
+						{"0", true},
+						{"Буква", false}
+					}
+				},
+			}
+	}
+};
 
 
 void intTransactionMG(std::shared_ptr<Menu> m)
