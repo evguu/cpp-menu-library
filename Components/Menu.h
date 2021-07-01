@@ -21,7 +21,7 @@ private:
 	std::function<void(std::shared_ptr<Menu>)> contentGenerator;
 public:
 	// По умолчанию индекс выбранного элемента -1, что приведет к падению программы при некорректной инициализации меню
-	Menu(int tabOffset = 0) : Component("", true), tabOffset(tabOffset), chosenElementIndex(-1) {};
+	Menu(std::string text, int tabOffset = 0) : Component(text, true), tabOffset(tabOffset), chosenElementIndex(-1) {};
 	std::string str() const override;
 	std::string getAdditionalText() const override;
 	void processKeyEvent(KeyEvent keyEvent);

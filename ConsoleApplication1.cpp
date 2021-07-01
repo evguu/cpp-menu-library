@@ -27,7 +27,6 @@ void intTransactionMG(std::shared_ptr<Menu> m)
 	static Transaction<int> transaction{ std::make_shared<int>(10) };
 
 	MenuStream(m)
-		ADD(Title, "Транзакции")$
 		(std::make_shared<Text>("Текущее значение транзакции: " + std::to_string(*(transaction.getPtr())) + 
 			(( *(transaction.getPtr()) == *(transaction.getSafePtr()) )?"":"*")
 		))
@@ -68,12 +67,11 @@ void intTransactionMG(std::shared_ptr<Menu> m)
 
 void mainMG(std::shared_ptr<Menu> m)
 {
-	std::shared_ptr<Menu> m1 = std::make_shared<Menu>(1);
+	std::shared_ptr<Menu> m1 = std::make_shared<Menu>("Транзакции над числом", 1);
 	m1->getContentGenerator() = intTransactionMG;
 	refreshMenu(m1);
 
 	MenuStream(m)
-		ADD(Title, "Главное меню")$
 		(std::reinterpret_pointer_cast<Component>(m1))
 		ADD(Button, "Выйти", []() { MenuManager::stopLoops(); })$
 		.init();
@@ -85,7 +83,7 @@ int main()
 	Console::setMode(Console::standardMode);
 	Theme::applyCurrent();
 
-	newMenu("#main")->getContentGenerator() = mainMG;
+	newMenu("Главное меню", "#main")->getContentGenerator() = mainMG;
 
 	/*
 	7. Разработать набор классов (минимум 5 классов) по теме «Тестирование

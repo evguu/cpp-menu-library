@@ -104,7 +104,7 @@ std::string Menu::str() const
 	}
 
 	std::stringstream ss;
-	ss << "---- ---- Μενώ ---- ----" << std::endl;
+	ss << "---- ---- "<< text << " ---- ----" << std::endl;
 	if (!tabOffset) ss << getAdditionalText();
 	return ss.str();
 }
@@ -186,11 +186,11 @@ std::string Menu::getAdditionalText() const
 
 	ss = std::stringstream();
 
-/*#ifdef DEBUG
-	ss << this << "DEBUG DATA: " << seglist.size() << "s; " << VIEW_FIELD - tabOffset << "sp; [" <<
+#ifdef DEBUG
+	ss << "DEBUG: " << this << seglist.size() << "s; " << VIEW_FIELD - tabOffset << "sp; [" <<
 		shouldBeIncluded.first << "; " << shouldBeIncluded.second << ") -> [" <<
-		linesToInclude.first << "; " << linesToInclude.second << ").";
-#endif // DEBUG*/
+		linesToInclude.first << "; " << linesToInclude.second << ").\n";
+#endif // DEBUG
 
 	for (int i = linesToInclude.first; i < linesToInclude.second; ++i)
 	{
