@@ -42,6 +42,8 @@ void MenuManager::renderLoop()
 
 	while (areLoopsRunning)
 	{
+		loopLock.lock();
+
 		std::string contentToPrint;
 		try
 		{
@@ -60,7 +62,6 @@ void MenuManager::renderLoop()
 			stopLoops();
 		}
 
-		loopLock.lock();
 		Console::hideCursor();
 		SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 		Display::printStringWithoutBlinking(contentToPrint);

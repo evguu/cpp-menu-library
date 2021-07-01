@@ -4,7 +4,7 @@
 #include "Menu.h"
 #include "../Utils/Console.h"
 
-#define DEBUG
+//#define DEBUG
 
 int findNextActiveElementIndex(std::vector<std::shared_ptr<Component>> elements, int chosenElementIndex)
 {
@@ -104,8 +104,12 @@ std::string Menu::str() const
 	}
 
 	std::stringstream ss;
-	ss << "---- ---- "<< text << " ---- ----" << std::endl;
-	if (!tabOffset) ss << getAdditionalText();
+	ss << "---- ---- " << text << " ---- ----";
+	if (!tabOffset)
+	{
+		ss << std::endl;
+		ss << getAdditionalText();
+	}
 	return ss.str();
 }
 
@@ -187,7 +191,7 @@ std::string Menu::getAdditionalText() const
 	ss = std::stringstream();
 
 #ifdef DEBUG
-	ss << "DEBUG: " << this << seglist.size() << "s; " << VIEW_FIELD - tabOffset << "sp; [" <<
+	ss << "  #" << this  << " " << seglist.size() << "s; " << VIEW_FIELD - tabOffset << "sp; [" <<
 		shouldBeIncluded.first << "; " << shouldBeIncluded.second << ") -> [" <<
 		linesToInclude.first << "; " << linesToInclude.second << ").\n";
 #endif // DEBUG
