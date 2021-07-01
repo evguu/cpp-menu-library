@@ -42,6 +42,20 @@ std::vector<Test> tests = {
 						{"Собака", false}
 					}
 				},
+				{
+					"Один манул.",
+					{
+						{"Два манула", true},
+						{"Три манула", true},
+						{"Четыре манула", true},
+						{"Пять манулов", true},
+						{"Шесть манулов", true},
+						{"Семь манулов", true},
+						{"Восемь манулов", true},
+						{"Девять манулов", true},
+						{"Десять манулов", true}
+					}
+				}
 			}
 	},
 	{
@@ -66,6 +80,8 @@ std::vector<Test> tests = {
 			}
 	}
 };
+
+auto sep = MSH(Text, "\n");
 
 
 void intTransactionMG(std::shared_ptr<Menu> m)
@@ -116,10 +132,21 @@ void testChosenMG(std::shared_ptr<Menu> m)
 	int testIndex = AS(Choice, getMenu("#testChoice")->getElements()[0])->getActiveOption();
 
 	Test chosenTest = tests[testIndex];
-	MenuStream(m)
-		(MSH(Text, "Выбранный тест: " + chosenTest.getName()))
-		(MSH(Button, "Назад", []() { MenuManager::removeFromMenuStack(); }))
-		.init();
+	m->addElement(MSH(Text, "Выбранный тест: " + chosenTest.getName()));
+
+	for (Question question : chosenTest.getQuestions())
+	{
+		m->addElement(sep);
+		m->addElement(MSH(Text, question.getText()));
+
+		for (Option option : question.getOptions())
+		{
+			m->addElement(MSH(Button, option.getText(), []() {}));
+		}
+	}
+	m->addElement(sep);
+	m->addElement(MSH(Button, "Назад", []() { MenuManager::removeFromMenuStack(); }));
+	m->initChosenElementIndex();
 }
 
 void testChoiceMG(std::shared_ptr<Menu> m)
