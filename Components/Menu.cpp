@@ -94,10 +94,6 @@ void offsetBy(std::stringstream& ss, int tabOffset)
 
 std::string Menu::str() const
 {
-	const int VIEW_FIELD = 38;
-	const std::string ACTIVE_SEQUENCE_START = "!~ACTIVE_SEQUENCE_START~!";
-	const std::string ACTIVE_SEQUENCE_END = "!~ACTIVE_SEQUENCE_END~!";
-
 	if (!elements.size())
 	{
 		throw(MenuIsEmpty());
@@ -108,12 +104,24 @@ std::string Menu::str() const
 	}
 
 	std::stringstream ss;
+	ss << "---- ---- Μενώ ---- ----" << std::endl;
+	if (!tabOffset) ss << getAdditionalText();
+	return ss.str();
+}
+
+std::string Menu::getAdditionalText() const
+{
+	const int VIEW_FIELD = 38;
+	const std::string ACTIVE_SEQUENCE_START = "!~ACTIVE_SEQUENCE_START~!";
+	const std::string ACTIVE_SEQUENCE_END = "!~ACTIVE_SEQUENCE_END~!";
+
+	std::stringstream ss;
 
 	int c = 0;
 	for (auto it : elements)
 	{
 		if (c == chosenElementIndex)
-		{ 
+		{
 			ss << ACTIVE_SEQUENCE_START << std::endl;
 			offsetBy(ss, tabOffset);
 			ss << " >> " << it->str() << std::endl;
@@ -127,7 +135,7 @@ std::string Menu::str() const
 		else
 		{
 			offsetBy(ss, tabOffset);
-			ss << (it->getIsFocusable()?" -- ":"") << it->str() << std::endl;
+			ss << (it->getIsFocusable() ? " -- " : "") << it->str() << std::endl;
 		}
 		c++;
 	}
@@ -159,7 +167,7 @@ std::string Menu::str() const
 				seglist.push_back(segment.substr(i * lineWidth, lineWidth));
 				c++;
 			}
-			
+
 			int remainder = segment.length() % lineWidth;
 			if (remainder)
 			{
@@ -178,25 +186,18 @@ std::string Menu::str() const
 
 	ss = std::stringstream();
 
-	ss << "---- ---- Μενώ ";
-#ifdef DEBUG
-	ss << this << " " << seglist.size() << "s; " << VIEW_FIELD - tabOffset << "sp; [" <<
+/*#ifdef DEBUG
+	ss << this << "DEBUG DATA: " << seglist.size() << "s; " << VIEW_FIELD - tabOffset << "sp; [" <<
 		shouldBeIncluded.first << "; " << shouldBeIncluded.second << ") -> [" <<
 		linesToInclude.first << "; " << linesToInclude.second << ").";
-#endif // DEBUG
+#endif // DEBUG*/
 
-	ss << " ---- ----" << std::endl;
 	for (int i = linesToInclude.first; i < linesToInclude.second; ++i)
 	{
 		ss << seglist[i] << std::endl;
 	}
 
 	return ss.str();
-}
-
-std::string Menu::getAdditionalText() const
-{
-	return "HENLO";
 }
 
 void Menu::processKeyEvent(KeyEvent keyEvent)
