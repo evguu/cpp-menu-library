@@ -5,8 +5,8 @@
 #include <string>
 
 // Вспомогательные макросы
-#define ADD(type, ...) ([](){auto e = std::make_shared<type>(__VA_ARGS__);
-#define $ return e;}())
+#define ADD(shp, ...) ([](){auto e = shp;{__VA_ARGS__;}return e;}())
+#define MSH(type, ...) std::make_shared<type>(__VA_ARGS__)
 #define AS(type, expr) ((type*)(expr))
 
 

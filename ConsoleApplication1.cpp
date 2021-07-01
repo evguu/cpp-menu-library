@@ -73,7 +73,7 @@ void mainMG(std::shared_ptr<Menu> m)
 
 	MenuStream(m)
 		(std::reinterpret_pointer_cast<Component>(m1))
-		ADD(Button, "Выйти", []() { MenuManager::stopLoops(); })$
+		(MSH(Button, "Выйти", []() { MenuManager::stopLoops(); }))
 		.init();
 }
 
