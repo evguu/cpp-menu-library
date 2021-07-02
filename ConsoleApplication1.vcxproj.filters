@@ -84,9 +84,6 @@
     <ClCompile Include="Core\MenuManager.cpp">
       <Filter>Исходные файлы\MenuLib\Core</Filter>
     </ClCompile>
-    <ClCompile Include="Transaction.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="Test.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
@@ -154,9 +151,6 @@
     </ClInclude>
     <ClInclude Include="Utils\Exceptions.h">
       <Filter>Файлы заголовков\MenuLib\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="Transaction.h">
-      <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="Test.h">
       <Filter>Файлы заголовков</Filter>

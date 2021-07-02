@@ -167,7 +167,6 @@
     <ClCompile Include="Option.cpp" />
     <ClCompile Include="Question.cpp" />
     <ClCompile Include="Test.cpp" />
-    <ClCompile Include="Transaction.cpp" />
     <ClCompile Include="Student.cpp" />
     <ClCompile Include="Utils\Console.cpp" />
     <ClCompile Include="Utils\DialogDecorator.cpp" />
@@ -190,7 +189,6 @@
     <ClInclude Include="Option.h" />
     <ClInclude Include="Question.h" />
     <ClInclude Include="Test.h" />
-    <ClInclude Include="Transaction.h" />
     <ClInclude Include="Student.h" />
     <ClInclude Include="Utils\Console.h" />
     <ClInclude Include="Utils\DialogDecorator.h" />
